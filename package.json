@@ -2,6 +2,6 @@
   "name": "bnbheroes-revival-production",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist site.tar.gz && mkdir -p dist && curl -L --fail https://files.catbox.moe/sswwjt.gz -o site.tar.gz && tar -xzf site.tar.gz -C dist"
+    "build": "rm -rf dist && mkdir -p dist && cp -R index.html prototype gitbook assets dist/"
   }
 }
