@@ -36,5 +36,19 @@ The repository `130347665/BNBHeroes` (Dec 2021) is a third-party Nim automation/
 
 The address `0x9051e0E33aF188e25D421e64661Fc254a6A0a425` listed by some game databases is **not** the BNB HEROES game core. Runtime selector analysis shows it is a fee/liquidity BEP-20 style contract. It is retained only as a false-lead note.
 
+## 2021 interface / documentation recovery
+- A dated 2021-11-16 beginner walkthrough preserves the original feature flow: Recruit, Town upgrades, Marketplace, PvE, Boss Fight, withdrawals and Hero Reserves.
+- The same walkthrough explicitly names the four Stronghold buildings as **Town Inn, Bank, Training Grounds and Barracks**. The numeric effects align with the four ranges in `baseTownRatio`.
+- A dated 2021-11-04 overview preserves early token allocation, Oracle explanation, Hero rarity/stat concepts, weekly battle events and BNB Arena references.
+- A November 2021 project release describes the later 70% Rewards Pool / 30% burn in-game spending policy and planned BNB Champions / BNB Mercenaries expansions.
+- A contemporary exchange listing preserves the original GitBook URL: `bnbheroes.gitbook.io/bnbheroes`.
+
+The `gitbook/` directory is therefore a **reconstructed preservation edition**, not a byte-for-byte copy of the lost GitBook. Pages label claims as on-chain-confirmed, 2021-documented or reconstructed. This is intentional: exact missing prose is not silently invented.
+
+## Playable restoration coverage
+The browser build currently implements: recruitment, the recovered 100-slot random table, 12-hour arrival, expedite, active Hero capacity, Hero Reserves, HP recovery, Attack/Armor/Speed combat, seven recovered encounter parameter sets, XP and stacked XP, level unlocks, Bank/Town Inn/Barracks/Training Grounds upgrades, BNB reward accumulation, 48-hour reward lock, declining withdrawal tax, local Marketplace preservation UI, activity log and responsive medieval interface.
+
+The Marketplace settlement path and lost original artwork are not claimed as recovered. Marketplace purchases in the preservation build are local simulations, and missing Hero/enemy visuals are newly constructed archival UI rather than counterfeit “original assets.”
+
 ## Preservation rule
 The revival prototype does not sign transactions, request private keys, or pay real BNB. The legacy economic layer should stay read-only until the old contracts and ownership/admin risks are fully audited.

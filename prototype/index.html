@@ -1,9 +1,109 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BNB HEROES — Revival</title><link rel="stylesheet" href="styles.css"></head><body>
-<div class="shell"><header><div class="brand"><div class="coin">B</div><div><small>FORENSIC RESTORATION</small><h1>BNB HEROES <em>REVIVAL</em></h1></div></div><div class="wallet"><span>SIM BNBH <b id="bnbh"></b></span><span>BNB REWARDS <b id="rewards"></b></span></div></header>
-<nav><button class="active" data-tab="home">Heroes</button><button data-tab="battle">Battle</button><button data-tab="stronghold">Stronghold</button><button data-tab="legacy">Legacy Chain</button></nav>
-<main>
-<section class="panel active" id="home"><div class="hero-banner"><div><small>RESTORED FROM BSC STATE + 2021 SOURCE</small><h2>Your Heroes</h2><p>The original 21-template roster and the first 100 recruit rolls are reproduced from the live Character contract. Unknown names remain explicitly marked as lost rather than invented.</p></div><button class="primary" id="recruit">Recruit Hero · <span id="recruitCost"></span> BNBH</button></div><div class="grid" id="heroes"></div></section>
-<section class="panel" id="battle"><div class="section-head"><div><small>ORIGINAL FIGHT FORMULA</small><h2>Choose an enemy</h2></div><div class="selected">Fighting with <b id="selectedHero"></b></div></div><div class="enemy-grid" id="enemies"></div><aside class="notice">This build simulates the recovered contract logic locally. It does not sign transactions or move real BNB/BNBH.</aside></section>
-<section class="panel" id="stronghold"><div class="section-head"><div><small>4 BUILDING TYPES · 3 LEVELS</small><h2>Stronghold</h2></div></div><div id="towns" class="town-grid"></div></section>
-<section class="panel" id="legacy"><div class="legacy-hero"><small>ON-CHAIN FORENSICS</small><h2>The old game is still legible on BNB Chain.</h2><p><b id="supply"></b> BNBHCharacter NFTs were minted. Their metadata hostname is gone, but contract state still preserves stats, rarity, classes, fight parameters, town bonuses and recruitment probabilities.</p></div><dl><dt>Game Core</dt><dd id="core"></dd><dt>Character NFT</dt><dd id="character"></dd><dt>Rewards Pool</dt><dd id="pool"></dd><dt>Price Oracle</dt><dd id="oracle"></dd></dl><button class="danger" id="reset">Reset local revival save</button><h3>Session log</h3><ol id="log"></ol></section>
-</main><footer>BNB HEROES Revival · preservation prototype · real-money actions intentionally disabled</footer></div><div id="toast"></div><script type="module" src="src/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#11100d">
+  <title>BNB HEROES — 2021 Revival</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-world">
+    <header class="topbar">
+      <div class="brand-mark" aria-label="BNB Heroes">
+        <div class="bnb-coin"><span>◆</span></div>
+        <div><small>2021 PRESERVATION BUILD</small><h1>BNB <b>HEROES</b></h1></div>
+      </div>
+      <div class="hud">
+        <div><small>BNBH</small><strong id="bnbh">0</strong></div>
+        <div><small>REWARD VAULT</small><strong><span id="rewards">0</span> BNB</strong></div>
+        <div><small>CLAIMED</small><strong><span id="claimed">0</span> BNB</strong></div>
+        <div class="status-dot"><i></i><span>SIMULATION<br><b>NO WALLET</b></span></div>
+      </div>
+    </header>
+
+    <aside class="side-rail">
+      <button class="rail-btn active" data-tab="town" title="Town"><span>♜</span><b>Town</b></button>
+      <button class="rail-btn" data-tab="heroes" title="Heroes"><span>♞</span><b>Heroes</b></button>
+      <button class="rail-btn" data-tab="battle" title="Battle"><span>⚔</span><b>Battle</b></button>
+      <button class="rail-btn" data-tab="market" title="Marketplace"><span>⚖</span><b>Market</b></button>
+      <button class="rail-btn" data-tab="reserve" title="Reserves"><span>▣</span><b>Reserve</b></button>
+      <button class="rail-btn" data-tab="vault" title="BNB Rewards"><span>◆</span><b>Vault</b></button>
+      <button class="rail-btn" data-tab="log" title="Battle Log"><span>☷</span><b>Log</b></button>
+    </aside>
+
+    <main class="playfield">
+      <section class="screen active" id="town">
+        <div class="town-scene">
+          <div class="moon"></div>
+          <div class="mountains"></div>
+          <div class="castle castle-a"><i></i><i></i><i></i></div>
+          <div class="castle castle-b"><i></i><i></i></div>
+          <div class="castle castle-c"><i></i><i></i><i></i></div>
+          <div class="ground"></div>
+          <div class="town-title"><small>THE STRONGHOLD</small><h2>BNB Heroes Town</h2><p>Reconstructed from 2021 gameplay footage and the live Character contract.</p></div>
+          <div class="building-hotspots" id="townHotspots"></div>
+        </div>
+        <div class="town-cards" id="towns"></div>
+      </section>
+
+      <section class="screen" id="heroes">
+        <div class="screen-head">
+          <div><small>BARRACKS</small><h2>My Heroes</h2><p><span id="heroCount">0</span>/<span id="heroCapacity">0</span> active slots · 12h arrival preserved</p></div>
+          <button class="gold-btn" id="recruit">Recruit New Hero <span id="recruitCost"></span> BNBH</button>
+        </div>
+        <div class="hero-grid" id="heroesGrid"></div>
+      </section>
+
+      <section class="screen" id="battle">
+        <div class="screen-head">
+          <div><small>PVE CHAPTER</small><h2>Fight Enemies & Bosses</h2><p>Selected: <b id="selectedHero">—</b></p></div>
+          <div class="combat-help">Attack → success chance<br>Speed → BNB bonus<br>Armor → HP protection</div>
+        </div>
+        <div class="battle-stage">
+          <div class="fighter-preview" id="fighterPreview"></div>
+          <div class="vs">VS</div>
+          <div class="enemy-grid" id="enemies"></div>
+        </div>
+        <div class="formula-note">Combat uses the recovered Solidity formula. Randomness is local in this preservation build; no BSC transaction is signed.</div>
+      </section>
+
+      <section class="screen" id="market">
+        <div class="screen-head"><div><small>2021 FEATURE</small><h2>Hero Marketplace</h2><p>Recreated UI. Demo listings use recovered hero templates; marketplace settlement is intentionally local-only.</p></div></div>
+        <div class="market-toolbar"><button class="filter active">All</button><button class="filter">Common</button><button class="filter">Uncommon</button><button class="filter">Rare</button><button class="filter">Epic</button><button class="filter">Legendary</button></div>
+        <div class="hero-grid market-grid" id="marketGrid"></div>
+      </section>
+
+      <section class="screen" id="reserve">
+        <div class="screen-head"><div><small>HERO RESERVES</small><h2>Reserve Bag</h2><p>The recovered core contract supports moving heroes into a 20-slot bag and returning them later.</p></div><div class="capacity-stamp"><b id="reserveCount">0</b>/20</div></div>
+        <div class="reserve-layout"><div><h3>Active Heroes</h3><div class="compact-list" id="activeReserveList"></div></div><div><h3>In Reserves</h3><div class="compact-list" id="reserveList"></div></div></div>
+      </section>
+
+      <section class="screen" id="vault">
+        <div class="screen-head"><div><small>TOWN BANK</small><h2>BNB Rewards Vault</h2><p>The original claim system locks the first reward for 48 hours, then starts at 20% tax and reduces by 2% per day.</p></div></div>
+        <div class="vault-grid">
+          <article class="vault-card main-vault"><small>PENDING REWARDS</small><strong><span id="vaultAmount">0</span> BNB</strong><div class="vault-lock" id="vaultLock">No rewards yet</div><button id="claimBtn" class="gold-btn">Claim Rewards</button></article>
+          <article class="vault-card"><small>CURRENT CLAIM TAX</small><strong id="claimTax">0%</strong><p>Falls by 2 percentage points each full day after unlock, reaching 0%.</p></article>
+          <article class="vault-card"><small>TOTAL CLAIMED IN THIS SAVE</small><strong><span id="claimedLarge">0</span> BNB</strong><p>Simulation ledger only. No real asset is transferred.</p></article>
+        </div>
+      </section>
+
+      <section class="screen" id="log">
+        <div class="screen-head"><div><small>HISTORY</small><h2>Battle & Activity Log</h2><p>Latest actions in this local preservation save.</p></div><button id="reset" class="danger-btn">Reset Local Save</button></div>
+        <ol id="activityLog" class="activity-log"></ol>
+        <details class="chain-details"><summary>Recovered BNB Chain addresses</summary><dl><dt>Game Core</dt><dd id="core"></dd><dt>Character NFT</dt><dd id="character"></dd><dt>Rewards Pool</dt><dd id="pool"></dd><dt>Price Oracle</dt><dd id="oracle"></dd></dl></details>
+      </section>
+    </main>
+
+    <footer class="bottom-dock">
+      <button data-tab="heroes"><span>♞</span>MY HEROES</button>
+      <button data-tab="town"><span>♜</span>STRONGHOLD</button>
+      <button data-tab="battle" class="dock-main"><span>⚔</span>BATTLE</button>
+      <button data-tab="market"><span>⚖</span>MARKETPLACE</button>
+      <a href="../gitbook/" target="_blank"><span>▤</span>GITBOOK</a>
+    </footer>
+  </div>
+  <div id="toast"></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

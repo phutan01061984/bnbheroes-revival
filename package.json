@@ -1,16 +1,16 @@
 {
   "name": "bnbheroes-revival",
-  "version": "1.0.0",
-  "description": "Forensic reconstruction of the abandoned BNB HEROES / BNBH game.",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Playable forensic restoration of the abandoned 2021 BNB HEROES / BNBH game and GitBook.",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "python3 -m http.server 8080 --directory .",
+    "test": "node tests/engine.test.mjs",
+    "check": "node --check prototype/src/engine.js && node --check prototype/src/app.js && node --check gitbook/pages.js && node --check gitbook/app.js",
+    "snapshot": "node research/snapshot-chain.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "ethers": "^6.17.0"
   },
-  "type": "module"
+  "license": "ISC"
 }
