@@ -8,3 +8,4 @@ research/github_repo_search.json
 research/*_selectors.txt
 npm-debug.log*
 .DS_Store
+.vercel
