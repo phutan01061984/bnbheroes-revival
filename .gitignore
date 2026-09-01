@@ -1,0 +1,7 @@
+node_modules/
+mirrors/
+research/*_page.html
+research/*_rpc.json
+research/*.hex
+npm-debug.log*
+.DS_Store
