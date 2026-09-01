@@ -9,3 +9,8 @@ research/*_selectors.txt
 npm-debug.log*
 .DS_Store
 .vercel
+research/web_archive/urlscan_page_*.html
+research/community/*.html
+research/web_archive/cdx_*.txt
+research/web_archive/urlscan_*.json
+research/web_archive/cc_collections.json
