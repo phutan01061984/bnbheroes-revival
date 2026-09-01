@@ -1,0 +1,7 @@
+{
+  "name": "bnbheroes-revival-production",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf dist site.tar.gz && mkdir -p dist && curl -L --fail https://tmpfiles.org/dl/1788305318.26f88211b01f00ca/wiwgseE7w1qW/site.tar.gz -o site.tar.gz && tar -xzf site.tar.gz -C dist"
+  }
+}
