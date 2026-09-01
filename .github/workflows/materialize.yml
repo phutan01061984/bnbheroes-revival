@@ -1,0 +1,41 @@
+name: Materialize production source
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Materialize production files into repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail https://files.catbox.moe/sswwjt.gz -o /tmp/site.tar.gz
+          tar -xzf /tmp/site.tar.gz -C .
+          cat > package.json <<'JSON'
+          {
+            "name": "bnbheroes-revival-production",
+            "private": true,
+            "scripts": {
+              "build": "rm -rf dist && mkdir -p dist && cp -R index.html prototype gitbook assets dist/"
+            }
+          }
+          JSON
+          cat > vercel.json <<'JSON'
+          {
+            "buildCommand": "npm run build",
+            "outputDirectory": "dist",
+            "framework": null,
+            "cleanUrls": true
+          }
+          JSON
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Materialize production site" || exit 0
+          git push
