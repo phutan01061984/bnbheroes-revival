@@ -614,30 +614,43 @@ Vercel configuration:
 - `vercel.json` contains SPA rewrites for the recovered BrowserRouter routes.
 - `.vercel/output/` may contain anonymous/static output from previous work, but do not treat it as authoritative source.
 
-At this handoff update, the container's Vercel CLI reports **logged out** and the prior project-link credentials are no longer present. Do not claim that production alias was updated unless a deployment command actually succeeds.
+Production is now live through the repository's GitHub → Vercel integration. The local container's Vercel CLI is still logged out, so deployment was completed through the authenticated GitHub workflow/browser session rather than by extracting or printing any Vercel token.
 
-When credentials are restored:
+Current production URL:
 
-```bash
-npx vercel login
-npx vercel --prod --yes
-```
+- `https://bnbheroes-revival.vercel.app/`
+- playable simulation: `https://bnbheroes-revival.vercel.app/prototype/`
+- restored GitBook: `https://bnbheroes-revival.vercel.app/gitbook/`
 
-or use an authorized token without printing it:
+Production provenance at the end of the 2026-09-02 recovery session:
 
-```bash
-npx vercel --prod --yes --token "$VERCEL_TOKEN"
-```
+- GitHub materialization workflow run: `Materialize production source #2` — **Success**
+- materialized release commit: `97fcb8d734e29199978c8586a07b83738071180b` — `Materialize recovered 2021 preservation release`
+- final runtime-assets fix commit: `a0069ba1b95b91efa05ea1f227b6658e18c97df7` — `Include historical assets in Vercel runtime`
+- final Vercel deployment id: `dpl_8ZqRrZ17xGXNYi6QragVa4azWFSp`
+- Vercel state: **READY / PROMOTED / production**
 
-Before production promotion, always run:
+Browser regression performed against the production alias after the final deploy:
+
+- `/` — recovered 17-Nov-2021 React client rendered; all 15 ordinary image assets loaded; preservation flag present; wallet disabled.
+- `/myheroes` — direct refresh works; no broken images.
+- `/market` — direct refresh works; no broken images.
+- `/battlelogs` — direct refresh works; no broken images.
+- `/myreserve` — direct refresh works; no broken images.
+- `/prototype/` — safe simulation rendered with 23/23 image elements loading successfully after the final `assets/` Vercel fix.
+- `/gitbook/` — restored GitBook rendered successfully.
+
+Before any future production promotion, always run:
 
 ```bash
 npm run check:all
 ```
 
-If using anonymous/temporary deployment for review, record its exact public URL here after creation.
+If command-line Vercel credentials are restored later, the normal production command remains:
 
-Current temporary review URL: `TBD_AFTER_DEPLOYMENT`
+```bash
+npx vercel --prod --yes
+```
 
 ---
 
