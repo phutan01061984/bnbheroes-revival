@@ -7,7 +7,9 @@
     "start": "python3 -m http.server 8080 --directory .",
     "test": "node tests/engine.test.mjs",
     "check": "node --check prototype/src/engine.js && node --check prototype/src/app.js && node --check gitbook/pages.js && node --check gitbook/app.js",
-    "snapshot": "node research/snapshot-chain.mjs"
+    "snapshot": "node research/snapshot-chain.mjs",
+    "verify:preservation": "node scripts/verify-preservation.mjs",
+    "check:all": "npm run check && npm run verify:preservation && npm test"
   },
   "dependencies": {
     "ethers": "^6.17.0"

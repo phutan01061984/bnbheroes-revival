@@ -14,3 +14,6 @@ research/community/*.html
 research/web_archive/cdx_*.txt
 research/web_archive/urlscan_*.json
 research/web_archive/cc_collections.json
+
+# Large/raw web archaeology; curated evidence is under archive/
+research/play_forensics/

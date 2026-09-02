@@ -1,0 +1,13 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    {"source": "/myheroes", "destination": "/index.html"},
+    {"source": "/market", "destination": "/index.html"},
+    {"source": "/battlelogs", "destination": "/index.html"},
+    {"source": "/myreserve", "destination": "/index.html"},
+    {"source": "/fight/:id", "destination": "/index.html"}
+  ],
+  "headers": [
+    {"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"}]}
+  ]
+}
