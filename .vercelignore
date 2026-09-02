@@ -1,0 +1,13 @@
+.git/
+.vercel/
+archive/
+assets/
+docs/
+research/
+mirrors/
+tests/
+scripts/
+AI_IDE_HANDOFF.md
+README.md
+revival-landing.html
+npm-debug.log*

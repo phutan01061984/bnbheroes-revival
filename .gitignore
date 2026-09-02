@@ -1,0 +1,19 @@
+node_modules/
+mirrors/
+research/*_page.html
+research/*_rpc.json
+research/*.hex
+research/*_contract.json
+research/github_repo_search.json
+research/*_selectors.txt
+npm-debug.log*
+.DS_Store
+.vercel
+research/web_archive/urlscan_page_*.html
+research/community/*.html
+research/web_archive/cdx_*.txt
+research/web_archive/urlscan_*.json
+research/web_archive/cc_collections.json
+
+# Large/raw web archaeology; curated evidence is under archive/
+research/play_forensics/
