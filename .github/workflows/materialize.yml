@@ -11,31 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Materialize production files into repository
+      - name: Materialize verified preservation release
         shell: bash
         run: |
           set -euo pipefail
-          curl -L --fail https://files.catbox.moe/sswwjt.gz -o /tmp/site.tar.gz
-          tar -xzf /tmp/site.tar.gz -C .
-          cat > package.json <<'JSON'
-          {
-            "name": "bnbheroes-revival-production",
-            "private": true,
-            "scripts": {
-              "build": "rm -rf dist && mkdir -p dist && cp -R index.html prototype gitbook assets dist/"
-            }
-          }
-          JSON
-          cat > vercel.json <<'JSON'
-          {
-            "buildCommand": "npm run build",
-            "outputDirectory": "dist",
-            "framework": null,
-            "cleanUrls": true
-          }
-          JSON
+          curl -L --fail --retry 3 https://files.catbox.moe/3smyhv.gz -o /tmp/bnbheroes-release.tar.gz
+          echo "4f3e3feb36d65bcd017ce72d88786b13069e207e79f0e7ddc26fdd5bf35d28e3  /tmp/bnbheroes-release.tar.gz" | sha256sum -c -
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
+          tar -xzf /tmp/bnbheroes-release.tar.gz -C .
+          npm run check:all
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Materialize production site" || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "Materialize recovered 2021 preservation release"
           git push
