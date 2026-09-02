@@ -750,3 +750,449 @@ When adding anything historical, label it with one of these concepts in code/doc
 - **Simulation** — new safe gameplay implementation, not claimed as original code.
 
 This distinction is more important than making every screen look artificially “complete.”
+
+---
+
+# 2026-09-02 Late-session checkpoint: deep media recovery
+
+This section is the authoritative continuation point for the next ChatGPT/AI-IDE session. Read this before re-doing any media archaeology.
+
+## User intent at this checkpoint
+
+User wants the 2021 BNB HEROES game revived as faithfully as possible. Priority order:
+1. Recover original 2021 media/source first.
+2. Only recreate/synthesize an asset after multiple original-source avenues are exhausted.
+3. Keep the original 2021 React/CSS frontend as the visual baseline.
+4. Keep real wallet / real-money transactions disabled for safety.
+5. Continue integrating recovered media and mechanics until the old game UI is as complete/playable as possible.
+
+## Current production / project baseline
+
+- Working directory: `/workspace/bnbheroes-revival`
+- Production domain: `https://bnbheroes-revival.vercel.app/`
+- Production root currently uses the recovered **17 Nov 2021 React frontend build** (safe/preservation patched).
+- Playable simulation remains at `/prototype/`.
+- Restored GitBook remains at `/gitbook/`.
+- Original 17 Nov 2021 bundle archive is under `archive/original-20211117/` with SHA-256 verification.
+- 21 recovered Hero artworks are under `archive/hero-art-20211118/`.
+- `npm run check:all` and engine tests had passed at prior production checkpoint.
+
+## IMPORTANT correction about the earlier “94 URL resources”
+
+The earlier 94 resource URLs + SHA-256 came from historical scans of **`bnbheroes.io` marketing/WordPress/Elementor**, not from `play.bnbheroes.io` game-client assets. This distinction matters. The actual game-client frontend was later recovered separately from archived `play.bnbheroes.io` HTML + JS/CSS bundles.
+
+## Actual game frontend recovery status
+
+Recovered build around **17 Nov 2021**:
+- React main bundle: `main.5e2ca500.chunk.js`
+- vendor bundle: `2.04f79657.chunk.js`
+- main CSS: `main.433e3d53.chunk.css`
+- vendor CSS: `2.f4c56af9.chunk.css`
+
+Recovered later build around **10 Dec 2021**:
+- `main.c3f63d85.chunk.js`
+- `2.89c86d0d.chunk.js`
+- `main.a8f26ba7.chunk.css`
+- `2.f4c56af9.chunk.css`
+
+Original root HTML from `play.bnbheroes.io` was recovered from Common Crawl. It confirmed a React build and exposed the hashed bundle names.
+
+The 17 Nov build is currently used as the visual baseline because it is closest to the launch/open-beta period the user remembers.
+
+## Newly recovered legacy-domain source: `bnbheroes.xyz`
+
+A major discovery in the latest research is the older first-party domain:
+- `bnbheroes.xyz`
+- Wayback snapshots exist from **15 Oct 2021** onward.
+
+This domain exposed legacy media that the `.io` site / `play.bnbheroes.io` archive did not preserve.
+
+Notable filenames found from the old site:
+- `BNBH-Card-Back.png`
+- `Level-1.png`
+- `Level-4.png`
+- `menu-btn-00_Buttons_01.png`
+- `Untitled-design-39.png`
+- `Untitled-design-40.png`
+- `Untitled-design-42.png`
+- `Untitled-design-45.png`
+- `Untitled-design-50.png`
+- `keyframe-My-Video.mp4`
+
+### Team image mapping (do NOT treat as gameplay assets)
+
+The four team images requested by the user were identified from the legacy site HTML:
+- `Untitled-design-39.png` → Matthew Leno — Project Leader
+- `Untitled-design-45.png` → Chris Chua — Lead Game Developer
+- `Untitled-design-40.png` → Flore Santos — Lead Artist
+- `Untitled-design-42.png` → Vinnie Tan — Smart Contracts
+
+They were shown to the user via temporary external viewing URLs. They are team/profile images and must NOT be reused as game art.
+
+## First-party archived video now confirmed
+
+Legacy first-party video:
+- URL: `https://bnbheroes.xyz/wp-content/uploads/2021/10/keyframe-My-Video.mp4`
+- Wayback first snapshot: **2021-10-15 17:51:37 GMT**
+- another snapshot: **2021-11-08 10:19:31 GMT**
+- archived original content length: **6,568,989 bytes**
+- original last-modified shown by archive: **2021-10-13 19:20:31 GMT**
+
+MemGator HEAD/proxy confirmed HTTP 200 and `content-type: video/mp4`.
+
+This video still needs to be downloaded/extracted frame-by-frame if possible. It is a high-priority source for missing UI / media references.
+
+## Major GitBook legacy-state breakthrough
+
+The archived GitBook snapshot around **15 Oct 2021** contains serialized/compressed GitBook state. It was extracted to:
+- `research/media_hunt/gitbook-legacy/initial-state.json`
+
+Relevant legacy GitBook space:
+- space ID: `-MiQ2_ADbmPLGvENAQw4`
+- revision seen in initial state: `UWqoqKC3Sjj9Vsmd1z3Z`
+
+The state exposed legacy Firebase/GitBook media metadata, including historical names, sizes, IDs, and URLs.
+
+Although the old `firebasestorage.googleapis.com` URLs returned 404 directly, replacing the host with `files.gitbook.com` redirects to the still-live legacy bucket:
+- `https://files.gitbook.com/v0/b/gitbook-legacy-files/...`
+
+This is the key recovery path. Do NOT repeat the failed Firebase-only assumption.
+
+## GitBook legacy media recovered in this checkpoint
+
+Files are under:
+- `research/media_hunt/gitbook-legacy/files/`
+
+A download report is stored at:
+- `research/media_hunt/gitbook-legacy/files/DOWNLOAD_REPORT.tsv`
+
+Recovered metadata exposed **18 legacy assets**. Examples and verified dimensions:
+
+- `FIGHT.png` → 1920×1080 PNG
+- `FIGHT (1).png` → 1920×1080 PNG
+- `Enemies.jpg` → 4000×2070 JPEG
+- `a.jpg` → 4000×2070 JPEG
+- `Level 1 Skull Enemies.jpg` → 1280×662 JPEG
+- `Level 2 Skull Enemies.jpg` → 1280×461 JPEG
+- `BNB HEROES.png` → 1920×1080 PNG
+- `BNBH coin.png` → 2296×2296 PNG
+- `$CROWN Tokenomics.png` → 1500×1500 PNG
+- `HotC tokenomics.png` → 1920×1080 PNG
+- `HotC transparent.png` → 2855×1293 PNG
+- `Untitled design (34).png` → 500×500 PNG
+- plus several `Copy of Copy of certificate...` and legacy promo images.
+
+### Important note on apparent size mismatch
+
+For some large files (`FIGHT.png`, `FIGHT (1).png`, `Enemies.jpg`) the bytes returned by `files.gitbook.com` were smaller than the historical `size` metadata, but ImageMagick still successfully decoded them at the expected dimensions. Treat them as recovered legacy copies, but retain metadata + provenance and do not silently claim byte-identical equality with the historical Firebase object unless SHA or exact size can be established.
+
+## Legacy GitBook pages discovered from old site links/state
+
+Old `bnbheroes.xyz`/GitBook references exposed page targets for:
+- Common Enemies
+- Bosses
+- Hero Wiki
+- Eastcliff Town Upgrade
+- Hero Recruitment
+
+Known page IDs captured in research attempts include:
+- common enemies: `-MiQR4aAuYCML572KYiK`
+- bosses: `-MiQRC6Gl363pDakiVxd`
+- hero wiki: `-Mi_oiwrMg12G1-abNsZ`
+- eastcliff town upgrade: `-Mi_CkHw0YULIQBBzR8B`
+- hero recruitment: `-Mieci3472EOuTzxOyvg`
+
+Direct reconstruction of sibling legacy `document.json` paths from the one surviving root `legacyURL` returned 404. Do not waste time repeating the same guessed-path variants unless a new batch/revision ID is found.
+
+## Enemy identity is now locked from the ORIGINAL 17 Nov React bundle
+
+Do not use earlier guessed names. The 17 Nov bundle explicitly defines:
+
+1. type 1 → `Red Skull 1`
+   - successRate 70
+   - reward 0.003 BNB
+   - XP 100
+   - HP 200
+2. type 2 → `Red Skull 2`
+   - successRate 67
+   - reward 0.0036 BNB
+   - XP 110
+   - HP 200
+3. type 3 → `Red Skull 3`
+   - successRate 63
+   - reward 0.0042 BNB
+   - XP 120
+   - HP 200
+4. type 4 → `Red Skull Archer`
+   - successRate 59
+   - reward 0.0048 BNB
+   - XP 130
+   - HP 200
+5. type 5 → `Red Skull Assasin`
+   - NOTE: original code spelling is **Assasin**
+   - successRate 55
+   - reward 0.0054 BNB
+   - XP 150
+   - HP 200
+6. type 6 → `Red Skull Mage`
+   - successRate 51
+   - reward 0.006 BNB
+   - XP 200
+   - HP 200
+7. type 7 → `Zangrief` (Boss of Chapter 1)
+   - description in source: “Your squad spots ZANGRIEF at the stronghold gates charging towards them. Defeat Him in order to claim the stronghold once and for all!”
+   - successRate 40
+   - reward 0.024 BNB
+   - XP 400
+   - HP 400
+
+Source location in de-minified 17 Nov bundle is around `research/play_forensics/recovered/build-20211117/main.pretty.js` lines ~7845–7910.
+
+The Fight route renders:
+- Chapter title: `Chapter 1: Enemy at the gates`
+- Tier 1 = `te[0..2]`
+- Tier 2 = `te[3..5]`
+- Boss = `te[6]`
+- enemy image path: `/enemies/<type>.png`
+
+## Recovered enemy sheets and segmentation work
+
+`Level 1 Skull Enemies.jpg` clearly contains **three Tier-1 Red Skull characters**.
+`Level 2 Skull Enemies.jpg` clearly contains **three Tier-2 Red Skull characters**.
+
+Segmentation output was created under:
+- `research/media_hunt/gitbook-legacy/segmentation/tier1/1.png .. 3.png`
+- `research/media_hunt/gitbook-legacy/segmentation/tier2/1.png .. 3.png`
+- additional experiments under `research/media_hunt/gitbook-legacy/segmentation/`
+
+The existing surviving game sprite:
+- `/enemies/4.png`
+- 300×407, transparent PNG
+- corresponds to `Red Skull Archer` by source definition.
+
+It is being used as the anchor to determine the left/middle/right order in the Tier-2 sheet.
+
+Current matching experiments (PHASH/edge/alpha) have NOT yet produced a sufficiently rigorous mapping to promote all three Tier-2 crops as type 4/5/6. Do not state that mapping as certain yet.
+
+Next AI should continue visual/template matching against `/enemies/4.png`, ideally with OpenCV or another robust feature matcher if available/installable, and also inspect the source sheets visually.
+
+## X/Twitter archive already downloaded
+
+Official historical X media is already stored under:
+- `assets/reference/x/official/`
+- videos under `assets/reference/x/videos/`
+- retweets under `assets/reference/x/retweets/`
+
+Manifest:
+- `research/x_bnbheroes/media.tsv`
+
+There are about 50 official media items and 2 videos plus retweeted media. Do NOT re-download the entire account unless seeking higher-quality/orig versions or text/caption metadata.
+
+Useful official X items known from prior work:
+- posts around Open Beta V2/V3
+- dynamic success rate battle UI
+- gameplay beta screenshots
+- Hero rarity sheets
+- result / enemy-defeated imagery
+- Hero art for at least Arnulf and Elrik
+
+`research/x_bnbheroes/README.md` notes official X items `15` and `16` as Elrik / Arnulf hero art.
+
+## Hero artwork status
+
+A Thai article from 18 Nov 2021 yielded **21/21 real Hero artworks**, now archived under:
+- `archive/hero-art-20211118/`
+
+Do not assume article order equals on-chain `heroNameId`; the article was arranged by name/alphabetical presentation.
+
+Strong identity anchors already known:
+- heroNameId 14 → Arnulf of Esplin
+- heroNameId 18 → Elrik the Imbuer
+
+These are the only IDs that should be treated as firmly mapped unless new evidence is found.
+
+The next high-value work item is mapping the remaining 19 Hero artworks to `heroNameId` using:
+- official X “hero spotlight” posts/captions,
+- on-chain Attack/Armor/Speed tuples,
+- old guides/screenshots with visible hero name/stat combinations,
+- possibly recovered GitBook Hero Wiki media/text.
+
+Do not assign names merely from aesthetics.
+
+## Stronghold / Town media status
+
+Recovered first-party Town layers currently include:
+- background / village scene
+- objects layer
+- Bank level 1
+- Town Inn level 1
+- Training Grounds level 1
+
+Still missing original direct byte for:
+- `towns/3-1.png` (Barracks level 1)
+- several higher-level town layers / thumbnails depending on screen
+
+Old-domain assets:
+- `Level-1.png`
+- `Level-4.png`
+were identified in the `bnbheroes.xyz` “Rebuild your stronghold / Building Upgrade” section and should be treated as period evidence/reference.
+
+A first-party archived image from `bnbheroes.io` was also recovered:
+- filename: `IMG_20211114_030807_117-1.png`
+- dimensions: 2369×2048
+- Wayback snapshot: 14 Nov 2021
+- SHA-256 previously computed: `e3ec617c9f1c6adbf9e8d9d7c839a4049e658972f6e7dbf875a6617f951bfc13`
+
+Use it as a pixel reference when reconstructing missing Stronghold/Barracks elements.
+
+## Screenshot/community evidence
+
+Five 1440×1080 gameplay screenshots were recovered from a 2021 Zhihu article and stored under the media-hunt research tree. At least one clearly shows the original Town/Stronghold with building-under-construction state and bottom-row buttons such as Market / Battle Log / GitBook.
+
+A Chinese Mifengcha article from 23 Nov 2021 exposed URLs for five gameplay screenshots (Connect → Recruit → Fight → Idle Job → Town Upgrade), but the Aliyun OSS host currently returns AccessDenied and MemGator had no snapshot. Preserve the discovered URLs in research; do not redo the same dead-end from scratch.
+
+## Bot screenshot evidence
+
+Historical bot repo still provides real UI fragments/crops such as:
+- fightBoss
+- fightMage
+- myHeroes
+- unlock
+- goToBoss
+- goToMage
+- MetaMask-related recognition assets
+
+Also known to contain at least two full-screen 1920×1080 captures:
+- `confirmedTransaction1-full.bmp`
+- `unlock-full.bmp`
+
+These are valuable for pixel positions and missing UI pieces when archive bytes are unavailable.
+
+## Media that still lacks original direct game-client bytes
+
+After Wayback/Common Crawl/MemGator checks, these hashed/static paths still do NOT have confirmed original direct bytes from `play.bnbheroes.io`:
+
+- `fight.42bbd04e.png`
+- `card.df50fb38.png`
+- `card_lock.c211f00f.png`
+- `recruit_card.aa5e12c7.png`
+- `rewards.16b2db64.png`
+- `You lose.00f95b2b.png`
+- `towns/3-1.png`
+- `/enemies/1.png`
+- `/enemies/2.png`
+- `/enemies/3.png`
+- `/enemies/5.png`
+- `/enemies/6.png`
+- `/enemies/7.png`
+
+However, do NOT yet ask the user to recreate all of these. Several now have **period-original GitBook sheets/screenshots** that can likely be used to reconstruct the exact visual faithfully:
+- enemies 1–6 from `Level 1/2 Skull Enemies.jpg`
+- Fight visual from `FIGHT.png` / `FIGHT (1).png`
+- Boss Zangrief may be present in `Enemies.jpg`, `a.jpg`, FIGHT images, X media, or video
+- Barracks can potentially be reconstructed from first-party town screenshots/layers
+
+## Preservation safety policy
+
+The original React app used Web3Modal/Web3 and chain 56. Production preservation build intentionally disables real wallet transaction flow. Keep it this way unless user explicitly asks for a separate audited relaunch architecture.
+
+Never restore/reuse old private-key/bot credential material.
+Never expose secrets found in historical repos.
+Legacy mainnet contracts should be treated read-only for preservation/research.
+
+## Current playable architecture
+
+Two useful modes remain:
+
+1. `/` = recovered original 2021 React UI in safe/preservation mode.
+2. `/prototype/` = playable simulation using recovered mechanics/economy.
+
+Long-term ideal:
+- keep original React components/layout,
+- inject a compatibility/mock provider that implements the methods the old UI expects,
+- connect those calls to the safe simulation engine,
+- preserve all UI/flows without real wallet transactions.
+
+This integration is still incomplete and is one of the biggest remaining functional tasks.
+
+## Immediate next actions — DO THESE IN ORDER
+
+1. **Finish enemy sprite recovery**
+   - inspect `Level 1 Skull Enemies.jpg` / `Level 2 Skull Enemies.jpg` visually,
+   - use `/enemies/4.png` as a feature anchor,
+   - establish exact L→R order,
+   - crop/clean transparent sprites for types 1–6,
+   - locate/crop Zangrief from GitBook/X/video if possible,
+   - preserve provenance in `docs/MEDIA_RECOVERY.md`.
+
+2. **Inspect/download `keyframe-My-Video.mp4`**
+   - source URL and archive timestamps are above,
+   - extract frames at scene changes,
+   - compare against missing Fight/Town/Card/Boss media.
+
+3. **Map GitBook assets to pages**
+   - use state metadata/file creation batch IDs where useful,
+   - avoid already-failed guessed `document.json` URL patterns unless new revision/batch data is recovered.
+
+4. **Finish Hero ID mapping**
+   - 21 art files exist,
+   - 14=Arnulf and 18=Elrik are strong anchors,
+   - use X captions/stat tuples / guides to map the rest.
+
+5. **Recover/reconstruct Barracks and missing card/result art**
+   - only after exhausting period evidence,
+   - if still impossible, prepare a concise list for the user with each missing asset + exact screenshot reference so the user can direct creative reconstruction.
+
+6. **Integrate recovered media into runtime**
+   - replace neutral placeholders only when mapping is sufficiently supported,
+   - do not overwrite recovered raw evidence; create production derivatives separately,
+   - rerun `npm run check:all` and browser smoke tests.
+
+7. **Update production Vercel**
+   - current production Git integration previously worked through GitHub Actions/materialization workflow because CLI auth in container was lost.
+   - Browser was logged into GitHub/Vercel in prior session; do not scrape JWT/cookies/tokens.
+   - Use legitimate GitHub workflow / browser UI if needed.
+
+8. **Update this handoff again** after major mapping/integration changes.
+
+## Research dead ends already checked — avoid repeating blindly
+
+- Common Crawl only had root/robots records for `play.bnbheroes.io`; it did not crawl all static JS/CSS/media children.
+- Direct Common Crawl index had intermittent errors/429; a local `cluster.idx` approach was already used to inspect the domain block.
+- Wayback direct access had rate limits; MemGator was used successfully as a proxy/timemap aggregator.
+- Direct old Firebase GitBook media URLs returned 404, but `files.gitbook.com` legacy redirect works — use that.
+- Direct guessed sibling GitBook `document.json` paths for page IDs returned 404.
+- Exact web search by hashed missing asset filename generally returned nothing useful.
+- GitHub searches found calculator/contracts/bots, not a complete intact `play.bnbheroes.io` source repository.
+
+## Files created/used in the latest archaeology
+
+- `research/media_hunt/gitbook-legacy/initial-state.json`
+- `research/media_hunt/gitbook-legacy/files/`
+- `research/media_hunt/gitbook-legacy/files/DOWNLOAD_REPORT.tsv`
+- `research/media_hunt/gitbook-legacy/asset-timemaps.tsv`
+- `research/media_hunt/gitbook-legacy/segmentation/`
+- `research/media_hunt/legacy-domains/`
+- `research/media_hunt/inspection-catbox.tsv` (temporary viewing links only; NOT provenance)
+- `research/x_bnbheroes/media.tsv`
+- `assets/reference/x/official/`
+- `assets/reference/x/videos/`
+- `archive/hero-art-20211118/`
+- `archive/original-20211117/`
+
+## Important provenance rule
+
+Temporary Catbox URLs were only used to let ChatGPT visually inspect/show already-recovered files. Never cite Catbox as the historical source. Historical source/provenance is the old BNB HEROES domain, GitBook legacy storage, X/Twitter, Wayback, article archive, or recovered bot/video evidence.
+
+## Last state before chat handoff
+
+The user explicitly said the conversation was close to the token limit and asked to update the handoff so a new chat can continue.
+
+At this exact checkpoint:
+- source/media archaeology has advanced significantly,
+- enemy names/mechanics are locked from original code,
+- legacy GitBook media was newly recovered,
+- Tier 1/2 enemy crops exist but mapping/production promotion is NOT finalized,
+- the old first-party video is confirmed but frame extraction is NOT finalized,
+- latest discoveries have NOT yet been fully deployed to production,
+- next session should continue from the ordered action list above, not restart research.
