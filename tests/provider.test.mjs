@@ -47,6 +47,9 @@ const hash = await provider.__rpc('eth_sendTransaction', [{from:provider.__accou
 const receipt = await provider.__rpc('eth_getTransactionReceipt', [hash]);
 assert.equal(receipt.status, '0x1');
 assert.equal(receipt.logs.length, 1);
+const savedAfterFight = JSON.parse(store.get('bnbheroes-revival-v2'));
+assert.equal(savedAfterFight.battleHistory.length, 1);
+assert.equal(savedAfterFight.battleHistory[0].hero, 0);
 
 await assert.rejects(() => provider.__rpc('personal_sign', ['0x00', provider.__account]), /blocks real signing/);
 await assert.rejects(() => provider.__rpc('eth_sendRawTransaction', ['0xdead']), /blocks real signing/);

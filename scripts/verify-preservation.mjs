@@ -62,6 +62,7 @@ if (nov16.includes(activeRecruitMarker)) ok('16 Nov original build proves active
 if (original.includes(disabledRecruitMarker)) ok('17 Nov clean archive retains historically disabled Recruit state'); else fail('17 Nov Recruit evidence missing');
 
 const shim = fs.readFileSync('preservation-shim.js','utf8');
+if (shim.includes('__BNBH_LOCAL_BITQUERY__') && shim.includes('graphql.bitquery.io')) ok('historic Bitquery Battle Logs use local preservation data'); else fail('local Battle Logs adapter missing');
 for (const marker of ['realWalletDisabled:true','localProvider:true','/prototype/','/gitbook/']) {
   if (!shim.includes(marker)) fail(`shim marker missing: ${marker}`);
 }

@@ -18,7 +18,7 @@ export function freshState() {
     version:2, bnbh:20000, claimedBNB:0, pendingBNB:0, rewardUnlockAt:0, nextTokenId:1,
     towns:[0,0,0,0],
     heroes:[{...heroTemplate(seed), tokenId:0, xp:1000, level:1, hp:1000, hpUpdatedAt:Date.now(), arrivalAt:0, demoSeed:true}],
-    reserve:[],
+    reserve:[], battleHistory:[],
     heroLevelRewards:{0:0}, stackedXp:{0:0},
     market:[
       {...heroTemplate(17), tokenId:900001, xp:1000, level:1, hp:1000, hpUpdatedAt:Date.now(), arrivalAt:0, price:8900, archiveDemo:true},
@@ -38,6 +38,7 @@ export function restoreState(raw) {
       return {...base,...s,
         heroes,
         reserve:s.reserve||[],
+        battleHistory:s.battleHistory||[],
         market:s.market||base.market,
         claimedBNB:s.claimedBNB||0,
         heroLevelRewards:{...Object.fromEntries(heroes.map(h=>[h.tokenId,0])),...(s.heroLevelRewards||{})},
@@ -45,7 +46,7 @@ export function restoreState(raw) {
       };
     }
     if(s && s.version===1) {
-      return {...freshState(),...s,version:2,claimedBNB:0,reserve:[],heroLevelRewards:Object.fromEntries((s.heroes||[]).map(h=>[h.tokenId,0])),stackedXp:Object.fromEntries((s.heroes||[]).map(h=>[h.tokenId,0]))};
+      return {...freshState(),...s,version:2,claimedBNB:0,reserve:[],battleHistory:[],heroLevelRewards:Object.fromEntries((s.heroes||[]).map(h=>[h.tokenId,0])),stackedXp:Object.fromEntries((s.heroes||[]).map(h=>[h.tokenId,0]))};
     }
   } catch {}
   return freshState();
@@ -117,7 +118,9 @@ export function fight(state, tokenId, enemyType, rng=Math.random, now=Date.now()
   const heroes=[...state.heroes]; heroes[ix]=hero;
   const rewardUnlockAt=state.pendingBNB===0 && reward>0 ? now+172800000 : state.rewardUnlockAt;
   const heroLevelRewards={...state.heroLevelRewards,[tokenId]:(state.heroLevelRewards?.[tokenId]||0)+reward};
+  const battleEntry={hero:tokenId,enemy:enemyType,rewards:reward,xpGained:xpGain,hpLoss,timestamp:now,success};
   return {...state,heroes,pendingBNB:state.pendingBNB+reward,rewardUnlockAt,heroLevelRewards,stackedXp:{...state.stackedXp,[tokenId]:overflow},
+    battleHistory:[battleEntry,...(state.battleHistory||[])].slice(0,1000),
     log:[`${success?'WIN':'MISS'} vs ${LEGACY.enemyNames[enemyType]} — +${xpGain} XP, +${reward.toFixed(6)} BNB, -${hpLoss} HP`,...state.log].slice(0,60)};
 }
 
