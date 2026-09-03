@@ -65,4 +65,14 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Update `docs/MEDIA_RECOVERY.md` with new proof/mapping through 2026-09-03 final-media checkpoint.
 - [x] Update `AI_IDE_HANDOFF.md` after major milestones (latest: 2026-09-03 final-media checkpoint).
 - [x] Deploy a non-production Vercel preview after tests and browser-regression it before any production deployment. Preview certified 2026-09-03; production intentionally not promoted yet.
-- [ ] Record the Hero-card completion commit + refreshed Vercel preview URL/certification in handoff after push.
+- [x] Record Hero-card completion commit `addeaef`, GitHub restoration branch, Vercel preview URL, and 21-card public-preview certification in handoff/browser report.
+
+## Live checkpoint — Town upgrade media (2026-09-03)
+- [x] Promote evidence-backed full-town Level 2 layers `towns/1-2` … `towns/4-2` from period gameplay pixels.
+- [x] Promote evidence-backed full-town Level 3 layers `towns/1-3` … `towns/4-3` from period gameplay pixels; Bank L3 uses corrected stable transform-chain proof (53/59 inliers).
+- [x] Preserve pre-promotion fallbacks under `archive/pre-town-layer-recovery-20260903/`.
+- [x] Run `npm run check:all` after Town L2/L3 promotion — PASS.
+- [ ] Recover/validate/promote full-town Level 4 layers without using the rejected dark-overlay trial candidate.
+- [ ] Recover/validate/promote `townselect/*-4`.
+- [ ] Re-audit Fight icon provenance; keep explicit creative-reconstruction status unless period pixels are actually recovered.
+- [ ] Re-run full checks, commit/push restoration branch, redeploy Vercel preview, and browser-smoke the new Town build.

@@ -213,30 +213,28 @@ The hashed backgrounds that Wayback returned as failed/error payloads are replac
 - `static/media/Village.64091b0b.jpg` ← `backgrounds/village.jpg`
 - `static/media/myheroes-bg.3c5effac.jpg` ← `backgrounds/myheroes-bg.jpg`
 
-### Confirmed lost / fallback assets
+### Recovered/reconstructed assets whose original hashed bytes did not survive
 
-Wayback + Memgator + Common Crawl searches did **not** recover original bytes for several assets. Production intentionally prevents broken images while preserving provenance.
+The current runtime no longer uses the early neutral placeholders for Barracks, enemies, Hero cards, or RESULT art. Provenance is explicit:
 
 - `static/media/fight.42bbd04e.png`
-  - current file is a reconstructed Fight fallback using 2021 palette/font.
-  - **NOT original art.**
-
-- `towns/3-1.png` (Barracks level 1)
-  - current production file is transparent, preserving the underlying original town instead of inventing a building.
-  - town levels not recovered are transparent fallbacks.
-
-- `/townselect/*`
-  - current files are transparent fallbacks because archive did not capture originals.
-
-- `static/media/card.df50fb38.png`
-- `static/media/card_lock.c211f00f.png`
+  - **CREATIVE_RECONSTRUCTION** only. Direct/period pixels for the original Fight icon were not recovered after GitBook, old-host, archive, bundle, urlscan, repo/CDN and video searches. Do not call it original.
+- `towns/3-1.png`
+  - **PERIOD_RECONSTRUCTION** from first-party `Level-1.png` explicitly labeled `Level 1 Barracks`, positioned into the 1920×1080 town coordinate system via period screenshot homography.
+- `static/media/card.df50fb38.png` / `card_lock.c211f00f.png`
+  - **RECONSTRUCTED_FROM_PERIOD_PIXELS** by median stacking repeated card appearances in the official 2021 minting video.
 - `static/media/recruit_card.aa5e12c7.png`
-- `static/media/rewards.16b2db64.png`
-- `static/media/You lose.00f95b2b.png`
-  - neutral/reconstructed preservation fallbacks; **not original art**.
-
-- enemies other than the surviving archived sprite currently placed at `/enemies/4.png`
-  - neutral `ENEMY ART LOST` fallback is used rather than inventing the enemy portrait.
+  - **FIRST_PARTY_PERIOD_ART_ADAPTED** from archived `BNBH-Card-Back.png`, independently matched to official video (195 RANSAC inliers).
+- `static/media/rewards.16b2db64.png` / `You lose.00f95b2b.png`
+  - **RECONSTRUCTED_FROM_PERIOD_PIXELS** from corresponding 2021 win/loss footage while preserving dynamic RESULT text as DOM.
+- `/enemies/1.png` … `/enemies/6.png`
+  - evidence-backed derivatives from first-party GitBook Level-1/Level-2 sheets; type mapping is documented in the enemy proof reports.
+- `/enemies/7.png`
+  - **PERIOD_RECONSTRUCTION** of Zangrief from 17-Nov production video plus higher-resolution 8-Dec period screenshot.
+- `/cards/1.png` … `/cards/21.png`
+  - **EXACT PERIOD ART BYTES** copied byte-for-byte from `archive/hero-art-20211118/` according to `research/hero-id-mapping/heroNameId-final.tsv`; IDs 14/18 are direct numeric anchors and the other 19 are explicitly high-confidence structural mappings.
+- `/townselect/*`
+  - still transparent preservation fallbacks where no source art was recovered. This is the remaining known visual fallback family besides the reconstructed Fight icon.
 
 ### Why we do not silently fake missing art
 
@@ -288,20 +286,22 @@ The recovered article art list includes:
 - Uriah the Sage
 - Xegis Branfyre
 
-### Critical mapping warning
+### Numeric Hero mapping — completed with confidence labels
 
-The article order is alphabetical/editorial. **It is NOT the `/cards/1.png ... /cards/21.png` heroNameId order.**
+The article order is alphabetical/editorial and was **not** used directly as `/cards/1.png ... /cards/21.png` order.
 
-Do not map the other 19 heroes to numeric IDs by position.
+Final runtime mapping is documented in:
 
-Current production uses only two previously established identity anchors:
+- `research/hero-id-mapping/PROOF.md`
+- `research/hero-id-mapping/heroNameId-final.tsv`
 
-- `/cards/14.png` → Arnulf of Esplin
-- `/cards/18.png` → Elrik the Imbuer
+Confidence policy:
 
-All other numeric card IDs currently use a neutral `HERO ART LOST` fallback until a numeric identity can be proved.
+- IDs **14 = Arnulf of Esplin** and **18 = Elrik the Imbuer** are `DIRECT_ANCHOR` mappings.
+- The other 18 legacy-roster IDs are `HIGH_STRUCTURAL`, derived from the exact ordered 18-Hero GitBook Drop Rate roster merged with the exact 21-ID contract rarity structure.
+- ID **10 = Lena** is `HIGH_STRUCTURAL_NEW_INSERT`: official period evidence says exactly three Heroes were added; after direct inserted anchors 14/18, Lena is the only period artwork/name outside the old 18-Hero roster and ID10 is the only remaining inserted rarity position.
 
-If continuing identity work, produce a local proof artifact (on-chain `getHero` result + official named NFT evidence) before changing these mappings.
+All 21 runtime card files are byte-identical to their mapped period artwork source. Preservation verification asserts this on every run.
 
 ---
 
@@ -1506,3 +1506,47 @@ The restoration is now functionally complete for the recovered 2021 UI/gameplay 
 3. Some enemy/Barracks/card/result runtime images are period-derived reconstructions rather than byte-identical original hashed files; their proof docs preserve exact provenance.
 
 Do not reopen solved queues unless a genuinely new historical source can improve fidelity/provenance.
+
+## Final restoration checkpoint — 2026-09-03 Hero-card deployment certification
+
+- Hero restoration commit: `addeaef16ef1d1428651bb73c08436c5075190b8` (`Complete 21-hero period card restoration`).
+- GitHub restoration branch: `restoration/native-ui-20260903`; `origin/restoration/native-ui-20260903` points at the Hero-card commit. Remote `main` has a separate/diverged history; do not force-push it.
+- Vercel preview: `https://bnbheroes-revival-git-restoration-nati-89e999-phu-tans-projects.vercel.app/`.
+- Public-preview verification fetched `/cards/1.png` … `/cards/21.png`: every response was HTTP 200 and every byte length matched the corresponding immutable period source; local SHA-256 verification confirms byte identity for all 21.
+- `/myheroes` rendered `/cards/14.png` at its natural 499×699 dimensions in the original 2021 React UI. Evidence: `research/browser-regression/evidence/2026-09-03-myheroes-period-card.jpg`.
+- `npm run check:all` passes after the complete Hero promotion.
+- Main playable preservation flows were already browser-certified on this same preview: Recruit/arrival/Expedite, Reserve/Return, Upgrade, Basic Fight, Zangrief win/loss RESULT, Claim, Battle Logs, restored GitBook/prototype, and valid iPhone-UA mobile layout.
+- Known visual provenance limitation remains explicit: `fight.42bbd04e.png` is creative reconstruction and `/townselect/*` are transparent fallbacks. All other major runtime blockers from this recovery campaign have been closed or reconstructed from period evidence.
+
+## Live recovery checkpoint — 2026-09-03 Town Level 2/3 integration
+
+This checkpoint is intentionally written immediately so a network/tool interruption does not lose context.
+
+### Runtime changes already on disk
+- `towns/1-2.png` … `towns/4-2.png` and `towns/1-3.png` … `towns/4-3.png` are now evidence-backed full-canvas 1920×1080 period-pixel reconstructions, replacing the former 573-byte transparent fallbacks.
+- `townselect/1-2.png` … `townselect/4-2.png` and `townselect/1-3.png` … `townselect/4-3.png` are also recovered/reconstructed and currently modified in the working tree.
+- Original/fallback town files were preserved under `archive/pre-town-layer-recovery-20260903/` before promotion.
+- Bank Level 3 proof was corrected to use the stable transform-chain solution rather than the earlier distorted direct homography; current proof records 53/59 inliers for the stable chain.
+- `npm run check:all` passed after the Level 2/3 full-town promotion.
+
+### Current unresolved work
+1. Level 4 full-town layers `towns/{1,2,3,4}-4.png` are still 573-byte transparent fallbacks at runtime. Do NOT promote weak candidates merely to fill the slots.
+2. Barracks Level 4 has a surviving first-party `research/media_hunt/barracks-analysis/assets_Level-4.png` source and strong historical homography evidence, but the exact prior 625/726-inlier source frame/script still needs to be re-identified so provenance is reproducible.
+3. The 21 Nov max-town video frames currently scanned contain a global dark/overlay treatment; a trial L4 reconstruction from those pixels was rejected and remains research-only under `research/media_hunt/town-layers-reconstruction/level4/`.
+4. After Level 4: finish/lock `townselect/*-4`; re-audit `static/media/fight.42bbd04e.png` and retain CREATIVE_RECONSTRUCTION labeling unless a true period pixel source is found; then run full tests, commit, push restoration branch, redeploy Vercel preview, and browser-regression the HTTPS build.
+
+### Git/deployment state at this checkpoint
+- HEAD is still `addeaef` (`Complete 21-hero period card restoration`).
+- The Town Level 2/3 batch is intentionally not committed yet.
+- Existing public Vercel preview is therefore older than this live Town batch and must not be treated as certification of the new Town files.
+
+### Live sub-checkpoint — Barracks Level 4 proof source recovered
+- Exact historical proof frame has been re-identified: `research/media_hunt/town-layers-reconstruction/fulltown-L4-rel13.png` (1920×1080).
+- Source is `research/media_hunt/legacy-domains/assets/Level-4.png` (1700×1549), mirrored/processed in `barracks-analysis/assets_Level-4.png`.
+- Re-running SIFT/RANSAC against the recovered frame reproduces essentially the same homography as `3-4-proof.json`: scale ~0.3775/0.3744 and translation ~1282.5/140.7. Current SIFT settings yield 199–217 inliers; the earlier saved run records 625/726 with the same geometric solution.
+- Therefore `research/media_hunt/town-layers-reconstruction/3-4.png` has reproducible period-video placement evidence and is eligible for promotion after final compositing validation.
+
+### Live sub-checkpoint — critical Level 4 geometry correction
+- `fulltown-L4-rel13.png` is 1920×1080 but is NOT pixel-coordinate-identical to the runtime town canvas. SIFT/RANSAC against runtime `towns/background.jpg` gives ~76 inliers with a transform close to X=1.00, Y=0.874 plus ~98 px vertical translation; `towns/objects.png` independently gives ~82 inliers and Y=0.872 plus ~99 px translation.
+- Therefore the earlier `3-4.png` candidate, whose bbox is expressed in video-frame coordinates, must NOT be promoted directly. Correct method is: estimate runtime→frame geometry from original background/objects, inverse-warp the period L4 frame to canonical runtime coordinates, then reconstruct/promote layers there.
+- This correction is now the active Level 4 plan.
