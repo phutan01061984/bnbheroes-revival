@@ -116,9 +116,10 @@
     return BigInt(LEGACY.oracle.getTownUpgradePrices[idx] || 0);
   }
   function unlockPrice(level) {
-    // Verified against the preserved oracle contract on BSC: tokenPrice * 0.008 BNB
-    // with a 4% increment for every hero level. All operands come from the 2021 snapshot.
-    const tokenPrice = BigInt(LEGACY.oracle.getTokenPrice);
+    // Mirrors Oracle.getUnlockLevelPrice(currentLevel) at the exact 17-Nov-2021
+    // frontend-capture block. The launch-era Oracle exposes bnbhPrice directly;
+    // getTokenPrice() was added later and reverts on the historical implementation.
+    const tokenPrice = BigInt(LEGACY.oracle.bnbhPrice);
     const base = BigInt(LEGACY.oracle.basePriceToUnlockInBNB);
     const rate = BigInt(LEGACY.oracle.unlockRate);
     return tokenPrice * base * (100n + rate * BigInt(level)) / (10n ** 20n);

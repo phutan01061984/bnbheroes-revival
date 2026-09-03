@@ -80,3 +80,15 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Backup former L4 transparent fallbacks and promote all 4 full-town + all 4 Level-4 preview reconstruction candidates to runtime.
 - [x] Add SHA-256 regression manifest/verifier for all 24 Town Level 2–4 runtime recovery assets.
 - [x] Run full check after Level-4 promotion — PASS (preservation + engine + provider).
+
+## P1 — Deep fidelity pass requested 2026-09-03
+
+- [x] Housekeeping: synchronize stale fidelity/docs claims before new research (`a0577e8`).
+- [x] Build automated visual-forensics regression suite with homography/photometric/edge metrics (`2c34a40`).
+- [x] Recover independent Common Crawl provenance for the Dec-10 production build and prove six missing hashed media names persist unchanged across 16-Nov → 17-Nov → 10-Dec builds.
+- [x] Extract Dec-10 development/testnet ↔ production contract address pairs and fingerprint current proxy-family bytecode.
+- [x] Resolve the implementation/admin lineage relevant to the preserved frontend capture. Exact EIP-1967 implementations are pinned at block 12,730,607; Market's same-day transition is exact at block 12,724,583 with successful ProxyAdmin upgrade tx proof. Broader Nov-Dec rows remain representative snapshots rather than falsely claiming a complete event log.
+- [x] Recover the exact historical Character/Oracle state aligned to the frontend capture and compare it to the simulator. Runtime now uses the 17-Nov RNG/rewards/chances/HP table and capture-time Oracle prices/unlock semantics instead of the later 2026 state.
+- [x] Strengthen Hero numeric-ID proof with direct Character template arrays + independent 2021-12-06 literal-name stat fingerprints. 17/21 identities are unique period-stat joins; ID9=Lena / ID10=Sivalas correction is promoted and verified; IDs4/19/20/21 retain explicit non-direct confidence labels.
+- [x] Re-check exact-byte media through genuinely new production/CC lineage. The six hashed filenames persist across 16-Nov → 17-Nov → 10-Dec builds, but their exact bytes still do not survive; current period-derived runtime assets remain explicitly labeled rather than misrepresented as originals.
+- [ ] Finalize this historical-state batch: rerun `npm run forensics:all` after doc/verifier sync, commit/push only curated proof/runtime files, then browser-certify visible Recruit/Town/Unlock/Boss values on the fresh Vercel preview.

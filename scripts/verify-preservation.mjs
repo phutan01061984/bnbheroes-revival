@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { LEGACY } from '../prototype/src/legacy-data.js';
 
 const fail = (m) => { console.error('FAIL:', m); process.exitCode = 1; };
 const ok = (m) => console.log('OK:', m);
@@ -30,6 +31,12 @@ for (const p of [
   'research/proofs/town-canonical-geometry-20260903/TOWNSELECT_L4_CANONICAL_PROOF.json',
   ...Array.from({length:21},(_,i)=>`cards/${i+1}.png`),'cards/unkown.png',
   'research/hero-id-mapping/heroNameId-final.tsv','research/hero-id-mapping/PROOF.md',
+  'research/hero-id-mapping/onchain/character-template-table-20260903.tsv','research/hero-id-mapping/onchain/PERIOD_STAT_JOIN_PROOF.md',
+  'research/contract-forensics/FRONTEND_CAPTURE_STATE_20211117.json',
+  'research/contract-forensics/FRONTEND_CAPTURE_RUNTIME_DIFF_20211117.json',
+  'research/contract-forensics/FRONTEND_CAPTURE_RUNTIME_DIFF_20211117.md',
+  'research/contract-forensics/FRONTEND_CAPTURE_IMPLEMENTATIONS_20211117.json',
+  'research/contract-forensics/FRONTEND_CAPTURE_IMPLEMENTATIONS_20211117.md',
   'enemies/1.png','enemies/5.png','enemies/6.png','enemies/7.png',
   'prototype/index.html','gitbook/index.html',
   'archive/original-20211117/SHA256SUMS','AI_IDE_HANDOFF.md'
@@ -107,6 +114,32 @@ for (const row of mappingRows) {
 const directIds = Object.fromEntries(mappingRows.filter(r=>r.confidence==='DIRECT_ANCHOR').map(r=>[r.heroNameId,r.name]));
 if (directIds['14']==='Arnulf of Esplin' && directIds['18']==='Elrik the Imbuer') ok('direct Hero ID anchors preserved (14 Arnulf, 18 Elrik)');
 else fail('direct Hero ID anchors changed');
+const hero9 = mappingRows.find(r=>r.heroNameId==='9');
+const hero10 = mappingRows.find(r=>r.heroNameId==='10');
+if (hero9?.name==='Lena' && hero9?.artFile==='13-Lena.png' && hero9?.confidence==='DIRECT_PERIOD_STAT_MATCH' && hero10?.name==='Sivalas Zefen' && hero10?.artFile==='17-Sivalas.png' && hero10?.confidence==='DIRECT_PERIOD_STAT_MATCH') ok('on-chain period-stat correction preserved (ID9 Lena, ID10 Sivalas)');
+else fail('Hero ID9/10 period-stat correction regressed');
+const templateRows = fs.readFileSync('research/hero-id-mapping/onchain/character-template-table-20260903.tsv','utf8').trim().split(/\r?\n/).slice(1).map(x=>x.split('\t'));
+if (templateRows.length===21 && templateRows.every((r,i)=>Number(r[0])===i && Number(r[1])===i+1) && templateRows[8].slice(4,7).join('/')==='500/400/600' && templateRows[9].slice(4,7).join('/')==='600/300/600') ok('21-slot on-chain Character template snapshot preserved');
+else fail('on-chain Character template snapshot missing/stale');
+
+// Historical runtime-state authority: preserve the exact chain state aligned to the 17-Nov frontend capture.
+const captureState = JSON.parse(fs.readFileSync('research/contract-forensics/FRONTEND_CAPTURE_STATE_20211117.json','utf8'));
+const captureImpl = JSON.parse(fs.readFileSync('research/contract-forensics/FRONTEND_CAPTURE_IMPLEMENTATIONS_20211117.json','utf8'));
+const rarityDistribution = LEGACY.character.randomTable.reduce((out,template) => {
+  const rarity = LEGACY.character.heroTypes[template]; out[rarity] = (out[rarity] || 0) + 1; return out;
+}, {});
+if (LEGACY.chainSnapshotBlock===12730607 && LEGACY.chainSnapshotAt==='2021-11-17T19:08:02.000Z' && captureState.block===12730607)
+  ok('runtime state is pinned to exact 17-Nov frontend-capture block');
+else fail('runtime historical capture block drifted');
+if (JSON.stringify(rarityDistribution)===JSON.stringify({1:42,2:30,3:16,4:9,5:3}) && LEGACY.character.baseChances[6]===400 && LEGACY.character.baseBNBRewards[6]===24000000000000000 && LEGACY.character.requiredHps.length===7)
+  ok('launch RNG / Zangrief chance / rewards / HP table preserved');
+else fail('launch Character state regressed');
+if (LEGACY.oracle.getCharacterPrice==='270231622141575625279' && LEGACY.oracle.getExpeditePrice==='27023162214157562527' && LEGACY.oracle.bnbhPrice==='900772073805252084266' && !('getTokenPrice' in LEGACY.oracle))
+  ok('capture-time Oracle prices preserved without later getTokenPrice dependency');
+else fail('capture-time Oracle state regressed');
+if (captureImpl.frontendCapture?.implementations?.core==='0x986a1820498a636939a0b80eb8d12014e5d70b58' && captureImpl.frontendCapture?.implementations?.character==='0x36bd26648ce81c1675dfa3bc640607a3ef0852f9' && captureImpl.frontendCapture?.implementations?.market==='0xade9b8d6bf3c220e7d8c9b3ed7caccd4584473f1' && captureImpl.frontendCapture?.implementations?.oracle==='0xbd002cfa9a942c7f3a5771056d2f1482621ce07f' && captureImpl.marketUpgradeImmediatelyBeforeCapture?.firstNewBlock===12724583)
+  ok('exact frontend-capture proxy implementations and Market transition preserved');
+else fail('frontend-capture proxy implementation proof regressed');
 
 const main = fs.readFileSync('static/js/main.5e2ca500.chunk.js','utf8');
 for (const remote of ['https://bsc-dataseed.binance.org/','https://mainnet.infura.io','https://data-seed-prebsc']) {

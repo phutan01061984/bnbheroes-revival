@@ -1,102 +1,50 @@
 # Hero `heroNameId` mapping proof
 
-Status: **runtime promotion approved with explicit confidence labels**.
+Status: **runtime mapping corrected 2026-09-03 from direct on-chain template arrays + independent period stat fingerprints**.
 
-This recovery does not pretend that all 21 numeric IDs were found in a surviving metadata API. IDs 14 and 18 are direct anchors; the remaining IDs are a high-confidence structural reconstruction from multiple independent first-party/period sources.
+## 1. Direct on-chain 21-slot table
 
-## 1. Direct numeric anchors
+Production Character proxy `0x6DA72F24c56197Dcf6B8920baCb183F6ccca8b01` exposes public arrays `heroNames`, `heroTypes`, `heroClasses`, `attacks`, `armors`, and `speeds` through the recovered 10-Dec ABI. Read-only calls show slots 0..20 have `heroNames = 1..21` exactly. The complete snapshot is:
 
-The preserved chain/session forensics establish:
+`research/hero-id-mapping/onchain/character-template-table-20260903.tsv`
 
-- `heroNameId=14` → **Arnulf of Esplin**. Runtime template index 13 is Rare / Soldier with A600 D700 S400.
-- `heroNameId=18` → **Elrik the Imbuer**. Runtime template index 17 is Epic / Rogue with A900 D500 S500.
+The Solidity mirror independently explains the structure: `mint()` selects one template slot from `randomTable`, then assigns `Hero.name = heroNames[seedNum]`, `heroType = heroTypes[seedNum]`, class and base stats from the parallel arrays.
 
-The runtime files `cards/14.png` and `cards/18.png` were already byte-identical to the corresponding period artwork before this promotion.
+## 2. Independent period calculator provides literal name + base stats
 
-See `docs/FORENSICS.md`, `prototype/src/legacy-data.js`, and the clean recovered 17-Nov-2021 application bundle for the underlying contract/template data.
+The independent mirror `mirrors/honeyvig-bnbhero` has Git commit `6cb15a4b7f6c7ce8a6f2fe777a6b071e39d56cec`, authored **2021-12-06**. Its `src/util/hero.js` lists literal Hero names and `[attack, armor, speed]` triples.
 
-## 2. Surviving historical 18-Hero roster
+Joining those period triples to the on-chain parallel arrays uniquely locks **17 numeric IDs** (including the prior Arnulf/Elrik anchors). Full join proof:
 
-The recovered legacy GitBook page **Hero Drop Rate** is preserved in:
+`research/hero-id-mapping/onchain/PERIOD_STAT_JOIN_PROOF.md`
 
-`research/media_hunt/gitbook-legacy/documents/LATEST_CONTENT_REPORT.md`
+Critically this join falsified one prior structural inference:
 
-Its 18-Hero order and rarity sequence is:
+- **ID 9 = Lena** (`500/400/600`)
+- **ID 10 = Sivalas Zefen** (`600/300/600`)
 
-1. Dayne of Gerston — Common
-2. Andin Olis — Uncommon
-3. Torlov Branhart — Common
-4. Aelof Orstone — Uncommon
-5. Jan Rhylen — Common
-6. Demisov the Bold — Uncommon
-7. Esfel of Lordan — Common
-8. Reis of the Knife — Uncommon
-9. Sivalas Zefen — Common
-10. Thalas One-Eye — Uncommon
-11. Lady Ella of Tir — Rare
-12. Sir Bertrand — Rare
-13. Balen Fellwood — Rare
-14. Helia Stormcall — Epic
-15. Xegis Branfyre — Epic
-16. Uriah the Sage — Legendary
-17. Sir Asten — Legendary
-18. Duke Duscair IV — Legendary
+The old `9=Sivalas / 10=Lena` mapping was therefore corrected in runtime and preservation data.
 
-## 3. The 21-ID contract structure
+## 3. Remaining four identities
 
-The preserved Character snapshot has 21 sequential `heroNames` values (`1..21`) and these 21 rarity/type values:
+- **ID4 = Aelof Orstone**: after the unique stat joins, ID4 is the only unmatched Uncommon template and Aelof is the only unmatched old-roster Uncommon; the preserved GitBook order also agrees.
+- **ID19 = Uriah the Sage**: ID19 has on-chain `heroClass=4`, the same mage class demonstrated by Lady Ella/Helia/Xegis; the period calculator identifies Uriah as the Legendary mage. GitBook order agrees.
+- **ID20 = Sir Asten**, **ID21 = Duke Duscair IV**: retained from the preserved ordered GitBook roster plus the 21-slot insertion model. The period calculator repeats the same Legendary stat triple for all three names, an apparent copy error, so it is not used to distinguish IDs20/21.
 
-`C U C U C U C U C C U R R R R E E E L L L`
+## 4. Existing period roster / new-Hero evidence remains corroboration
 
-where C=Common, U=Uncommon, R=Rare, E=Epic, L=Legendary.
+The recovered legacy GitBook Hero Drop Rate page preserves the original 18-name order. Official period material says three Heroes were added before/at launch. Direct/period evidence still supports Arnulf and Elrik as inserted IDs 14/18; the stat join now shows Lena is ID9 rather than the previously inferred inserted ID10, so **do not reuse the old “remove IDs 10/14/18” argument as authoritative numeric proof**. It is superseded by the direct template/stat evidence above.
 
-Removing exactly IDs **10, 14, and 18** yields:
+## 5. Artwork provenance
 
-`C U C U C U C U C U R R R E E L L L`
+All runtime `cards/1.png` … `cards/21.png` remain exact byte copies from `archive/hero-art-20211118/`; only their numeric placement changes when stronger ID evidence demands it. The ID9/10 correction swaps the untouched period bytes for Lena and Sivalas, with the previous runtime pair archived under `archive/pre-hero-id-9-10-correction-20260903/`.
 
-That is an **exact position-for-position match** for the historical GitBook 18-Hero roster above.
+## 6. Confidence labels
 
-Official X material from the period independently says that **three new Heroes** were being added. Two of those insertion positions are independently identified by the numeric anchors:
+- `DIRECT_ANCHOR`: prior direct numeric identity evidence, now independently stat-validated (IDs14/18).
+- `DIRECT_PERIOD_STAT_MATCH`: unique literal-name period stat triple ↔ on-chain numeric template slot.
+- `HIGH_COMPLETE_SET`: complete-set exclusion plus ordered first-party roster (ID4).
+- `HIGH_CLASS_ROSTER`: on-chain class plus period literal class plus ordered roster (ID19).
+- `HIGH_STRUCTURAL`: ordered first-party roster/insertion structure where no unique stat fingerprint survives (IDs20/21).
 
-- ID 14 = Arnulf
-- ID 18 = Elrik
-
-The surviving 21-art set has one other Hero not present in the 18-name GitBook roster: **Lena**. Therefore the remaining inserted slot is ID 10 = Lena.
-
-This gives a single consistent ordered merge: preserve the GitBook roster order and insert Lena/Arnulf/Elrik at IDs 10/14/18.
-
-## 4. Artwork identities are period evidence, not generated replacements
-
-All 21 promoted card images come byte-for-byte from:
-
-`archive/hero-art-20211118/`
-
-They were recovered from a period 18-Nov-2021 article / first-party WordPress media trail. The archive originals remain immutable.
-
-The identities/rareness of many artworks are independently corroborated against official rarity lineup imagery using SIFT + RANSAC:
-
-- Helia Stormcall → Epic: 324 inliers
-- Xegis Branfyre → Epic: 342 inliers
-- Balen Fellwood → Rare: 212 inliers
-- Sir Bertrand → Rare: 192 inliers
-- Lady Ella → Rare: 183 inliers
-- Uriah → Legendary: 192 inliers
-- `Layer-1.png` → Uncommon group: 63 inliers; after the other four Uncommon identities are resolved, it is the remaining artwork for **Demisov the Bold**.
-
-Machine-readable CV evidence: `art-to-official-rarity-sift.tsv` and `official-group-layout-sift.tsv`.
-
-## 5. Confidence policy
-
-- `DIRECT_ANCHOR`: numeric ID ↔ identity has independent direct forensic evidence. Currently IDs **14, 18**.
-- `HIGH_STRUCTURAL`: numeric identity follows from the exact 18-roster order + exact rarity insertion structure + period artwork identity.
-- `HIGH_STRUCTURAL_NEW_INSERT`: the one residual inserted slot after the two direct inserted anchors; currently ID **10 = Lena**.
-
-The mapping used by the runtime is in `heroNameId-final.tsv`.
-
-## 6. Paths investigated but not promoted as proof
-
-We also investigated the old first-party NFT metadata route `https://metadata.bnbheroes.io/token/{id}`, historical public BSC RPC state, Wayback/Common Crawl, Sourcify, BscScan/3xpl-style source/history routes, urlscan first-party captures, and the official X “three new Heroes” video. These were useful provenance/context checks but did not yield a stronger surviving numeric-ID table. The dead metadata host and pruned/blocked archival state are therefore **not** used to inflate confidence.
-
-## Runtime promotion rule
-
-`cards/1.png` … `cards/21.png` are exact copies of their mapped period files. No crop, resize, redraw, generative fill, or color alteration is allowed during promotion. `cards/unkown.png` remains the historical/fallback unknown-card asset and is not evidence for any Hero identity.
+Machine-readable final mapping: `research/hero-id-mapping/heroNameId-final.tsv`.

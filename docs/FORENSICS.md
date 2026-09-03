@@ -8,26 +8,30 @@
 - Price oracle: `0xD160bbDED5cFF79b126443EefCB28F3b67991140`
 - Randoms: `0xB81Cd7e88feAda830E7C1095909db3F5336d8664`
 
-EIP-1967 implementations recovered on 2026-09-01:
-- Core: `0x7e12cb515361e1fd2adac92018e70ac76019b07d`
-- Character: `0x3d833ffb8a19dda5e44fc34d5ab666fa24c6e9e6`
-- Oracle: `0x247e23bace48bba978466675e663afaad082cb69`
+Exact EIP-1967 implementations at the preserved frontend-capture block **12,730,607** (2021-11-17 19:08:02 UTC):
+- Core: `0x986a1820498a636939a0b80eb8d12014e5d70b58`
+- Character: `0x36bd26648ce81c1675dfa3bc640607a3ef0852f9`
+- Market: `0xade9b8d6bf3c220e7d8c9b3ed7caccd4584473f1`
+- Oracle: `0xbd002cfa9a942c7f3a5771056d2f1482621ce07f`
 
-## Recovered state
+Market changed from `0x894d...` to `0xade9...` at exact block **12,724,583** (2021-11-17 13:41:38 UTC), transaction `0x162f2c3e6122234aa382050c2786ca67721411295a759e9da780faa7d73c0f49`. See `research/contract-forensics/FRONTEND_CAPTURE_IMPLEMENTATIONS_20211117.md`.
+
+## Recovered state at the 17-Nov frontend capture
 - NFT name/symbol: `BNBHCharacter / BHC`
-- Total minted / maxHeroesCount: 309,732
+- `totalSupply=35,451`, `maxHeroesCount=35,450` at block 12,730,607.
 - 21 hero templates in storage.
-- Normal recruit table uses only templates 0–17 in the first 100 slots; templates 18–20 are absent from normal rolls.
-- Current 100-roll rarity mix from live state: Common 51, Uncommon 28, Rare 15, Epic 6, Legendary 0.
+- Exact launch-era 100-roll table includes all five rarities, including templates 18–20 once each.
+- Capture-block rarity mix: **Common 42, Uncommon 30, Rare 16, Epic 9, Legendary 3**.
 - Hero max HP 1000; regen 1 HP / 86 sec; recruit arrival delay 12h.
-- Enemy base chance: 700, 670, 630, 590, 550, 510, 280 (per 1000).
+- Enemy base chance: 700, 670, 630, 590, 550, 510, **400** (per 1000).
+- Base BNB rewards: `.003, .0036, .0042, .0048, .0054, .006, .024` BNB.
 - Enemy HP requirement: 200 for types 0–5, 400 for type 6.
-- Legacy metadata URI was `https://metadata.bnbheroes.io/token/<id>`; hostname no longer resolves.
+- Historical metadata URI is directly recovered as `https://metadata.bnbheroes.io/token/<id>.json`; hostname no longer resolves and no archived metadata body has been recovered.
 
 ## Hero identity evidence
 - `heroName=14`, template 13: **Arnulf of Esplin**, Rare Soldier, A600/D700/S400.
 - `heroName=18`, template 17: **Elrik the Imbuer**, Epic Rogue, A900/D500/S500.
-- Class IDs 1=Soldier and 3=Rogue are directly corroborated. IDs 2=Hunter, 4=Mage, 5=Knight follow the five-class ordering in surviving contemporary guides and remain to be independently corroborated.
+- Independent period calculator stats joined against the on-chain template arrays uniquely lock 17/21 literal identities. This corrects the former structural swap: **ID9=Lena**, **ID10=Sivalas Zefen**. IDs4/19/20/21 retain explicit non-direct confidence labels. See `research/hero-id-mapping/PROOF.md`.
 
 ## Source recovery
 The repository `neko1101/hardhat-proxy-bnbh-example` was created 2021-11-27 and contains Solidity source for BNBHero, BNBHCharacter, BNBHPool, BNBHPriceOracle, ChainlinkRandoms and BNBHeroToken. Its behavior and constants match live BSC transactions and contract state closely, although live state has later parameter updates.

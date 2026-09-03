@@ -17,6 +17,8 @@ assert.deepEqual(await provider.__rpc('eth_accounts'), [provider.__account]);
 
 const iface = new ethers.Interface([
   'function getCharacterPrice() view returns(uint256)',
+  'function getExpeditePrice() view returns(uint256)',
+  'function getTownUpgradePrices() view returns(uint256[])',
   'function getUnlockLevelPrice(uint256) view returns(uint256)',
   'function getHeroesByOwner(address,bool) view returns(tuple(uint256 name,uint256 heroType,uint256 xp,uint256 attack,uint256 armor,uint256 speed,uint256 hp,uint256 tokenId,uint256 arrivalTime,uint256 level,uint256 heroClass)[])',
   'function getCharactersForPage(uint256,uint256,uint256,uint256,uint256) view returns(tuple(uint256 name,uint256 heroType,uint256 xp,uint256 attack,uint256 armor,uint256 speed,uint256 hp,uint256 tokenId,address seller,uint256 price,uint256 level,uint256 heroClass)[])',
@@ -29,10 +31,15 @@ async function call(name, args=[], to=provider.__addresses.core) {
   return iface.decodeFunctionResult(name, encoded)[0];
 }
 
-// Exact 2021 oracle snapshot + verified immutable unlock formula.
-assert.equal((await call('getCharacterPrice', [], provider.__addresses.oracle)).toString(), '6900820431868022675263');
-assert.equal((await call('getUnlockLevelPrice', [0], provider.__addresses.oracle)).toString(), '184021878183147271340');
-assert.equal((await call('getUnlockLevelPrice', [10], provider.__addresses.oracle)).toString(), '257630629456406179876');
+// Exact historical Oracle state at the 17-Nov-2021 19:08:02 UTC frontend-capture block.
+assert.equal((await call('getCharacterPrice', [], provider.__addresses.oracle)).toString(), '270231622141575625279');
+assert.equal((await call('getExpeditePrice', [], provider.__addresses.oracle)).toString(), '27023162214157562527');
+const townPrices = await call('getTownUpgradePrices', [], provider.__addresses.oracle);
+assert.equal(townPrices[1].toString(), '67557905535393906319');
+assert.equal(townPrices[11].toString(), '90077207380525208426');
+assert.equal((await call('getUnlockLevelPrice', [0], provider.__addresses.oracle)).toString(), '7206176590442016674');
+assert.equal((await call('getUnlockLevelPrice', [1], provider.__addresses.oracle)).toString(), '7494423654059697341');
+assert.equal((await call('getUnlockLevelPrice', [10], provider.__addresses.oracle)).toString(), '10088647226618823343');
 
 const heroes = await call('getHeroesByOwner', [provider.__account, true]);
 assert.equal(heroes.length, 1);

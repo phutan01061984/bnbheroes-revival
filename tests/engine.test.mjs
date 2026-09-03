@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import {
   freshState,recruit,fight,heroTemplate,currentHp,heroCapacity,upgradeTown,
   moveToReserve,takeFromReserve,withdrawalTax,claimRewards,buyMarketHero,
-  unlockLevel,unlockLevelCost
+  unlockLevel,unlockLevelCost,unlockLevelPriceWei,recruitCost,expediteCost,townCost
 } from '../prototype/src/engine.js';
+import { LEGACY } from '../prototype/src/legacy-data.js';
 
 let s=freshState();
 assert.equal(s.version,2);
@@ -11,19 +12,33 @@ assert.equal(s.heroes[0].name,'Arnulf of Esplin');
 assert.equal(heroTemplate(17).name,'Elrik the Imbuer');
 const expectedHeroNames=[
   'Dayne of Gerston','Andin Olis','Torlov Branhart','Aelof Orstone','Jan Rhylen','Demisov the Bold',
-  'Esfel of Lordan','Reis of the Knife','Sivalas Zefen','Lena','Thalas One-Eye','Lady Ella of Tir',
+  'Esfel of Lordan','Reis of the Knife','Lena','Sivalas Zefen','Thalas One-Eye','Lady Ella of Tir',
   'Sir Bertrand','Arnulf of Esplin','Balen Fellwood','Helia Stormcall','Xegis Branfyre','Elrik the Imbuer',
   'Uriah the Sage','Sir Asten','Duke Duscair IV'
 ];
 assert.deepEqual(Array.from({length:21},(_,i)=>heroTemplate(i).name), expectedHeroNames);
 assert.ok(Array.from({length:21},(_,i)=>heroTemplate(i).name).every(name=>!name.startsWith('Lost Hero #')));
 assert.equal(heroCapacity(s),2);
+assert.equal(LEGACY.chainSnapshotBlock,12730607);
+assert.equal(LEGACY.chainSnapshotAt,'2021-11-17T19:08:02.000Z');
+assert.equal(LEGACY.character.baseChances[6],400);
+assert.equal(LEGACY.character.baseBNBRewards[6],24000000000000000);
+assert.deepEqual(LEGACY.character.requiredHps,[200,200,200,200,200,200,400]);
+const rarityDistribution=LEGACY.character.randomTable.reduce((out,template)=>{
+  const rarityId=LEGACY.character.heroTypes[template]; out[rarityId]=(out[rarityId]||0)+1; return out;
+},{});
+assert.deepEqual(rarityDistribution,{1:42,2:30,3:16,4:9,5:3});
+assert.ok(Math.abs(recruitCost()-270.2316221415756)<1e-9);
+assert.ok(Math.abs(expediteCost()-27.02316221415756)<1e-9);
+assert.ok(Math.abs(townCost(0,1)-67.5579055353939)<1e-9);
+assert.equal(unlockLevelPriceWei(1).toString(),'7494423654059697341');
+assert.equal(unlockLevelPriceWei(10).toString(),'10088647226618823343');
 
 const before=s.bnbh;
 s=recruit(s,()=>0);
 assert.ok(s.bnbh<before);
 assert.equal(s.heroes.length,2);
-assert.equal(s.heroes[1].template,2);
+assert.equal(s.heroes[1].template,4);
 assert.throws(()=>recruit(s,()=>0),/capacity/i);
 
 s=moveToReserve(s,1);

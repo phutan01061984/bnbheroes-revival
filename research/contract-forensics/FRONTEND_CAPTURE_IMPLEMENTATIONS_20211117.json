@@ -1,0 +1,29 @@
+{
+  "evidenceClass": "DIRECT_HISTORICAL_EIP1967_STORAGE_AND_TRANSACTION",
+  "frontendCapture": {
+    "block": 12730607,
+    "timestamp": "2021-11-17T19:08:02.000Z",
+    "implementationSlot": "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc",
+    "implementations": {
+      "core": "0x986a1820498a636939a0b80eb8d12014e5d70b58",
+      "character": "0x36bd26648ce81c1675dfa3bc640607a3ef0852f9",
+      "market": "0xade9b8d6bf3c220e7d8c9b3ed7caccd4584473f1",
+      "oracle": "0xbd002cfa9a942c7f3a5771056d2f1482621ce07f"
+    }
+  },
+  "marketUpgradeImmediatelyBeforeCapture": {
+    "previousImplementation": "0x894d347281918c5307eb2e31ebb7d39a2f298be2",
+    "lastPreviousBlock": 12724582,
+    "firstNewBlock": 12724583,
+    "timestamp": "2021-11-17T13:41:38.000Z",
+    "transactionHash": "0x162f2c3e6122234aa382050c2786ca67721411295a759e9da780faa7d73c0f49",
+    "from": "0x79687e28c543e8ec6f1b3fcc779f83a791279f68",
+    "proxyAdmin": "0xa6f76a3f9a42b184caf05eb14d45c9d3c842e1ff",
+    "selector": "0x99a88ec4",
+    "decodedCall": "upgrade(address proxy,address implementation)",
+    "proxy": "0x5cffca0321b83dc873bd2439ae7fea10ae163fac",
+    "newImplementation": "0xade9b8d6bf3c220e7d8c9b3ed7caccd4584473f1",
+    "receiptStatus": "0x1",
+    "upgradedEventTopic0": "0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b"
+  }
+}

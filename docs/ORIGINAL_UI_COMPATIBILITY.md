@@ -59,21 +59,24 @@ The addresses are preserved so the original Web3 contract objects and ABI routin
 
 ## Oracle fidelity
 
-Read-only calls to the exact legacy oracle on 2026-09-03 matched the stored snapshot for:
-- `getCharacterPrice = 6900820431868022675263`
-- `getExpeditePrice = 690082043186802267526`
-- the full 16-entry `getTownUpgradePrices`
-- `getTokenPrice = 23002734772893408917546`
+The preservation Oracle is now pinned to the exact historical state aligned with the frontend capture: BSC block **12,730,607**, 2021-11-17 19:08:02 UTC. Direct archive calls recover:
+- `getCharacterPrice = 270231622141575625279`
+- `getExpeditePrice = 27023162214157562527`
+- the full 16-entry capture-time `getTownUpgradePrices`
+- `bnbhPrice = 900772073805252084266`
 - `basePriceToUnlockInBNB = 8000000000000000`
 - `unlockRate = 4`
 
 `getUnlockLevelPrice(level)` is reproduced exactly with integer arithmetic:
 
-`getTokenPrice * basePriceToUnlockInBNB * (100 + unlockRate * level) / 1e20`
+`bnbhPrice * basePriceToUnlockInBNB * (100 + unlockRate * level) / 1e20`
 
-Examples verified against the live read-only legacy oracle:
-- level 0: `184021878183147271340`
-- level 10: `257630629456406179876`
+The launch-era Oracle implementation reverts for `getTokenPrice()`; that selector belongs to a later implementation and is deliberately not used by the preservation runtime. Examples verified directly at the capture block:
+- level 0: `7206176590442016674`
+- level 1: `7494423654059697341`
+- level 10: `10088647226618823343`
+
+The untouched Hero components pass the **current Hero level** into `getUnlockLevelPrice(level)` and render `Unlock LV. level+1`, so the local provider and simulator use the same semantics.
 
 No live oracle is required at runtime; these inputs come from `prototype/src/legacy-data.js`.
 

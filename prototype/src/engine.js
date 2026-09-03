@@ -77,6 +77,15 @@ export function expediteCost() { return fromWei(LEGACY.oracle.getExpeditePrice);
 export function townCost(type,nextLevel) {
   const idx=type*4+nextLevel; return fromWei(LEGACY.oracle.getTownUpgradePrices[idx]);
 }
+export function unlockLevelPriceWei(level) {
+  // Directly mirrors launch-era Oracle.getUnlockLevelPrice(level) at the
+  // 17-Nov-2021 frontend-capture block. bnbhPrice is BNBH-per-BNB in wei,
+  // basePriceToUnlockInBNB is BNB in wei, and unlockRate is percent/level.
+  const price=BigInt(LEGACY.oracle.bnbhPrice);
+  const base=BigInt(LEGACY.oracle.basePriceToUnlockInBNB);
+  const rate=BigInt(LEGACY.oracle.unlockRate);
+  return price*base*(100n+rate*BigInt(level))/(10n**20n);
+}
 
 export function recruit(state, rng=Math.random, now=Date.now()) {
   if(state.heroes.length>=heroCapacity(state)) throw Error('Town Inn capacity reached. Upgrade it or move a hero to Reserves.');
@@ -125,8 +134,9 @@ export function fight(state, tokenId, enemyType, rng=Math.random, now=Date.now()
 }
 
 export function unlockLevelCost(state, tokenId) {
-  const earned=Math.max(0.01,state.heroLevelRewards?.[tokenId]||0);
-  return earned * fromWei(LEGACY.oracle.getTokenPrice) * 0.20;
+  const hero=[...(state.heroes||[]),...(state.reserve||[])].find(h=>h.tokenId===tokenId);
+  if(!hero) throw Error('Hero not found');
+  return Number(unlockLevelPriceWei(hero.level))/WAD;
 }
 
 export function unlockLevel(state, tokenId) {

@@ -1,6 +1,6 @@
 # BNB HEROES Media Recovery Status
 
-Last updated: 2026-09-03 — final Town/Fight browser-certification checkpoint.
+Last updated: 2026-09-03 — Town/Fight certification + historical-state/Hero-ID deep-fidelity checkpoint.
 
 This ledger distinguishes **direct original bytes**, **period-original bytes**, **period-derived reconstruction**, and **creative reconstruction**. Do not collapse those provenance classes.
 
@@ -17,12 +17,12 @@ Numeric identity confidence is documented at:
 - `research/hero-id-mapping/PROOF.md`
 - `research/hero-id-mapping/heroNameId-final.tsv`
 
-Direct numeric anchors:
+Direct numeric anchors retained from earlier forensic evidence:
 
 - heroNameId 14 = Arnulf of Esplin
 - heroNameId 18 = Elrik the Imbuer
 
-The other 19 IDs are high-confidence structural mappings. The recovered GitBook has an ordered 18-Hero drop-rate roster. The preserved 21-ID rarity array becomes an exact position-for-position match to that roster when IDs 10/14/18 are removed. Official period material says three new Heroes were added; 14/18 are the direct Arnulf/Elrik anchors, leaving ID10 for Lena. Artwork identities/rarities are additionally checked against period/official imagery using SIFT/RANSAC.
+The identity proof has since been strengthened substantially. Direct Character template arrays expose 21 numeric slots and an independent period calculator commit dated 2021-12-06 supplies literal Hero names plus base Attack/Armor/Speed triples. Unique stat joins lock **17/21 identities** independently, including a correction to the earlier structural inference: **heroNameId 9 = Lena** and **heroNameId 10 = Sivalas Zefen**. IDs4/19/20/21 retain explicit `HIGH_*` confidence labels because their surviving evidence is complete-set/class/order structural rather than a unique literal stat join. See `research/hero-id-mapping/PROOF.md` and `research/hero-id-mapping/onchain/PERIOD_STAT_JOIN_PROOF.md`.
 
 `cards/unkown.png` retains the historical fallback spelling and is not used as a mapped Hero card.
 
@@ -96,12 +96,14 @@ Further searches also covered exact page titles/IDs, old `bnbheroes.xyz` paths, 
 
 ## Validation
 
-`npm run check:all` currently asserts:
+`npm run forensics:all` currently asserts:
 
 - all 21 mapped cards exist;
 - each is byte-identical to its archived period source;
 - none equals `cards/unkown.png`;
 - direct anchors 14=Arnulf and 18=Elrik remain fixed;
+- period-stat correction ID9=Lena / ID10=Sivalas remains fixed and all 21 runtime cards remain byte-identical to their mapped period sources;
+- offline gameplay state stays pinned to BSC block 12,730,607 (2021-11-17 19:08:02 UTC), including the launch rarity distribution, Zangrief chance/rewards and capture-time Oracle values;
 - all referenced static media exists;
 - preservation provider contains no live BSC/Infura RPC endpoint;
 - signing/raw-transaction methods remain blocked;
@@ -114,7 +116,7 @@ The native 2021 UI is browser-certified on the Vercel restoration preview across
 The project is functionally restored and the major missing-media queue is closed. The remaining material uncertainty is narrow:
 
 1. `fight.42bbd04e.png` is a **period-pixel reconstruction**, not byte-identical original hashed media; direct archive recovery of the hash remains exhausted.
-2. Hero numeric IDs 14/18 are direct; the other 19 are high-confidence structural reconstruction, not a surviving metadata-table dump.
+2. There is still no surviving literal metadata-table dump. Seventeen IDs are independently locked by unique period-stat joins, IDs14/18 additionally retain direct anchors, and IDs4/19/20/21 remain explicitly non-direct structural/class/complete-set assignments.
 3. Several other runtime assets are period-derived reconstructions rather than byte-identical hashed originals; each is explicitly labeled above/provenance docs.
 
 Do not reopen solved items merely because the exact hashed client byte was not recovered; reopen only when a new source can materially improve provenance/fidelity.
