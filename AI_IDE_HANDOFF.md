@@ -1656,3 +1656,32 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 - Preservation verifier now requires the active Fight SHA-256 `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa`, requires the superseded creative SHA `158f9f06f9f5720f884d97bd954fbea2029034a2b79c81405fc868a515791bf0` to remain only in archive, enforces LOO segmentation mean IoU >=0.95 / min >=0.94, and enforces final period-frame photometric thresholds.
 - Current recovery docs/task ledger/provenance have been updated to label Fight `RECONSTRUCTED_FROM_PERIOD_PIXELS`; direct original hashed bytes remain unavailable.
 - Fight promotion is now eligible for a protected commit. Immediate next action: stage only curated runtime/proof/docs/verifier/backup files, commit on `restoration/native-ui-20260903`, push the restoration branch, then wait for Vercel Git preview redeploy and run fresh HTTPS browser regression.
+
+### Live sub-checkpoint — Fight period reconstruction committed
+- Protected Fight commit: `dba6d7f` (`Restore Fight button from period pixels`) on local branch `restoration/native-ui-20260903`.
+- Commit contains only curated runtime/proof/docs/verifier/creative-backup files; large raw video/CV research caches were intentionally not staged.
+- Preceding protected Town commits are `219796a` (L2/L3), `c2b5316` (L4), and `23071e2` (canonical geometry correction).
+- Immediate next action: push `restoration/native-ui-20260903` to origin (fast-forward only), then wait for the Git-integrated Vercel preview alias to redeploy and run fresh HTTPS browser regression. Do not force-push remote `main`.
+
+### Live sub-checkpoint — pushed branch preview serves Town + Fight bytes
+- `origin/restoration/native-ui-20260903` now points at `dba6d7f6d7317f5268eec2df908bd5d42ccf07b3` after a normal fast-forward push; remote `main` was not touched.
+- The Git-integrated Vercel branch preview is reachable at `https://bnbheroes-revival-git-restoration-nati-89e999-phu-tans-projects.vercel.app/` through the authenticated Browser Host session.
+- Browser-side no-cache fetch proves the preview is serving the new Fight runtime bytes: 569,720 bytes, SHA-256 `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa`, HTTP 200 `image/png`.
+- Representative canonical Town assets for Level 2/3/4 and upgrade previews also return HTTP 200 `image/png` with the new non-fallback byte sizes/hashes (Bank L2/L3/L4 plus `townselect/1-2..4` were checked). Therefore this HTTPS preview is the new Town/Fight deployment, not the older Hero-only checkpoint.
+- Immediate next action: run fresh HTTPS browser regression on this exact preview: Town Upgrade previews/full layers through L2→L3→L4, Fight/result/Boss smoke, Hero/Recruit smoke, and responsive/mobile smoke; capture evidence and update `research/browser-regression/REPORT_2026-09-03.md` before final certification commit.
+
+### Final browser certification — Town/Fight restoration preview PASSED
+- Certified preview: `https://bnbheroes-revival-git-restoration-nati-89e999-phu-tans-projects.vercel.app/` on branch `restoration/native-ui-20260903`, with remote/runtime Fight restoration head `dba6d7f6d7317f5268eec2df908bd5d42ccf07b3` before this documentation-only certification commit.
+- Deployment bytes were positively identified before regression: Fight SHA-256 `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa` plus promoted Town L2/L3/L4 and town-select assets returned HTTP 200 image bytes from the HTTPS preview.
+- Fresh Town browser flow PASSED through Bank L1 -> L2 -> L3 -> L4 using the original React/local-Web3 handler. Modal previews advanced `townselect/1-2 -> 1-3 -> 1-4`; full town layers advanced `towns/1-2 -> 1-3 -> 1-4`.
+- Fresh Fight browser flow PASSED: promoted Fight period-pixel button opened `/fight/-1`; Basic Enemy fight produced the native RESULT modal; Boss tab rendered Zangrief with historical text and values (46% displayed chance for QA hero, 400 HP, 0.024 BNB, 400 XP).
+- My Heroes smoke PASSED with recovered Hero #0/card/stats/actions. Home Recruit smoke PASSED: original modal opened and displayed a 6900 BNBH recruit price. No extra recruit transaction was executed in the final certification pass.
+- Responsive smoke PASSED with a genuine Android mobile UA and CDP device metrics 390x844 on Home, My Heroes and Fight. Each page reported document/body scroll width exactly 390 (no horizontal overflow).
+- QA state was isolated and then restored exactly from `sessionStorage.__qa_backup_bnbh`: regression state before restore was ~993674 BNBH, Bank L4 (`towns[0]=3`), two battles, stored HP 800; restored save is 20000 BNBH, towns `[0,0,0,0]`, one prior battle, stored HP 870. Equality check against the backup string returned true; QA backup key was deleted afterward. Browser UA/device metrics were returned to the original desktop Mac Chrome profile.
+- Final report: `research/browser-regression/REPORT_2026-09-03.md`. Eight small compressed final review screenshots are curated under `research/browser-regression/evidence/`; full PNG captures remain intentionally untracked local artifacts.
+- Immediate next action: run `npm run check:all`; if PASS, stage only this handoff/report plus the eight compressed final review JPGs, create a small certification commit, push `restoration/native-ui-20260903` normally (no force, do not touch `main`), then verify remote branch head.
+
+### Final certification test gate PASSED
+- After the complete HTTPS regression and exact QA-save restore, `npm run check:all` PASSED again: syntax checks, preservation verification, engine tests, and local-provider tests.
+- Final certification commit should include only `AI_IDE_HANDOFF.md`, `research/browser-regression/REPORT_2026-09-03.md`, and the eight compressed `research/browser-regression/evidence/2026-09-03-final-*.jpg` review images. Raw full-resolution browser PNGs and bulk research caches remain local/untracked by design.
+- Next action: create the small certification commit, push `restoration/native-ui-20260903` normally, and verify local/remote branch heads match. Do not touch `main`.
