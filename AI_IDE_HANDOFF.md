@@ -1684,4 +1684,5 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 ### Final certification test gate PASSED
 - After the complete HTTPS regression and exact QA-save restore, `npm run check:all` PASSED again: syntax checks, preservation verification, engine tests, and local-provider tests.
 - Final certification commit should include only `AI_IDE_HANDOFF.md`, `research/browser-regression/REPORT_2026-09-03.md`, and the eight compressed `research/browser-regression/evidence/2026-09-03-final-*.jpg` review images. Raw full-resolution browser PNGs and bulk research caches remain local/untracked by design.
-- Next action: create the small certification commit, push `restoration/native-ui-20260903` normally, and verify local/remote branch heads match. Do not touch `main`.
+- Certification commit `0935796` (`Certify restored Town and Fight preview`) was pushed normally to `origin/restoration/native-ui-20260903`; local and remote heads matched exactly after push. Tracked working tree was clean; raw full-resolution browser PNGs and bulk research caches remain local/untracked by design. `origin/main` was not touched.
+- Restoration/certification is complete at this checkpoint. Reopen archaeology only if genuinely stronger original-period evidence appears; otherwise preserve the verified runtime/provenance rather than replacing it speculatively.
