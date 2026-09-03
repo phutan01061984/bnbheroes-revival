@@ -1,0 +1,32 @@
+{
+  "source": "research/media_hunt/legacy-domains/assets/Level-4.png",
+  "period_video": "IKhejV19gHI 2021-11-21",
+  "period_frame_relative_seconds": 13,
+  "sift_good": 726,
+  "ransac_inliers": 625,
+  "homography": [
+    [
+      0.37788242657698823,
+      -0.0004369366169486204,
+      1282.4804302431287
+    ],
+    [
+      -5.153024878498752e-05,
+      0.374400941468067,
+      140.7079985913725
+    ],
+    [
+      -1.672532123843589e-07,
+      -2.805947772243672e-07,
+      1.0
+    ]
+  ],
+  "bbox": [
+    1283,
+    141,
+    1920,
+    721
+  ],
+  "validation_opaque_pixels": 261635,
+  "validation_mae": 36.75662787216287
+}

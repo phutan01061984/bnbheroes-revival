@@ -1550,3 +1550,40 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 - `fulltown-L4-rel13.png` is 1920×1080 but is NOT pixel-coordinate-identical to the runtime town canvas. SIFT/RANSAC against runtime `towns/background.jpg` gives ~76 inliers with a transform close to X=1.00, Y=0.874 plus ~98 px vertical translation; `towns/objects.png` independently gives ~82 inliers and Y=0.872 plus ~99 px translation.
 - Therefore the earlier `3-4.png` candidate, whose bbox is expressed in video-frame coordinates, must NOT be promoted directly. Correct method is: estimate runtime→frame geometry from original background/objects, inverse-warp the period L4 frame to canonical runtime coordinates, then reconstruct/promote layers there.
 - This correction is now the active Level 4 plan.
+
+### Live sub-checkpoint — Git branch safety corrected
+- Town L2/L3 checkpoint commit: `219796a` (`Restore Town level 2 and 3 upgrade media`).
+- That commit was initially created while the only local branch was named `main`, but **it was not pushed to remote main**.
+- Local branch `restoration/native-ui-20260903` has now been recreated at `219796a`; local `main` was reset to track `origin/main` at `a0069ba`.
+- Continue all restoration work and future pushes from `restoration/native-ui-20260903`; do not force-push `main`.
+
+### Live sub-checkpoint — Level 4 canonical reconstruction candidate validated
+- Corrected canonical Level 4 candidates are under `research/media_hunt/town-layers-reconstruction/level4-canonical/`.
+- Barracks (`3-4`) is reconstructed from the surviving first-party WordPress `Level-4.png`, placed by source→period-frame homography and then inverse scene geometry into runtime coordinates. Runtime bbox candidate: x=1282..1919, y=49..713.
+- Bank/Inn/Training (`1-4`, `2-4`, `4-4`) use visible pixels from the 21-Nov-2021 period gameplay frame after inverse scene warp and calibrated background subtraction. Segmentation parameters were calibrated against exact Barracks alpha (visible IoU ≈0.85, precision ≈0.90, recall ≈0.94). Only truly occluded areas retain Level-3 pixels as explicitly documented fallback; no invented drawing is used.
+- Candidate full-town composite validation against the canonicalized period frame improves MAE from 28.10 (background-only baseline) to 7.28; median error is 0.0 over the building-support validation field.
+- Candidate files are NOT yet promoted to runtime until Level-4 preview derivation + final verifier pass are complete.
+
+### Live sub-checkpoint — Level 4 townselect previews reconstructed and validated
+- `townselect/*-4` candidate previews are now derived reproducibly from the canonical full-town Level 4 candidates by inverse of the saved Level-3 preview→full placement homographies. This derivation was independently validated on Levels 2/3, where inverse-warping full-town layers reproduces the recovered previews at alpha IoU ~0.95–1.00 and RGB MAE ~0.1–0.4.
+- Level-4 preview candidates: `research/media_hunt/town-layers-reconstruction/level4-canonical/{1,2,3,4}-4-preview-candidate.png`.
+- Machine-readable proof: `level4-canonical/TOWNSELECT_L4_PROOF.json`.
+- Forward round-trip alpha IoU back into full-town coordinates: Bank 0.9140, Inn 0.9540, Barracks 0.9322, Training 0.9433. RGB MAE on overlap is ~4.6–5.2 for Bank/Inn/Training; Barracks ~13.5 because its first-party source color/alpha is cleaner than the compressed video reference.
+- Off-canvas-only Level-3 fallback pixels: Bank 1,867; Inn 914; Barracks 755; Training 0. The fallback is used only where preview coordinates map outside the 1920×1080 town canvas and therefore cannot be observed/reconstructed from the full-town period frame.
+- No sufficiently clean/direct Level-4 upgrade-modal frame was found in the 21-Nov walkthrough, so these previews must be labeled `PERIOD_DERIVED_RECONSTRUCTION`, not byte-identical originals.
+- Next action: backup the eight runtime Level-4 transparent fallbacks, promote 4 full-town + 4 preview candidates, extend preservation verifier, and run `npm run check:all` before committing.
+
+### Live sub-checkpoint — Level 4 promoted to runtime + verifier lock added
+- Backed up the eight former transparent Level-4 fallbacks under `archive/pre-town-level4-recovery-20260903/`.
+- Promoted all 4 canonical full-town Level-4 candidates to `towns/{1,2,3,4}-4.png`.
+- Promoted all 4 derived Level-4 upgrade previews to `townselect/{1,2,3,4}-4.png`.
+- Added `research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256`, covering all 24 Town recovery artifacts: 12 full-town layers for Levels 2–4 and 12 upgrade previews for Levels 2–4.
+- Extended `scripts/verify-preservation.mjs` to require all Town layers/previews, verify their SHA-256 hashes, and fail if any Level 2–4 recovery file regresses to a <=573-byte transparent fallback.
+- Runtime L4 dimensions are now correct: full-town 1920×1080 RGBA; upgrade previews 250×250 RGBA.
+- This checkpoint is written before the full verifier/test run. If interrupted, next action is `npm run check:all`; only commit L4 if it passes.
+
+### Live sub-checkpoint — Level 4 runtime verification PASSED
+- `npm run check:all` PASSED after Level-4 promotion.
+- Preservation verification now enumerates all `towns/1-1..4-4`, all used `townselect/*-2..4`, validates the 24-entry Town recovery SHA-256 manifest, and rejects <=573-byte fallback regressions.
+- Engine tests and local provider tests still PASS; Town media integration did not alter Web3 safety/gameplay logic.
+- Level-4 is now eligible to commit as its own protected checkpoint before Fight-icon archaeology.

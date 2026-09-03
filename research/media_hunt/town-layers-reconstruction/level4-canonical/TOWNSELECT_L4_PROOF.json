@@ -1,0 +1,130 @@
+{
+  "1": {
+    "method": "inverse_level3_preview_to_full_homography",
+    "source_full": "towns/1-4.png",
+    "placement_H3": [
+      [
+        2.933593716278391,
+        0.5787285403281147,
+        676.7876674386857
+      ],
+      [
+        -0.0026108830032513797,
+        3.2614213037114705,
+        -139.80869148801997
+      ],
+      [
+        5.07898979625264e-06,
+        0.000786839280457639,
+        1.0
+      ]
+    ],
+    "offcanvas_L3_fallback_pixels": 1867,
+    "alpha_pixels": 39954,
+    "bbox": [
+      0,
+      0,
+      250,
+      250
+    ],
+    "forward_roundtrip_alpha_iou": 0.9140161204691315,
+    "forward_roundtrip_rgb_mae_on_overlap": 4.611750432186075,
+    "source_note": "runtime file is the promoted canonical Level-4 candidate used for this inverse-homography derivation"
+  },
+  "2": {
+    "method": "inverse_level3_preview_to_full_homography",
+    "source_full": "towns/2-4.png",
+    "placement_H3": [
+      [
+        3.43421467635253,
+        -0.027287870118325695,
+        3.367167413754312
+      ],
+      [
+        0.009126389035405594,
+        3.4631564605574665,
+        -55.63840845076409
+      ],
+      [
+        1.4889679286316327e-05,
+        -6.34790452830695e-05,
+        1.0
+      ]
+    ],
+    "offcanvas_L3_fallback_pixels": 914,
+    "alpha_pixels": 35916,
+    "bbox": [
+      0,
+      0,
+      250,
+      250
+    ],
+    "forward_roundtrip_alpha_iou": 0.9539572437548368,
+    "forward_roundtrip_rgb_mae_on_overlap": 5.217681553780934,
+    "source_note": "runtime file is the promoted canonical Level-4 candidate used for this inverse-homography derivation"
+  },
+  "3": {
+    "method": "inverse_level3_preview_to_full_homography",
+    "source_full": "towns/3-4.png",
+    "placement_H3": [
+      [
+        2.5117028669963255,
+        -0.10851313451420531,
+        1287.7662326488542
+      ],
+      [
+        0.0018867353885508864,
+        2.672350910031402,
+        -40.89320370498631
+      ],
+      [
+        -3.5842985274482392e-06,
+        -7.577698349363549e-05,
+        0.9999999999999999
+      ]
+    ],
+    "offcanvas_L3_fallback_pixels": 755,
+    "alpha_pixels": 41452,
+    "bbox": [
+      0,
+      0,
+      250,
+      250
+    ],
+    "forward_roundtrip_alpha_iou": 0.9322281380825347,
+    "forward_roundtrip_rgb_mae_on_overlap": 13.471762543611163,
+    "source_note": "runtime file is the promoted canonical Level-4 candidate used for this inverse-homography derivation"
+  },
+  "4": {
+    "method": "inverse_level3_preview_to_full_homography",
+    "source_full": "towns/4-4.png",
+    "placement_H3": [
+      [
+        3.601698242137732,
+        -0.2904085142653758,
+        1235.7599453674097
+      ],
+      [
+        0.4692600508382961,
+        2.7040753931958683,
+        360.04305306257726
+      ],
+      [
+        0.00046239314373377067,
+        -0.00015469226384863812,
+        1.0
+      ]
+    ],
+    "offcanvas_L3_fallback_pixels": 0,
+    "alpha_pixels": 31077,
+    "bbox": [
+      4,
+      12,
+      250,
+      250
+    ],
+    "forward_roundtrip_alpha_iou": 0.9432786641561749,
+    "forward_roundtrip_rgb_mae_on_overlap": 5.041923655523308,
+    "source_note": "runtime file is the promoted canonical Level-4 candidate used for this inverse-homography derivation"
+  }
+}

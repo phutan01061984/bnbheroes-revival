@@ -1,0 +1,71 @@
+{
+  "4": {
+    "method": "period_video_canonical_background_subtraction_calibrated_on_exact_barracks",
+    "strong_threshold": 14,
+    "weak_threshold": 12,
+    "dilation_px": 20,
+    "close_kernel": 11,
+    "visible_period_pixels": 232590,
+    "hidden_L3_fallback_pixels": 0,
+    "alpha_pixels": 232590,
+    "bbox": [
+      1230,
+      409,
+      1920,
+      1080
+    ]
+  },
+  "2": {
+    "method": "period_video_canonical_background_subtraction_calibrated_on_exact_barracks",
+    "strong_threshold": 14,
+    "weak_threshold": 12,
+    "dilation_px": 20,
+    "close_kernel": 11,
+    "visible_period_pixels": 409565,
+    "hidden_L3_fallback_pixels": 19268,
+    "alpha_pixels": 428833,
+    "bbox": [
+      0,
+      0,
+      870,
+      959
+    ]
+  },
+  "1": {
+    "method": "period_video_canonical_background_subtraction_calibrated_on_exact_barracks",
+    "strong_threshold": 14,
+    "weak_threshold": 12,
+    "dilation_px": 20,
+    "close_kernel": 11,
+    "visible_period_pixels": 253410,
+    "hidden_L3_fallback_pixels": 32424,
+    "alpha_pixels": 285834,
+    "bbox": [
+      682,
+      0,
+      1384,
+      648
+    ]
+  },
+  "3": {
+    "method": "FIRST_PARTY_LEVEL4_SOURCE_warped_via_period_frame_then_inverse_scene_geometry",
+    "source": "research/media_hunt/legacy-domains/assets/Level-4.png",
+    "alpha_pixels": 300902,
+    "bbox": [
+      1282,
+      49,
+      1920,
+      714
+    ]
+  },
+  "_validation": {
+    "period_frame": "research/media_hunt/town-layers-reconstruction/fulltown-L4-rel13.png",
+    "canonical_frame": "level4-canonical/frame-canonical-color.png",
+    "mask_pixels": 1321644,
+    "background_only_MAE": 28.098953777769704,
+    "candidate_composite_MAE": 7.278304899049971,
+    "background_only_median": 22.666666666666668,
+    "candidate_composite_median": 0.0,
+    "note": "B1/B2/B4 visible pixels are period-video reconstructions; occluded regions use L3 only. B3 is first-party Level-4 source. Screenshot is video-compressed/photometrically transformed, so validation is geometric/relative rather than byte identity."
+  }
+}

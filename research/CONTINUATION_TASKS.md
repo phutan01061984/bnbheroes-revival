@@ -76,3 +76,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [ ] Recover/validate/promote `townselect/*-4`.
 - [ ] Re-audit Fight icon provenance; keep explicit creative-reconstruction status unless period pixels are actually recovered.
 - [ ] Re-run full checks, commit/push restoration branch, redeploy Vercel preview, and browser-smoke the new Town build.
+- [x] Reconstruct/validate Level-4 preview candidates from canonical full-town candidates; round-trip IoU 0.914–0.954, with only off-canvas Level-3 fallback pixels.
+- [x] Backup former L4 transparent fallbacks and promote all 4 full-town + all 4 Level-4 preview reconstruction candidates to runtime.
+- [x] Add SHA-256 regression manifest/verifier for all 24 Town Level 2–4 runtime recovery assets.
+- [x] Run full check after Level-4 promotion — PASS (preservation + engine + provider).

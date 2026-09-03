@@ -11,13 +11,34 @@ for (const p of [
   'static/css/2.f4c56af9.chunk.css','static/css/main.433e3d53.chunk.css',
   'static/media/Village.64091b0b.jpg','static/media/myheroes-bg.3c5effac.jpg',
   'backgrounds/village.jpg','backgrounds/market.jpg','backgrounds/myheroes-bg.jpg','backgrounds/battlelog-bg.jpg',
-  'towns/background.jpg','towns/objects.png','towns/1-1.png','towns/2-1.png','towns/3-1.png','towns/4-1.png',
+  'towns/background.jpg','towns/objects.png',
+  ...Array.from({length:4},(_,b)=>Array.from({length:4},(_,l)=>`towns/${b+1}-${l+1}.png`)).flat(),
+  ...Array.from({length:4},(_,b)=>Array.from({length:3},(_,l)=>`townselect/${b+1}-${l+2}.png`)).flat(),
+  'research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256',
+  'research/media_hunt/town-layers-reconstruction/level4-canonical/PROOF.json',
+  'research/media_hunt/town-layers-reconstruction/level4-canonical/TOWNSELECT_L4_PROOF.json',
   ...Array.from({length:21},(_,i)=>`cards/${i+1}.png`),'cards/unkown.png',
   'research/hero-id-mapping/heroNameId-final.tsv','research/hero-id-mapping/PROOF.md',
   'enemies/1.png','enemies/5.png','enemies/6.png','enemies/7.png',
   'prototype/index.html','gitbook/index.html',
   'archive/original-20211117/SHA256SUMS','AI_IDE_HANDOFF.md'
 ]) exists(p);
+
+
+// Town recovery checkpoint: Levels 2–4 and their Upgrade previews must match the evidence-backed runtime manifest.
+const townManifest = fs.readFileSync('research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256','utf8').trim().split(/\r?\n/).filter(Boolean);
+const crypto = await import('node:crypto');
+for (const line of townManifest) {
+  const m = line.match(/^([0-9a-f]{64})\s+(.+)$/);
+  if (!m) { fail(`invalid Town recovery hash line: ${line}`); continue; }
+  const [,expected,path] = m;
+  if (!fs.existsSync(path)) { fail(`Town recovery asset missing: ${path}`); continue; }
+  const got = crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex');
+  if (got === expected) ok(`Town recovery asset preserved: ${path}`); else fail(`Town recovery asset changed: ${path}`);
+  if (fs.statSync(path).size <= 573) fail(`Town recovery asset regressed to transparent fallback: ${path}`);
+}
+if (townManifest.length === 24) ok('Town recovery manifest covers 12 full-town + 12 upgrade-preview assets');
+else fail(`Town recovery manifest has ${townManifest.length}/24 entries`);
 
 
 // Hero-card promotion must remain byte-identical to the archived period art and must never regress to the generic fallback.
