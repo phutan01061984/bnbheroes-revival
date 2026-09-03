@@ -1,0 +1,12 @@
+{
+  "status": "promoted-first-party-derivative",
+  "source": "GitBook first-party asset Level 1 Skull Enemies.jpg (-Mi_gcZufvqd-4HHp5vW), corroborated against earlier first-party 4000x2070 a.jpg",
+  "runtime_contract": "original 2021-11-17 bundle loads /enemies/{te[A].type}.png with te types 1,2,3 for Red Skull 1/2/3",
+  "mapping": {
+    "1": "tier1/1.png (left character in original first-party 3-character sheet)",
+    "2": "tier1/2.png (center character)",
+    "3": "tier1/3.png (right character)"
+  },
+  "evidence": "SIFT homography maps tier1 crops to centers x≈647,1980,3342 in the earlier 4000x2070 first-party source, proving left-to-right order. Crops are derived from period-original first-party media, not invented art.",
+  "remaining": "types 4-6 have first-party Tier-2 sheet/crops but exact Archer/Assasin/Mage visual mapping still requires independent proof; type 7 Zangrief art still unresolved."
+}

@@ -1196,3 +1196,195 @@ At this exact checkpoint:
 - the old first-party video is confirmed but frame extraction is NOT finalized,
 - latest discoveries have NOT yet been fully deployed to production,
 - next session should continue from the ordered action list above, not restart research.
+
+## Progress update — 2026-09-03 (continued recovery)
+
+### Enemy runtime contract recovered from period-original bundle
+- Original `archive/original-20211117/static/js/main.5e2ca500.chunk.js` contains the exact 7-entry enemy table:
+  - type 1 `Red Skull 1` — success 70, reward .003, XP 100, HP 200
+  - type 2 `Red Skull 2` — 67, .0036, 110, 200
+  - type 3 `Red Skull 3` — 63, .0042, 120, 200
+  - type 4 `Red Skull Archer` — 59, .0048, 130, 200
+  - type 5 `Red Skull Assasin` — 55, .0054, 150, 200
+  - type 6 `Red Skull Mage` — 51, .006, 200, 200
+  - type 7 `Zangrief` — 40, .024, 400, 400
+- Same bundle proves runtime path is `/enemies/` + `type` + `.png`; Tier-1 carousel indexes 0..2, Tier-2 3..5, boss index 6.
+
+### Enemy 1/2/3 promoted to runtime (first-party derivatives)
+- GitBook first-party `Level 1 Skull Enemies.jpg` contains exactly 3 Tier-1 characters.
+- The recovered crops `segmentation/tier1/{1,2,3}.png` were independently matched back to the earlier first-party 4000x2070 `a.jpg` via SIFT/RANSAC. Their centers are x≈647, 1980, 3342, proving left→center→right ordering.
+- Therefore runtime mapping is now evidence-backed: `enemies/1.png` = left, `2.png` = center, `3.png` = right.
+- Old identical placeholder files were preserved under `research/media_hunt/derivatives/enemies/placeholder-backup-{1,2,3}.png`.
+- Proof record updated at `research/media_hunt/derivatives/enemies/PROOF.json`.
+
+### Remaining enemy blocker
+- First-party Tier-2 sheet and three clean crops are recovered, but exact crop→type mapping for Archer/Assasin/Mage is not yet independently proven. Do not overwrite 4/5/6 until proof is found.
+- Type 7 Zangrief runtime art remains unresolved.
+
+### Barracks investigation correction
+- `research/media_hunt/legacy-domains/assets/Level-1.png` and `Level-4.png` are valid 1700x1549 alpha PNGs; similarly named `critical/` copies are truncated.
+- They are strong period first-party Barracks-related candidates, but dimensions/composition do not directly match the 1920x1080 `/towns/{type}-{level}.png` layers. Do not promote without geometric/source proof.
+
+## Progress update — 2026-09-03 enemy + Barracks milestone
+
+### Enemy mapping is now locked
+
+- Tier 1: runtime types 1/2/3 = first-party GitBook Level-1 sheet left/middle/right.
+- Tier 2:
+  - type 4 Red Skull Archer = left. Original `/enemies/4.png` direct SIFT match gives 59/63 inliers (earlier proof run 251 inliers).
+  - type 6 Red Skull Mage = middle. Historical bot `mage/mage1.bmp` exact-scale template score 0.9721 against middle crop.
+  - type 5 Red Skull Assasin = right, the only remaining crop in the exact 3-enemy Level-2 set.
+- `enemies/5.png` and `enemies/6.png` are promoted derivatives from the original sheet.
+- Proof: `research/media_hunt/gitbook-legacy/segmentation/TIER2_MAPPING_PROOF.md`.
+
+### Zangrief recovered as period reconstruction
+
+- Production YouTube video `vpYV15hBOGs` uploaded 17 Nov 2021 explicitly shows the newly implemented Chapter-1 boss and the player winning the boss fight.
+- Higher-resolution period screenshot `research/media_hunt/matters-20211208/boss-win.png` (1162x1140) contains the same boss.
+- Boss was isolated from that period screenshot; runtime `enemies/7.png` is now a transparent 500x600 reconstruction.
+- Previous unusable enemy7 placeholder is preserved as `research/media_hunt/derivatives/enemies/placeholder-backup-7.png`.
+- Proof: `research/media_hunt/derivatives/enemies/ZANGRIEF_PROOF.md`.
+
+### Barracks Level 1 recovered/reconstructed into town coordinates
+
+- Archived first-party `bnbheroes.xyz` HTML explicitly says `Level-1.png` alt=`Level 1 Barracks` and `Level-4.png` alt=`Level 4 Barracks`.
+- `Level-1.png` is a valid 1700x1549 alpha PNG.
+- It matches period Zhihu gameplay screenshot `research/media_hunt/zhihu/2.jpg` with 125 RANSAC inliers.
+- Original `towns/1-1.png` matches the same screenshot with 153 inliers.
+- Composed homography places the Barracks into original 1920x1080 town coordinates; reconstructed result promoted to `towns/3-1.png`.
+- Proof: `research/media_hunt/barracks-analysis/TOWN_3_1_PROOF.json`.
+
+### GitBook legacy storage fully enumerated
+
+- Public bucket prefix listing recovered 189 historical document objects.
+- The Space asset prefix contains exactly 20 publicly listable assets; all are known/recovered. `research/media_hunt/gitbook-legacy/assets-index/all.json` records the enumeration.
+- Do not waste time guessing more sibling GitBook asset URLs unless a new Space/revision ID is discovered.
+
+### Embedded bundle images checked
+
+- Original main JS contains 10 small base64 PNG data-URIs; decoded to `research/media_hunt/bundle-embedded/`.
+- They are small UI/icon assets (e.g. 51x30, 128x128, 55x59), not the missing large card/result/fight files.
+
+### Remaining media requiring creative reconstruction if desired
+
+Direct original bytes remain unrecovered for:
+- `static/media/fight.42bbd04e.png`
+- `static/media/card.df50fb38.png`
+- `static/media/card_lock.c211f00f.png`
+- `static/media/recruit_card.aa5e12c7.png`
+- `static/media/rewards.16b2db64.png`
+- `static/media/You lose.00f95b2b.png`
+
+At this point GitBook storage, old-host archive paths, period videos/screenshots, bot assets and bundle-embedded images have all been checked. Treat these six as the concise creative-reconstruction queue unless a genuinely new archive source appears.
+
+## Progress update — 2026-09-03 final hashed-media promotion
+
+### The former six-file media queue is now integrated
+
+Five of the six unrecovered hashed media files now use historical period/first-party pixels; the last (`fight`) remains an explicitly documented creative reconstruction. Direct byte-identical 2021 originals were **not** recovered, so provenance labels matter.
+
+1. `static/media/card.df50fb38.png`
+   - 459×654, SHA-256 `cac62dc89c4e15b36fb738131ca99c04b90c1211bf9e2e175e655394fef8e100`.
+   - Official 2021 video `WZwbq7Va0gg`, 210 repeated open-card detections, median-stacked reconstruction.
+2. `static/media/card_lock.c211f00f.png`
+   - 459×654, SHA-256 `f68d9efe4d89f00ec1e5ef6857b046d9aaa69147c52ca11c6f9e1a8e24284103`.
+   - Same official video, separate locked-card cluster, 51 detections.
+3. `static/media/recruit_card.aa5e12c7.png`
+   - 459×654, SHA-256 `12ddc8b41804baff0e78ede53833bd503fa24e3b130ec2d01203fca8cf65aae6`.
+   - First-party archived `BNBH-Card-Back.png` adapted to runtime aspect. It matches official video with 195 RANSAC inliers at the strongest frame, so this is real period artwork, though not direct hashed-file bytes.
+4. `static/media/rewards.16b2db64.png`
+   - 512×512, SHA-256 `0ba35be2fa35911f90468a49ed2b019adf505a59497569b53e7e5dc84e8e8a9d`.
+   - Original bundle proves RESULT modal renders it at width 500px for nonzero reward. Reconstructed from period win-frame pixels using win/lose median differential isolation.
+5. `static/media/You lose.00f95b2b.png`
+   - 512×512, SHA-256 `4f08df3827f4b41f42c4e078542f04ada3858be578fe9a0099f8083de89034b4`.
+   - Bundle proves `Q.rewards == 0` renders this at width 500px; reconstructed from corresponding period lose-frame pixels.
+6. `static/media/fight.42bbd04e.png`
+   - 512×512, SHA-256 `158f9f06f9f5720f884d97bd954fbea2029034a2b79c81405fc868a515791bf0`.
+   - Current crossed-weapons image remains a **CREATIVE_RECONSTRUCTION**. This checkpoint only normalized it to 8-bit. Do not claim original/period source.
+
+Full record: `research/media_hunt/final-promotions/PROVENANCE.md` and `research/media_hunt/card-analysis/CARD_SLOT_RECOVERY_PROOF.md`.
+Previous placeholders are preserved under `research/media_hunt/final-promotions/backups/`.
+
+### RESULT modal contract recovered exactly from original bundle
+- Modal title: `RESULT`.
+- Loss when `Number(Q.rewards) == 0`: DOM label `You LosE`, image `You lose.00f95b2b.png`, width 500px.
+- Win otherwise: DOM label `ENEMY DEFEATED`, image `rewards.16b2db64.png`, width 500px.
+- Result details are separate DOM content at bottom; therefore period screenshot text/numbers must not be baked into the reconstructed background image.
+
+### Validation
+- `npm run check:all` passes after promoting the last media batch.
+- Local HTTP server check returned HTTP 200 for all six hashed media, `enemies/1.png`, `enemies/7.png`, and `towns/3-1.png`.
+- Browser Host Bridge is on the Mac host and cannot reach container `127.0.0.1`; container has no Chromium executable. Therefore true visual browser smoke is still open. Do not mark it passed based only on HTTP checks.
+
+### Immediate next work
+1. Original 2021 UI still has dead Web3/game transaction dependencies. Build the safe compatibility/mock adapter so the **original UI**, not only `/prototype/`, can execute recruit/upgrade/fight/result flows locally without wallet signing.
+2. Keep all real wallet/mainnet signing/transaction operations blocked.
+3. Browser-regression test original routes once a browser can reach the served build.
+4. Continue Hero ID mapping only with evidence; anchors remain heroNameId 14=Arnulf and 18=Elrik.
+
+## Progress update — 2026-09-03 original-UI safe bridge
+
+### Original bundle contract-call inventory completed
+`docs/ORIGINAL_UI_COMPATIBILITY.md` now records the core calls required for native emulation:
+- writes: `createNewHero`, `claimRewards`, `upgradeTown`, `fight`, `expediteHero`, `unLockLevel`, `moveHeroToBag`;
+- reads: `getHeroesByOwner`, `getHeroesInBag`, `getHero`, `getTownLevel`, `getTownsOfPlayer`, `unLockTime`, `getCharacterPrice`, `getTownUpgradePrices`, `getUnlockLevelPrice`, balances/allowances;
+- approval writes: ERC20 `approve`, NFT `setApprovalForAll`;
+- fight receipt contract: original UI consumes `events.Fight.returnValues.rewards/xpGained/hpLoss`.
+
+### Phase-1 compatibility bridge implemented
+- `preservation-shim.js` still blocks the original real transaction layer before React handlers.
+- Instead of a dead-end alert for recovered menu/action imagery, the following UI actions now route to equivalent deterministic local-simulation tabs:
+  - `upgrade` -> `/prototype/#town`
+  - `fight-btn` -> `/prototype/#battle`
+  - `recruit` -> `/prototype/#heroes`
+  - `myheroes` -> `/prototype/#heroes`
+  - `mybag` -> `/prototype/#reserve`
+  - `market` -> `/prototype/#market`
+  - `battlelog` -> `/prototype/#log`
+- `prototype/src/app.js` now reads `location.hash` at startup and on `hashchange`, enabling those deep links.
+- Real wallet/mainnet signing remains disabled.
+
+### Validation after bridge patch
+- `npm run check:all` passes.
+- This is **not yet the final provider emulation layer**: the 2021 React components still do not receive ABI-compatible local contract reads/writes directly. Phase 2 remains to emulate Web3/EIP-1193 responses and synthetic transaction receipts/events while keeping all network writes disabled.
+
+## Progress update — 2026-09-03 native original-UI provider bridge
+
+### Phase 2/3 bridge implemented
+- Added `preservation-provider.js`, a local EIP-1193/Web3 provider backed by the same `prototype/src/engine.js`, `prototype/src/legacy-data.js`, and `bnbheroes-revival-v2` localStorage save as the standalone revival.
+- `index.html` now loads vendored `ethers-6.17.0.umd.min.js`, then the local provider, then the preservation shim, before the original React main bundle.
+- Exact 17 Nov 2021 contract identities are preserved for core/token/character/market/oracle/pool, but no runtime RPC endpoint is used.
+- Main bundle compatibility patches are deliberately narrow:
+  - static module-24 Web3 provider -> `window.__BNBH_LOCAL_PROVIDER__`;
+  - WalletConnect remote RPC config removed;
+  - `F.connect()` inside original `se()` -> safe local-provider resolution;
+  - original `se().then(...)` auto-connect restored;
+  - original `connect:se` prop restored.
+- `preservation-shim.js` no longer intercepts Recruit/Upgrade/Fight/My Heroes/Reserve/Market/Battle Log into `/prototype/`; original React handlers now execute natively through the local provider.
+- GitBook external-open interception remains, sending the dead historic GitBook URL to `/gitbook/`.
+
+### Oracle values/formula locked from exact legacy contract
+Read-only `eth_call` against build-17/11 oracle `0xD160bbDED5cFF79b126443EefCB28F3b67991140` still responds and exactly matches the stored snapshot for character, expedite, town and token prices.
+
+The exact unlock formula was independently confirmed by sampled contract calls:
+`getUnlockLevelPrice(level) = getTokenPrice * basePriceToUnlockInBNB * (100 + unlockRate*level) / 1e20`
+with snapshot `basePriceToUnlockInBNB=0.008 BNB`, `unlockRate=4`.
+Provider uses integer BigInt arithmetic and the preserved snapshot, not a live oracle.
+
+### Original ABI surface implemented
+- Hero/town/core/oracle reads, ERC20/NFT approvals, active/reserve hero lists, and marketplace reads are ABI-compatible.
+- Writes implemented locally: recruit, claim, town upgrade, fight, expedite, level unlock, reserve move/return, market listing.
+- `Fight` returns a synthetic mined receipt with an ABI-encoded `Fight` event so the untouched React RESULT logic receives `rewards`, `xpGained`, `hpLoss` in its historical path.
+- Local market listing implements the UI-documented 10% listing fee.
+
+### Safety invariant
+The app shadows any browser wallet on this page with the preservation provider. `eth_sign`, `personal_sign`, `eth_signTransaction`, and `eth_sendRawTransaction` hard-fail. Runtime main/provider contain no BSC/Infura RPC endpoint. Chain id 56 is reported only so the 2021 UI's original chain gate accepts the emulator.
+
+### Tests
+- Added `tests/provider.test.mjs`.
+- `npm run check:all` passes after native bridge integration.
+- Provider test verifies exact oracle values, hero/market ABI reads, fight synthetic receipt, shared save persistence, and signing/raw-transaction rejection.
+
+### Remaining immediate gate
+- Deploy a **non-production Vercel preview** and browser-smoke original routes/actions there.
+- Do not call production certified until browser checks cover `/`, `/myheroes`, `/market`, `/battlelogs`, `/myreserve`, Recruit, Upgrade, Fight and RESULT.

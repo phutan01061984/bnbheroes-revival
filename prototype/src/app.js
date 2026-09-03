@@ -171,4 +171,7 @@ $$('.filter').forEach(b=>b.onclick=()=>{marketFilter=b.textContent.trim();$$('.f
 $('#core').textContent=LEGACY.addresses.core; $('#character').textContent=LEGACY.addresses.character; $('#pool').textContent=LEGACY.addresses.pool; $('#oracle').textContent=LEGACY.addresses.oracle;
 
 save();render();
+const initialTab=(location.hash||'').replace(/^#/,'');
+if(['town','heroes','battle','market','reserve','vault','log','about'].includes(initialTab)) openTab(initialTab);
+addEventListener('hashchange',()=>{const tab=(location.hash||'').replace(/^#/,'');if(['town','heroes','battle','market','reserve','vault','log','about'].includes(tab)) openTab(tab)});
 setInterval(()=>{renderHeroes();renderBattle();renderReserve();renderVault();bindDynamic()},1000);

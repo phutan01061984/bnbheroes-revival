@@ -1,0 +1,31 @@
+{
+  "source": "research/media_hunt/legacy-domains/assets/Level-1.png",
+  "evidence_scene": "research/media_hunt/zhihu/2.jpg",
+  "reference_layer": "towns/1-1.png",
+  "level1_matches": {
+    "inliers": 125,
+    "good": 223
+  },
+  "reference_matches": {
+    "inliers": 153,
+    "good": 173
+  },
+  "homography_level1_to_town": [
+    [
+      0.4212389564443313,
+      0.0067664531481738885,
+      1273.3300250273935
+    ],
+    [
+      -0.00058676618182273,
+      0.4849826417058255,
+      -31.0946667592746
+    ],
+    [
+      -1.966358094379883e-06,
+      5.386284730156762e-06,
+      1.0
+    ]
+  ],
+  "note": "Reconstructed from first-party Level 1 Barracks alpha asset; transformed into 1920x1080 runtime coordinates via shared period screenshot."
+}
