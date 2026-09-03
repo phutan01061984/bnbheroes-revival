@@ -17,6 +17,10 @@ for (const p of [
   'research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256',
   'research/media_hunt/town-layers-reconstruction/level4-canonical/PROOF.json',
   'research/media_hunt/town-layers-reconstruction/level4-canonical/TOWNSELECT_L4_PROOF.json',
+  'research/proofs/town-canonical-geometry-20260903/GEOMETRY_PROOF.json',
+  'research/proofs/town-canonical-geometry-20260903/ROUNDTRIP_VALIDATION.json',
+  'research/proofs/town-canonical-geometry-20260903/PREVIEW_TO_CANONICAL_VALIDATION.json',
+  'research/proofs/town-canonical-geometry-20260903/TOWNSELECT_L4_CANONICAL_PROOF.json',
   ...Array.from({length:21},(_,i)=>`cards/${i+1}.png`),'cards/unkown.png',
   'research/hero-id-mapping/heroNameId-final.tsv','research/hero-id-mapping/PROOF.md',
   'enemies/1.png','enemies/5.png','enemies/6.png','enemies/7.png',
@@ -39,6 +43,22 @@ for (const line of townManifest) {
 }
 if (townManifest.length === 24) ok('Town recovery manifest covers 12 full-town + 12 upgrade-preview assets');
 else fail(`Town recovery manifest has ${townManifest.length}/24 entries`);
+
+// Geometry proof: recovered full-town pixels must be canonical runtime coordinates, not reviewer-video coordinates.
+const roundTrip = JSON.parse(fs.readFileSync('research/proofs/town-canonical-geometry-20260903/ROUNDTRIP_VALIDATION.json','utf8'));
+if (roundTrip.length === 8 && roundTrip.every(r => r.alpha_iou >= 0.95 && r.rgb_mae_overlap <= 1.1))
+  ok('Town L2/L3 canonical round-trip proof passes for all 8 layers');
+else fail('Town L2/L3 canonical round-trip proof is missing or below threshold');
+const previewCanonical = JSON.parse(fs.readFileSync('research/proofs/town-canonical-geometry-20260903/PREVIEW_TO_CANONICAL_VALIDATION.json','utf8'));
+const previewRows = Object.values(previewCanonical);
+if (previewRows.length === 4 && previewRows.every(r => r.validation_level3_alpha_iou >= 0.997 && r.validation_level3_rgb_mae_overlap <= 1.2))
+  ok('Town Level-3 preview-to-canonical geometry proof passes for all 4 buildings');
+else fail('Town Level-3 preview-to-canonical geometry proof is missing or below threshold');
+const l4PreviewProof = JSON.parse(fs.readFileSync('research/media_hunt/town-layers-reconstruction/level4-canonical/TOWNSELECT_L4_PROOF.json','utf8'));
+const l4PreviewRows = Object.values(l4PreviewProof);
+if (l4PreviewRows.length === 4 && l4PreviewRows.every(r => r.method === 'inverse_corrected_level3_preview_to_canonical_full_homography' && r.level3_mapping_validation_alpha_iou >= 0.997))
+  ok('Town Level-4 previews derive from corrected canonical geometry');
+else fail('Town Level-4 preview canonical-geometry proof is missing or stale');
 
 
 // Hero-card promotion must remain byte-identical to the archived period art and must never regress to the generic fallback.

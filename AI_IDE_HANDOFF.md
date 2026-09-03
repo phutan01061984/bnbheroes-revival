@@ -1587,3 +1587,39 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 - Preservation verification now enumerates all `towns/1-1..4-4`, all used `townselect/*-2..4`, validates the 24-entry Town recovery SHA-256 manifest, and rejects <=573-byte fallback regressions.
 - Engine tests and local provider tests still PASS; Town media integration did not alter Web3 safety/gameplay logic.
 - Level-4 is now eligible to commit as its own protected checkpoint before Fight-icon archaeology.
+
+### Live sub-checkpoint — Town Level 4 committed
+- Protected Level-4 commit: `c2b5316` (`Restore Town level 4 media`) on `restoration/native-ui-20260903`.
+- Previous protected Town L2/L3 commit: `219796a`.
+- Next queue is Fight-icon final archaeology; do not reopen Town reconstruction unless a genuinely stronger original source appears.
+
+### Live sub-checkpoint — Fight icon final archive audit
+- Exact URLScan filename queries saved under `research/web_archive/urlscan_deep/filename_fight.42bbd04e.png.json`, `urlscan_deep/play/filename%3A%22fight.42bbd04e.png%22.json`, and `urlscan_live/filename_fight.42bbd04e.png.json` all return `total: 0`.
+- Common Crawl exact-path queries across available 2021–2022 indexes under `research/web_archive/commoncrawl_live/*fight.42bbd04e.png.txt` return `No Captures found` wherever the index endpoint succeeds; a few indexes return gateway timeout/error rather than positive captures.
+- Direct URLScan result API requests for known `play.bnbheroes.io` scan IDs are currently HTTP 403 from this environment, so no response-body SHA could be recovered through that API path.
+- A final period-pixel recovery attempt is now running: SIFT/RANSAC scans 834 archived gameplay images/frames using the seven surviving 512×512 menu icons as fiducial markers. Once Home frames are located, infer the original 150×150 Fight slot from the original bundle layout and median-stack multiple period frames if possible.
+- Do not downgrade/upgrade Fight provenance until this scan completes.
+
+### Live sub-checkpoint — Fight period Home pixels recovered
+- The final fiducial scan completed across 834 archived gameplay images/frames using the seven surviving original 512×512 Home menu icons as SIFT/RANSAC anchors.
+- Six consecutive 1920×1080 period Home frames were positively identified: `research/media_hunt/townselect-video/fulltown-rel29.5.jpg`, `fulltown-rel30.jpg`, `fulltown-rel30.5.jpg`, `fulltown-rel31.jpg`, `fulltown-rel31.5.jpg`, `fulltown-rel32.jpg`. Recruit/Heroes/Upgrade/Market each register roughly 16–24 RANSAC inliers on the strongest frames.
+- Original bundle/DOM evidence independently establishes that Fight renders as its own 150×150 image while normal menu icons render at 120×120. Desktop DOM geometry gives a right offset of ~64 px; in the 1920×1080 browser-capture frame the period Fight slot is approximately x=1706, y=899, w=150, h=150.
+- Median-stacking the six period Fight slots is extremely stable (pairwise frame MAE ~0–0.77). Artifact: `research/media_hunt/fight-period-recovery/fight-slot-median-150.png`.
+- The current creative `static/media/fight.42bbd04e.png` has masked correlation about -0.058 against this period slot, so the creative artwork is almost certainly not visually faithful to the original.
+- A simple background-residual segmentation calibrated against original Recruit/Heroes/Upgrade/Market alpha reaches only ~0.65–0.73 IoU; connected-component/hysteresis variants did not improve enough to justify runtime promotion yet. The period pixels are real, but transparent silhouette reconstruction must remain conservative until a stronger matte/reprojection method succeeds.
+
+### Live sub-checkpoint — Town L2/L3 canonical geometry bug found and corrected
+- A post-promotion geometry audit found that the first L2/L3 full-town reconstructions were expressed in the 1920×1080 reviewer-video coordinate system rather than the canonical runtime town canvas. This escaped the hash verifier because the files were internally valid images.
+- Exact full-resolution source segment recovered/used for the original Level-2 placements: `research/media_hunt/townselect-video/VUt1ccH-dQ4-upgrades-1205-1245.mp4` (2021-11-07, 1920×1080). Exact proof times by building are 7.5, 13.5, 20.0 and 25.5 seconds.
+- Fitting original `towns/background.jpg` to those period frames yields an exceptionally consistent axis-aligned runtime→video mapping: x scale ~1.000 with ~0 px translation; y scale 0.9064–0.90715 with +98.3..99.0 px translation. Median inlier residuals are mostly <0.14 px.
+- All eight `towns/{1..4}-{2,3}.png` layers were inverse-warped with premultiplied alpha into canonical runtime coordinates. Round-trip canonical→video validation against the prior period-coordinate reconstructions gives alpha IoU 0.95456–0.99917 and overlap RGB MAE 0.932–1.006.
+- The corrected Level-3 preview→canonical-full homographies were independently validated by forward-warping the untouched period `townselect/*-3` previews into corrected full-town L3: alpha IoU 0.99746–0.99893, overlap RGB MAE 0.821–1.066.
+- Because the previous Level-4 previews inherited the old video-coordinate Level-3 placement H, all four `townselect/*-4` previews were regenerated from canonical `towns/*-4` using the corrected homographies. Level-3 fallback is used only for preview pixels whose mapped location is genuinely outside the observable 1920×1080 runtime canvas.
+- Machine-readable correction proof is curated under `research/proofs/town-canonical-geometry-20260903/`. Pre-fix reconstructed runtime files are preserved under `archive/pre-town-canonical-geometry-fix-20260903/`.
+- `RUNTIME_TOWN_RECOVERY.sha256` has been refreshed for the corrected 24 Town runtime assets. A full `npm run check:all` is running at this checkpoint; do not commit this geometry correction unless it passes.
+
+### Live sub-checkpoint — Town canonical geometry verification PASSED
+- After promoting corrected L2/L3 full-town geometry and regenerated L4 previews, `npm run check:all` PASSED completely: preservation verifier, engine tests and local-provider tests.
+- `scripts/verify-preservation.mjs` is now additionally geometry-aware: it rejects Town L2/L3 if the 8-layer canonical round-trip proof drops below alpha IoU 0.95 / RGB MAE 1.1, rejects Level-3 preview→canonical mapping below alpha IoU 0.997 / RGB MAE 1.2, and requires Level-4 previews to declare the corrected canonical derivation method.
+- `research/media_hunt/town-layers-reconstruction/level4-canonical/TOWNSELECT_L4_PROOF.json` has been replaced with the corrected canonical proof rather than the stale video-coordinate proof.
+- This Town geometry correction is ready for its own protected commit before continuing Fight reconstruction.
