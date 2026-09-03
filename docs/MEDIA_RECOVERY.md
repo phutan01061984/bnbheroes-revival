@@ -1,23 +1,34 @@
 # BNB HEROES Media Recovery Status
 
-Last updated: 2026-09-02 late-session checkpoint.
+Last updated: 2026-09-03 — Hero-card promotion checkpoint.
 
-See `AI_IDE_HANDOFF.md` for the full continuation state. This file is a compact media-specific ledger.
+This ledger distinguishes **direct original bytes**, **period-original bytes**, **period-derived reconstruction**, and **creative reconstruction**. Do not collapse those provenance classes.
 
-## Recovered original / period-original sources
+## Runtime status
 
-- Original 17 Nov 2021 React/CSS build from `play.bnbheroes.io`.
-- Later Dec 2021 React/CSS build.
-- Official X media archive under `assets/reference/x/`.
-- 21 Hero artworks from a Nov 18 2021 period article, archived under `archive/hero-art-20211118/`.
-- Legacy `bnbheroes.xyz` media and archived first-party video `keyframe-My-Video.mp4`.
-- Archived first-party `IMG_20211114_030807_117-1.png` (2369×2048, SHA-256 `e3ec617c9f1c6adbf9e8d9d7c839a4049e658972f6e7dbf875a6617f951bfc13`).
-- GitBook legacy state in `research/media_hunt/gitbook-legacy/initial-state.json`.
-- GitBook legacy images via `files.gitbook.com`, including `FIGHT.png`, `FIGHT (1).png`, `Enemies.jpg`, `Level 1 Skull Enemies.jpg`, `Level 2 Skull Enemies.jpg`, `BNB HEROES.png`.
-- Five 1440×1080 gameplay screenshots from 2021 Zhihu material.
-- Historical bot UI crops/full-screen captures.
+The recovered 17 Nov 2021 React frontend is playable through a safe local EIP-1193/Web3 adapter. Real signing/raw transactions/mainnet RPC remain disabled. `npm run check:all` passes.
 
-## Enemy mapping locked from original React source
+### Hero cards — 21/21 period artworks promoted
+
+All runtime `cards/1.png` … `cards/21.png` now contain surviving 2021 Hero artwork, copied **byte-for-byte** from `archive/hero-art-20211118/`. No card is resized, cropped, redrawn or generated during promotion.
+
+Numeric identity confidence is documented at:
+
+- `research/hero-id-mapping/PROOF.md`
+- `research/hero-id-mapping/heroNameId-final.tsv`
+
+Direct numeric anchors:
+
+- heroNameId 14 = Arnulf of Esplin
+- heroNameId 18 = Elrik the Imbuer
+
+The other 19 IDs are high-confidence structural mappings. The recovered GitBook has an ordered 18-Hero drop-rate roster. The preserved 21-ID rarity array becomes an exact position-for-position match to that roster when IDs 10/14/18 are removed. Official period material says three new Heroes were added; 14/18 are the direct Arnulf/Elrik anchors, leaving ID10 for Lena. Artwork identities/rarities are additionally checked against period/official imagery using SIFT/RANSAC.
+
+`cards/unkown.png` retains the historical fallback spelling and is not used as a mapped Hero card.
+
+## Enemy mapping / runtime art
+
+Original React source locks runtime types:
 
 1. Red Skull 1
 2. Red Skull 2
@@ -27,98 +38,83 @@ See `AI_IDE_HANDOFF.md` for the full continuation state. This file is a compact 
 6. Red Skull Mage
 7. Zangrief (Chapter 1 Boss)
 
-The Tier-1 and Tier-2 GitBook enemy sheets contain three enemy artworks each. Crops exist under `research/media_hunt/gitbook-legacy/segmentation/`, but exact left/middle/right mapping has not yet been promoted to production.
+Recovery status:
 
-## Still missing original direct game-client bytes
-
-- `fight.42bbd04e.png`
-- `card.df50fb38.png`
-- `card_lock.c211f00f.png`
-- `recruit_card.aa5e12c7.png`
-- `rewards.16b2db64.png`
-- `You lose.00f95b2b.png`
-- `towns/3-1.png`
-- enemy sprites 1,2,3,5,6,7 as direct `/enemies/*.png` bytes
-
-Do NOT recreate these yet unless period evidence is exhausted. GitBook sheets/screenshots/video likely allow faithful reconstruction for several of them.
-
-## Hero identity anchors
-
-- heroNameId 14 = Arnulf of Esplin
-- heroNameId 18 = Elrik the Imbuer
-
-Remaining 19 Hero artworks are real, but ID mapping remains unproven.
-
-## Next media tasks
-
-1. Lock enemy sheet order using original `/enemies/4.png` + visual/feature matching.
-2. Extract frames from archived `keyframe-My-Video.mp4`.
-3. Locate Zangrief / Boss artwork.
-4. Map Hero IDs from official X/stat evidence.
-5. Reconstruct Barracks/card/result media only from period references when raw bytes remain unavailable.
-6. Integrate mapped media and rerun tests/browser smoke test.
-
-## Update — 2026-09-03 recovery milestone
-
-### Enemies 1–7
-
-Enemy runtime names/types are locked from the original 17 Nov 2021 bundle.
-
-- 1/2/3: first-party Level-1 enemy sheet left/center/right promoted as transparent derivatives.
-- 4: Red Skull Archer — original `/enemies/4.png` anchor matches the left Level-2 crop (59/63 direct proof; 251 inliers in the initial comparison).
-- 6: Red Skull Mage — historical bot `mage1.bmp` matches the middle Level-2 crop at 0.9721, scale 1.0.
-- 5: Red Skull Assasin — the remaining right Level-2 crop after Archer/Mage are independently locked.
-- 7: Zangrief — direct original byte was not recovered. A transparent 500x600 runtime reconstruction was made from the period `boss-win.png` screenshot, cross-validated against the 17 Nov 2021 production gameplay video that shows the Chapter-1 boss fight.
+- enemies 1/2/3: transparent derivatives from the first-party GitBook Level-1 enemy sheet; left/center/right ordering independently matched back to the earlier 4000×2070 first-party sheet.
+- enemy 4 Archer: surviving direct runtime sprite is the anchor; it matches Tier-2 left crop.
+- enemy 6 Mage: historical bot `mage1.bmp` matches Tier-2 middle crop at 0.9721 exact scale.
+- enemy 5 Assasin: remaining right crop in the exact three-enemy Tier-2 set.
+- enemy 7 Zangrief: direct `/enemies/7.png` byte not recovered; runtime is a transparent **period-derived reconstruction** from a higher-resolution Dec-2021 screenshot, cross-validated against the 17-Nov production boss video.
 
 Proof:
+
 - `research/media_hunt/gitbook-legacy/segmentation/TIER2_MAPPING_PROOF.md`
-- `research/media_hunt/derivatives/enemies/ZANGRIEF_PROOF.md`
 - `research/media_hunt/derivatives/enemies/PROOF.json`
+- `research/media_hunt/derivatives/enemies/ZANGRIEF_PROOF.md`
 
-### Barracks `towns/3-1.png`
+## Barracks
 
-This is no longer a blank placeholder.
-
-The archived first-party `bnbheroes.xyz` HTML explicitly labels:
-- `Level-1.png` as `Level 1 Barracks`
-- `Level-4.png` as `Level 4 Barracks`
-
-`Level-1.png` is a real alpha PNG. It matches the 2021 Zhihu gameplay screenshot with 125 RANSAC inliers. A known original town layer (`towns/1-1.png`) matches the same screenshot with 153 inliers. Composing the two homographies maps the Barracks into the original 1920x1080 town coordinate system. The resulting period-original reconstruction is now `towns/3-1.png`.
+`towns/3-1.png` is no longer a blank placeholder. Archived first-party `bnbheroes.xyz` HTML labels `Level-1.png` as **Level 1 Barracks**. The alpha art matches a 2021 gameplay screenshot with 125 RANSAC inliers. A known original town layer matches that screenshot with 153 inliers; composing those transforms places the Barracks into the original 1920×1080 town coordinate system.
 
 Proof: `research/media_hunt/barracks-analysis/TOWN_3_1_PROOF.json`.
 
-### GitBook legacy archive exhaustion
+## Hashed client media
 
-The public legacy Space storage has now been enumerated rather than guessed:
-- 189 historical document objects recovered.
-- 20 total publicly listable asset objects recovered for Space `-MiQ2_ADbmPLGvENAQw4`.
+Direct 2021 bytes remain unavailable for six historical hashed filenames, but they are no longer broken runtime blockers:
 
-This materially lowers the chance that Zangrief/card/result art is hiding in an unenumerated GitBook sibling path.
+- `card.df50fb38.png` — **period-derived reconstruction**: official-video median stack from 210 open-card detections.
+- `card_lock.c211f00f.png` — **period-derived reconstruction**: official-video median stack from 51 locked-card detections.
+- `recruit_card.aa5e12c7.png` — **period-original source adapted to runtime geometry** from first-party `BNBH-Card-Back.png`; strongest official-video match 195 RANSAC inliers.
+- `rewards.16b2db64.png` — **period-derived reconstruction** from win/lose frame differential; original bundle confirms RESULT usage/500px render width.
+- `You lose.00f95b2b.png` — **period-derived reconstruction** from period loss frames; original bundle confirms loss condition/500px render width.
+- `fight.42bbd04e.png` — **CREATIVE_RECONSTRUCTION**. This is the one runtime image that still has neither direct original bytes nor recoverable period pixels. Never label it original.
 
-### Still not direct-byte recovered
+Full hashes/provenance: `research/media_hunt/final-promotions/PROVENANCE.md` and `research/media_hunt/card-analysis/CARD_SLOT_RECOVERY_PROOF.md`.
 
-The following original hashed client files still lack their direct 2021 bytes after GitBook-storage enumeration, archive searches, period video/screenshots and old-host archaeology:
+## Legacy GitBook / archive exhaustion
 
-- `fight.42bbd04e.png`
-- `card.df50fb38.png`
-- `card_lock.c211f00f.png`
-- `recruit_card.aa5e12c7.png`
-- `rewards.16b2db64.png`
-- `You lose.00f95b2b.png`
+The old GitBook Space was recovered by public legacy bucket enumeration rather than guessed child URLs:
 
-Current runtime versions of these are reconstruction/placeholders and must not be described as byte-identical originals. `FIGHT.png` / `FIGHT (1).png`, bot crops, and period gameplay video remain the best visual references if a later creative reconstruction is desired.
+- 189 historical document objects archived.
+- 20 publicly listable Space assets enumerated and archived.
+- Hero Drop Rate text survives, including the ordered 18-Hero roster used in Hero-ID forensics.
 
-## Update — 2026-09-03 final hashed-media checkpoint
+Further searches also covered exact page titles/IDs, old `bnbheroes.xyz` paths, public web indexes, alternate Memento/archive routes, period articles/screenshots/video, old bot assets and bundle-embedded images. These searches are considered exhausted for current runtime blockers unless a genuinely new archive/revision/source appears.
 
-The old six-file hashed-media queue is no longer an unresolved runtime blocker. Direct original bytes are still missing, but five files now use period/first-party pixels and one is explicitly retained as a creative reconstruction.
+## First-party / period sources preserved
 
-- `card.df50fb38.png`: official-video median reconstruction from 210 repeated open-card occurrences; 459×654.
-- `card_lock.c211f00f.png`: official-video median reconstruction from 51 repeated locked-card occurrences; 459×654.
-- `recruit_card.aa5e12c7.png`: adapted from first-party `BNBH-Card-Back.png`; strongest official-video SIFT/RANSAC match = 195 inliers. Center-cropped to runtime aspect and resized to 459×654.
-- `rewards.16b2db64.png`: win RESULT artwork reconstructed from period win/lose frame differential; original bundle confirms width=500px in the RESULT modal.
-- `You lose.00f95b2b.png`: loss RESULT artwork reconstructed from the corresponding period loss-frame set; original bundle confirms the `Q.rewards == 0` condition and width=500px.
-- `fight.42bbd04e.png`: direct/period pixel source still not recovered. Runtime keeps the existing crossed-weapons creative reconstruction; it is explicitly **not original**.
+- untouched 17 Nov 2021 React/CSS build under `archive/original-20211117/`;
+- 16 Nov build evidence for historically active Recruit handler;
+- later Dec-2021 build;
+- official X media archive;
+- 21 surviving Hero artworks under `archive/hero-art-20211118/`;
+- old `bnbheroes.xyz` media + `keyframe-My-Video.mp4`;
+- GitBook legacy document/asset storage;
+- production/period gameplay videos and screenshots;
+- historical bot crops/screens;
+- Zhihu/ThisIsGame/other period mirrors used only where provenance is recorded.
 
-Detailed provenance and hashes: `research/media_hunt/final-promotions/PROVENANCE.md`.
+## Validation
 
-After promotion, `npm run check:all` passes. A live local HTTP check also returned HTTP 200 for all six hashed media plus enemies 1/7 and Barracks `towns/3-1.png`. Browser Host Bridge cannot reach the container's `127.0.0.1`; no Chromium binary is installed in the container, so a true visual browser regression remains open rather than falsely marked complete.
+`npm run check:all` currently asserts:
+
+- all 21 mapped cards exist;
+- each is byte-identical to its archived period source;
+- none equals `cards/unkown.png`;
+- direct anchors 14=Arnulf and 18=Elrik remain fixed;
+- all referenced static media exists;
+- preservation provider contains no live BSC/Infura RPC endpoint;
+- signing/raw-transaction methods remain blocked;
+- engine/provider tests pass.
+
+The native 2021 UI was previously browser-certified on the Vercel restoration preview across Home, My Heroes, Recruit, Expedite, Reserve/Return, Town Upgrade, Fight, Zangrief, win/loss RESULT, Claim, Battle Logs and mobile layout. After the 21-card promotion, a fresh public-preview smoke is required before calling this exact commit browser-certified.
+
+## True remaining visual uncertainty
+
+The project is functionally restored and the major missing-media queue is closed. The remaining material uncertainty is narrow:
+
+1. `fight.42bbd04e.png` is creative reconstruction, not recovered period pixels.
+2. Hero numeric IDs 14/18 are direct; the other 19 are high-confidence structural reconstruction, not a surviving metadata-table dump.
+3. Several other runtime assets are period-derived reconstructions rather than byte-identical hashed originals; each is explicitly labeled above/provenance docs.
+
+Do not reopen solved items merely because the exact hashed client byte was not recovered; reopen only when a new source can materially improve provenance/fidelity.

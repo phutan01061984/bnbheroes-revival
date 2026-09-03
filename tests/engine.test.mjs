@@ -9,6 +9,14 @@ let s=freshState();
 assert.equal(s.version,2);
 assert.equal(s.heroes[0].name,'Arnulf of Esplin');
 assert.equal(heroTemplate(17).name,'Elrik the Imbuer');
+const expectedHeroNames=[
+  'Dayne of Gerston','Andin Olis','Torlov Branhart','Aelof Orstone','Jan Rhylen','Demisov the Bold',
+  'Esfel of Lordan','Reis of the Knife','Sivalas Zefen','Lena','Thalas One-Eye','Lady Ella of Tir',
+  'Sir Bertrand','Arnulf of Esplin','Balen Fellwood','Helia Stormcall','Xegis Branfyre','Elrik the Imbuer',
+  'Uriah the Sage','Sir Asten','Duke Duscair IV'
+];
+assert.deepEqual(Array.from({length:21},(_,i)=>heroTemplate(i).name), expectedHeroNames);
+assert.ok(Array.from({length:21},(_,i)=>heroTemplate(i).name).every(name=>!name.startsWith('Lost Hero #')));
 assert.equal(heroCapacity(s),2);
 
 const before=s.bnbh;

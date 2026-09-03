@@ -12,10 +12,33 @@ for (const p of [
   'static/media/Village.64091b0b.jpg','static/media/myheroes-bg.3c5effac.jpg',
   'backgrounds/village.jpg','backgrounds/market.jpg','backgrounds/myheroes-bg.jpg','backgrounds/battlelog-bg.jpg',
   'towns/background.jpg','towns/objects.png','towns/1-1.png','towns/2-1.png','towns/3-1.png','towns/4-1.png',
-  'cards/14.png','cards/18.png','enemies/1.png','enemies/5.png','enemies/6.png','enemies/7.png',
+  ...Array.from({length:21},(_,i)=>`cards/${i+1}.png`),'cards/unkown.png',
+  'research/hero-id-mapping/heroNameId-final.tsv','research/hero-id-mapping/PROOF.md',
+  'enemies/1.png','enemies/5.png','enemies/6.png','enemies/7.png',
   'prototype/index.html','gitbook/index.html',
   'archive/original-20211117/SHA256SUMS','AI_IDE_HANDOFF.md'
 ]) exists(p);
+
+
+// Hero-card promotion must remain byte-identical to the archived period art and must never regress to the generic fallback.
+const mappingRows = fs.readFileSync('research/hero-id-mapping/heroNameId-final.tsv','utf8').trim().split(/\r?\n/).slice(1).map(line => {
+  const [heroNameId,name,artFile,rarity,confidence] = line.split('\t');
+  return {heroNameId,name,artFile,rarity,confidence};
+});
+if (mappingRows.length === 21) ok('hero mapping contains all 21 heroNameIds'); else fail(`hero mapping has ${mappingRows.length}/21 rows`);
+const fallback = fs.readFileSync('cards/unkown.png');
+for (const row of mappingRows) {
+  const cardPath = `cards/${row.heroNameId}.png`;
+  const archivePath = `archive/hero-art-20211118/${row.artFile}`;
+  if (!fs.existsSync(cardPath) || !fs.existsSync(archivePath)) { fail(`hero art path missing for ID ${row.heroNameId}`); continue; }
+  const card = fs.readFileSync(cardPath);
+  const source = fs.readFileSync(archivePath);
+  if (card.equals(source)) ok(`hero ${row.heroNameId} ${row.name}: exact period art`); else fail(`hero ${row.heroNameId} art differs from archived source`);
+  if (card.equals(fallback)) fail(`hero ${row.heroNameId} still uses unknown placeholder`);
+}
+const directIds = Object.fromEntries(mappingRows.filter(r=>r.confidence==='DIRECT_ANCHOR').map(r=>[r.heroNameId,r.name]));
+if (directIds['14']==='Arnulf of Esplin' && directIds['18']==='Elrik the Imbuer') ok('direct Hero ID anchors preserved (14 Arnulf, 18 Elrik)');
+else fail('direct Hero ID anchors changed');
 
 const main = fs.readFileSync('static/js/main.5e2ca500.chunk.js','utf8');
 for (const remote of ['https://bsc-dataseed.binance.org/','https://mainnet.infura.io','https://data-seed-prebsc']) {

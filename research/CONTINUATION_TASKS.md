@@ -22,10 +22,10 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Recover GitBook public Space/revision/page IDs and enumerate public legacy storage objects; 189 documents + 20 assets archived locally.
 - [x] Test/use `files.gitbook.com` rewrites; all publicly listable legacy Space assets enumerated (20 total).
 - [x] Recover 189 historical page-body objects directly by public bucket prefix listing instead of guessed sibling paths.
-- [ ] Search web indexes for exact legacy page IDs, titles, filenames and old `bnbheroes.xyz` URLs.
-- [ ] Try alternate Memento/archive gateways where legal/publicly accessible, rather than repeatedly hitting Wayback direct 429.
-- [ ] Search archived/current mirrors for `bnbheroes.xyz` WordPress sitemap/feed/Elementor JSON/API remnants.
-- [ ] Search for cached copies/quotes of Common Enemies, Bosses, Hero Wiki, Eastcliff Town Upgrade, Hero Recruitment.
+- [x] Search web indexes for exact legacy page IDs/titles/filenames and old `bnbheroes.xyz` URLs; no stronger surviving runtime bytes found.
+- [x] Try alternate public Memento/archive routes plus Wayback/Common Crawl/urlscan paths; useful captures recovered where available, remaining dead/rate-limited paths documented.
+- [x] Search old `bnbheroes.xyz`/WordPress/media remnants and period mirrors; recovered first-party Barracks/media/video evidence and exhausted current public routes for runtime blockers.
+- [x] Search cached copies/quotes and recover legacy page bodies where surviving. Hero Drop Rate/Recruitment/Town/Enemies and other page text are archived; absent direct bodies/assets were pursued through period mirrors/media.
 
 ## P1 — Video archaeology
 
@@ -38,10 +38,10 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 
 - [x] Preserve 21/21 period hero artworks.
 - [x] Strong anchors: heroNameId 14 = Arnulf; 18 = Elrik.
-- [ ] Parse official X captions/media TSV for hero names/stat clues.
-- [ ] Match on-chain stat tuples against named screenshots/guides.
-- [ ] Map additional heroNameIds only when proof is sufficient.
-- [ ] Save proof artifact before replacing `/cards/{id}.png`.
+- [x] Parse official X captions/media and rarity lineup evidence; archive official “three new Heroes” video and CV comparisons.
+- [x] Compare preserved contract template arrays/direct anchors and period named art/rank evidence; historical public RPC is pruned, so no unsupported direct-ID claims were added.
+- [x] Map all 21 heroNameIds with explicit confidence policy: 14/18 DIRECT; remaining 19 HIGH_STRUCTURAL. See `research/hero-id-mapping/PROOF.md`.
+- [x] Save `research/hero-id-mapping/PROOF.md` + `heroNameId-final.tsv`; promote all 21 period artworks byte-for-byte and add preservation regression checks.
 
 ## P1 — Runtime integration
 
@@ -49,7 +49,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Keep raw recovered evidence immutable; derivatives go to runtime paths separately.
 - [x] Integrate Barracks/card/result media; Fight is integrated as clearly-labeled creative reconstruction because direct/period pixels remain unavailable.
 - [x] Run `npm run check:all` after each integration batch — passes after final media promotion.
-- [ ] Browser smoke test `/`, `/myheroes`, `/market`, `/battlelogs`, `/myreserve`, `/prototype/`, `/gitbook/`.
+- [x] Browser smoke original routes/actions on public Vercel preview (native UI certification 2026-09-03). Fresh Hero-card commit preview smoke is tracked as the final deployment gate.
 
 ## P2 — Original UI playable adapter
 
@@ -65,4 +65,4 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Update `docs/MEDIA_RECOVERY.md` with new proof/mapping through 2026-09-03 final-media checkpoint.
 - [x] Update `AI_IDE_HANDOFF.md` after major milestones (latest: 2026-09-03 final-media checkpoint).
 - [x] Deploy a non-production Vercel preview after tests and browser-regression it before any production deployment. Preview certified 2026-09-03; production intentionally not promoted yet.
-- [ ] Record commit/deployment IDs in handoff.
+- [ ] Record the Hero-card completion commit + refreshed Vercel preview URL/certification in handoff after push.

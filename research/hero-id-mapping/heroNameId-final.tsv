@@ -1,0 +1,22 @@
+heroNameId	name	art_file	rarity	confidence	evidence
+1	Dayne of Gerston	05-Dayne.png	Common	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+2	Andin Olis	02-andin-olis.png	Uncommon	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+3	Torlov Branhart	19-Torlov.png	Common	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+4	Aelof Orstone	01-aelof-orstone.png	Uncommon	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+5	Jan Rhylen	10-Jan.png	Common	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+6	Demisov the Bold	12-Layer-1.png	Uncommon	HIGH_STRUCTURAL	GitBook order + rarity insertion; Layer-1 is remaining Uncommon art after official-rarity SIFT identity/elimination
+7	Esfel of Lordan	08-Esfel.png	Common	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+8	Reis of the Knife	14-reis-of-the-knife.png	Uncommon	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+9	Sivalas Zefen	17-Sivalas.png	Common	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+10	Lena	13-Lena.png	Common	HIGH_STRUCTURAL_NEW_INSERT	One of exactly three post-roster inserted IDs; 14/18 are Arnulf/Elrik direct anchors, leaving ID10 for Lena
+11	Thalas One-Eye	18-thalas-one-eye.png	Uncommon	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+12	Lady Ella of Tir	11-lady-ella-of-tir.png	Rare	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+13	Sir Bertrand	16-sir-bertrand.png	Rare	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+14	Arnulf of Esplin	03-arnulf-of-esplin.png	Rare	DIRECT_ANCHOR	Independent numeric heroNameId anchor already preserved in chain/session forensics; exact period art already runtime card14
+15	Balen Fellwood	04-Balen-Fellwood.png	Rare	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+16	Helia Stormcall	09-helia-stormcall.png	Epic	HIGH_STRUCTURAL	GitBook order + rarity insertion; official rarity poster SIFT/RANSAC 324 inliers
+17	Xegis Branfyre	21-xegis-branfyre.png	Epic	HIGH_STRUCTURAL	GitBook order + rarity insertion; official rarity poster SIFT/RANSAC 342 inliers
+18	Elrik the Imbuer	07-elrik-the-imbuer.png	Epic	DIRECT_ANCHOR	Independent numeric heroNameId anchor already preserved in chain/session forensics; exact period art already runtime card18
+19	Uriah the Sage	20-uriah-the-sage.png	Legendary	HIGH_STRUCTURAL	GitBook order + rarity insertion; official rarity poster SIFT/RANSAC 192 inliers
+20	Sir Asten	15-sir-asten.png	Legendary	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity
+21	Duke Duscair IV	06-duke-duscair-IV.png	Legendary	HIGH_STRUCTURAL	GitBook 18-roster order + 21-ID rarity insertion model + period first-party artwork identity

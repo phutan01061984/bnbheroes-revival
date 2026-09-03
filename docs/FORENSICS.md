@@ -48,7 +48,7 @@ The `gitbook/` directory is therefore a **reconstructed preservation edition**, 
 ## Playable restoration coverage
 The browser build currently implements: recruitment, the recovered 100-slot random table, 12-hour arrival, expedite, active Hero capacity, Hero Reserves, HP recovery, Attack/Armor/Speed combat, seven recovered encounter parameter sets, XP and stacked XP, level unlocks, Bank/Town Inn/Barracks/Training Grounds upgrades, BNB reward accumulation, 48-hour reward lock, declining withdrawal tax, local Marketplace preservation UI, activity log and responsive medieval interface.
 
-The Marketplace settlement path and lost original artwork are not claimed as recovered. Marketplace purchases in the preservation build are local simulations, and missing Hero/enemy visuals are newly constructed archival UI rather than counterfeit “original assets.”
+The Marketplace settlement path is not claimed as recovered; Marketplace purchases in the preservation build are local simulations. Media provenance is now tracked asset-by-asset rather than described generically: all 21 Hero cards use surviving period artwork bytes, enemies/Barracks/card/result art mix direct and period-derived evidence, and `fight.42bbd04e.png` remains explicitly labeled creative reconstruction. See `docs/MEDIA_RECOVERY.md` and `research/hero-id-mapping/PROOF.md`.
 
 ## Preservation rule
 The revival prototype does not sign transactions, request private keys, or pay real BNB. The legacy economic layer should stay read-only until the old contracts and ownership/admin risks are fully audited.

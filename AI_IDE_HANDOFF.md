@@ -1428,3 +1428,81 @@ See `research/browser-regression/REPORT_2026-09-03.md` and compressed screenshot
 
 ### Safety remains unchanged
 No real wallet/signing/mainnet transaction path was restored. `eth_sign`, `personal_sign`, `eth_signTransaction` and `eth_sendRawTransaction` remain blocked. The original UI is driven by local EIP-1193/Web3 and local Bitquery-compatible adapters only.
+
+## Progress update — 2026-09-03 full Hero-card mapping and promotion
+
+### 21/21 Hero cards are no longer placeholders
+
+All runtime `/cards/1.png` … `/cards/21.png` now use the surviving period artwork set from `archive/hero-art-20211118/`, copied **byte-for-byte**. No resize/crop/redraw/generation was applied. `scripts/verify-preservation.mjs` now compares every runtime card to its mapped archived source and fails if any card regresses to `cards/unkown.png`.
+
+Final mapping:
+
+| heroNameId | Hero | rarity | confidence |
+|---:|---|---|---|
+| 1 | Dayne of Gerston | Common | HIGH_STRUCTURAL |
+| 2 | Andin Olis | Uncommon | HIGH_STRUCTURAL |
+| 3 | Torlov Branhart | Common | HIGH_STRUCTURAL |
+| 4 | Aelof Orstone | Uncommon | HIGH_STRUCTURAL |
+| 5 | Jan Rhylen | Common | HIGH_STRUCTURAL |
+| 6 | Demisov the Bold | Uncommon | HIGH_STRUCTURAL |
+| 7 | Esfel of Lordan | Common | HIGH_STRUCTURAL |
+| 8 | Reis of the Knife | Uncommon | HIGH_STRUCTURAL |
+| 9 | Sivalas Zefen | Common | HIGH_STRUCTURAL |
+| 10 | Lena | Common | HIGH_STRUCTURAL_NEW_INSERT |
+| 11 | Thalas One-Eye | Uncommon | HIGH_STRUCTURAL |
+| 12 | Lady Ella of Tir | Rare | HIGH_STRUCTURAL |
+| 13 | Sir Bertrand | Rare | HIGH_STRUCTURAL |
+| 14 | Arnulf of Esplin | Rare | **DIRECT_ANCHOR** |
+| 15 | Balen Fellwood | Rare | HIGH_STRUCTURAL |
+| 16 | Helia Stormcall | Epic | HIGH_STRUCTURAL |
+| 17 | Xegis Branfyre | Epic | HIGH_STRUCTURAL |
+| 18 | Elrik the Imbuer | Epic | **DIRECT_ANCHOR** |
+| 19 | Uriah the Sage | Legendary | HIGH_STRUCTURAL |
+| 20 | Sir Asten | Legendary | HIGH_STRUCTURAL |
+| 21 | Duke Duscair IV | Legendary | HIGH_STRUCTURAL |
+
+### Why the structural mapping is strong but not mislabeled “direct”
+
+Recovered legacy GitBook `Hero Drop Rate` preserves an ordered 18-Hero roster with rarity sequence:
+
+`C U C U C U C U C U R R R E E L L L`
+
+The preserved 21-ID Character rarity array is:
+
+`C U C U C U C U C C U R R R R E E E L L L`
+
+Removing exactly IDs **10, 14, 18** makes the 21-ID sequence match the old 18-Hero sequence position-for-position. Official period X material says three new Heroes were being added. IDs 14 and 18 are independently locked as Arnulf and Elrik; the only additional artwork outside the old 18-name roster is Lena, giving ID10=Lena. This yields one consistent ordered merge without using article alphabetical order as numeric evidence.
+
+Artwork/rank identities are additionally cross-checked against official rarity lineups with SIFT/RANSAC (e.g. Xegis 342, Helia 324, Balen 212, Bertrand 192, Lady Ella 183, Uriah 192 inliers). `Layer-1.png` is in the Uncommon group and is the residual Demisov artwork after the other four Uncommon identities are resolved.
+
+Full proof and machine-readable mapping:
+- `research/hero-id-mapping/PROOF.md`
+- `research/hero-id-mapping/heroNameId-final.tsv`
+- `research/hero-id-mapping/art-to-official-rarity-sift.tsv`
+- `research/hero-id-mapping/official-group-layout-sift.tsv`
+
+### Archive paths exhausted without inflating confidence
+
+The old NFT `tokenURI()` resolves to the dead first-party route `https://metadata.bnbheroes.io/token/{id}`. Common Crawl/Wayback/alternate archive attempts did not yield the token JSON; public historical BSC RPCs are pruned for the required 2021 state; Sourcify/source-history routes did not provide a stronger numeric table. Current `randomTable` state is known to have changed and is **not** used as historical Hero-ID proof.
+
+### Runtime/data/tests
+
+- `prototype/src/legacy-data.js` now contains all 21 recovered Hero names.
+- `tests/engine.test.mjs` asserts the exact ordered name set and that no template returns `Lost Hero #...`.
+- `scripts/verify-preservation.mjs` asserts all 21 source/card byte equalities and preserves direct anchors 14/18.
+- `docs/MEDIA_RECOVERY.md` and `archive/hero-art-20211118/SOURCE.md` were consolidated to remove stale placeholder claims.
+- `npm run check:all` **passes** after full Hero promotion.
+
+### Browser/deployment note
+
+The Mac Browser Host Bridge currently cannot reach the Docker container directly (`127.0.0.1` refused; `172.28.0.3` timed out), while the container server itself returns HTTP 200. Therefore do not falsely certify this exact Hero-card commit via local browser. Push it to the existing non-production restoration branch and browser-smoke the HTTPS Vercel preview instead, then record commit/preview certification below.
+
+### Remaining true uncertainties after Hero completion
+
+The restoration is now functionally complete for the recovered 2021 UI/gameplay surface. Remaining fidelity caveats are narrow and already labeled:
+
+1. `static/media/fight.42bbd04e.png` remains a creative reconstruction because no period pixel source/direct byte survived.
+2. Hero IDs 14/18 are direct numeric anchors; the other 19 are high-confidence structural mappings, not a recovered metadata-table dump.
+3. Some enemy/Barracks/card/result runtime images are period-derived reconstructions rather than byte-identical original hashed files; their proof docs preserve exact provenance.
+
+Do not reopen solved queues unless a genuinely new historical source can improve fidelity/provenance.

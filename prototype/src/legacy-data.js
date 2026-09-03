@@ -359,8 +359,27 @@ export const LEGACY = {
     "isStarted": "true"
   },
   "knownHeroNames": {
+    "1": "Dayne of Gerston",
+    "2": "Andin Olis",
+    "3": "Torlov Branhart",
+    "4": "Aelof Orstone",
+    "5": "Jan Rhylen",
+    "6": "Demisov the Bold",
+    "7": "Esfel of Lordan",
+    "8": "Reis of the Knife",
+    "9": "Sivalas Zefen",
+    "10": "Lena",
+    "11": "Thalas One-Eye",
+    "12": "Lady Ella of Tir",
+    "13": "Sir Bertrand",
     "14": "Arnulf of Esplin",
-    "18": "Elrik the Imbuer"
+    "15": "Balen Fellwood",
+    "16": "Helia Stormcall",
+    "17": "Xegis Branfyre",
+    "18": "Elrik the Imbuer",
+    "19": "Uriah the Sage",
+    "20": "Sir Asten",
+    "21": "Duke Duscair IV"
   },
   "rarityMap": {
     "1": "Common",

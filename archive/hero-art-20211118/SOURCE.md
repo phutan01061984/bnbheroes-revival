@@ -1,11 +1,18 @@
 # 21 surviving BNB HEROES hero-art PNGs
 
-Source article: `https://thisisgamethailand.com/uncategorized/bnb-heroes-play-to-earn/` (published 18 Nov 2021).
+Initial period recovery source: `https://thisisgamethailand.com/uncategorized/bnb-heroes-play-to-earn/` (published 18 Nov 2021), with the artwork set also corroborated through archived/first-party BNB HEROES web/media evidence gathered in this repository.
 
-These are period hero artworks recovered from the article's WordPress media URLs. The filenames/order here follow the article/alphabetical presentation and **must not be treated as `/cards/1.png..21.png` numeric heroNameId order**.
+These files preserve period artwork bytes. Their filenames/order follow the article/editorial presentation and **must not be treated as numeric `/cards/1.png..21.png` order by themselves**.
 
-Known numeric identity anchors used in the preservation build:
-- `/cards/14.png` → Arnulf of Esplin (confidence: prior on-chain/session evidence; retain caveat until independently re-snapshotted into a local proof artifact).
-- `/cards/18.png` → Elrik the Imbuer (confidence: prior on-chain/session + official event evidence; retain caveat until independently re-snapshotted into a local proof artifact).
+Numeric mapping is a separate forensic result. See:
 
-Do not map the other 19 artworks to numeric IDs by guessing.
+- `research/hero-id-mapping/PROOF.md`
+- `research/hero-id-mapping/heroNameId-final.tsv`
+
+Direct numeric identity anchors:
+- `/cards/14.png` → Arnulf of Esplin.
+- `/cards/18.png` → Elrik the Imbuer.
+
+The remaining IDs are explicitly labeled high-confidence structural mappings, based on the recovered ordered 18-Hero GitBook roster, the 21-ID contract rarity structure, the three-new-Hero insertion evidence, and official/period artwork matching. Do not misrepresent those 19 IDs as direct metadata recovery.
+
+Runtime promotion copies these source files byte-for-byte. Keep this archive immutable.
