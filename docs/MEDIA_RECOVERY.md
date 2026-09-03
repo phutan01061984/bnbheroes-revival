@@ -1,6 +1,6 @@
 # BNB HEROES Media Recovery Status
 
-Last updated: 2026-09-03 — Hero-card promotion checkpoint.
+Last updated: 2026-09-03 — final Town/Fight browser-certification checkpoint.
 
 This ledger distinguishes **direct original bytes**, **period-original bytes**, **period-derived reconstruction**, and **creative reconstruction**. Do not collapse those provenance classes.
 
@@ -107,7 +107,7 @@ Further searches also covered exact page titles/IDs, old `bnbheroes.xyz` paths, 
 - signing/raw-transaction methods remain blocked;
 - engine/provider tests pass.
 
-The native 2021 UI was previously browser-certified on the Vercel restoration preview across Home, My Heroes, Recruit, Expedite, Reserve/Return, Town Upgrade, Fight, Zangrief, win/loss RESULT, Claim, Battle Logs and mobile layout. After the 21-card promotion, a fresh public-preview smoke is required before calling this exact commit browser-certified.
+The native 2021 UI is browser-certified on the Vercel restoration preview across Home, My Heroes, Recruit, Expedite, Reserve/Return, Town Upgrade through L4, Fight, Zangrief, win/loss RESULT, Claim, Battle Logs and mobile 390×844. The final Town/Fight build was verified by remote asset hashes before the browser pass; see `research/browser-regression/REPORT_2026-09-03.md`.
 
 ## True remaining visual uncertainty
 

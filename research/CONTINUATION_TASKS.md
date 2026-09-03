@@ -75,7 +75,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Recover/validate/promote full-town Level 4 layers without using the rejected dark-overlay trial candidate.
 - [x] Recover/validate/promote `townselect/*-4`.
 - [x] Re-audit Fight icon provenance; period pixels were recovered and the creative runtime art has been superseded by validated `RECONSTRUCTED_FROM_PERIOD_PIXELS` media.
-- [ ] Re-run full checks, commit/push restoration branch, redeploy Vercel preview, and browser-smoke the new Town build.
+- [x] Re-run full checks, commit/push restoration branch, redeploy Vercel preview, and browser-smoke the new Town build. Final certification commits: `0935796` + handoff closeout `bc611f3`; restoration preview passed Town L1→L4, Fight/Result/Boss, Hero/Recruit and mobile 390×844.
 - [x] Reconstruct/validate Level-4 preview candidates from canonical full-town candidates; round-trip IoU 0.914–0.954, with only off-canvas Level-3 fallback pixels.
 - [x] Backup former L4 transparent fallbacks and promote all 4 full-town + all 4 Level-4 preview reconstruction candidates to runtime.
 - [x] Add SHA-256 regression manifest/verifier for all 24 Town Level 2–4 runtime recovery assets.

@@ -115,8 +115,7 @@ The runtime bundle has only minimal compatibility patches:
 - engine tests;
 - `tests/provider.test.mjs`, which verifies exact oracle values, hero/market ABI reads, a synthetic fight transaction/receipt, shared save state, and hard rejection of real signing/raw transactions.
 
-Still required before declaring the native-original UI fully browser-certified:
-- visual/browser smoke of `/`, `/myheroes`, `/market`, `/battlelogs`, `/myreserve`, plus Recruit/Upgrade/Fight/RESULT flows on the deployed preview or Mac Browser Host Bridge.
+Browser certification is complete on the restoration Vercel preview. Home, My Heroes, Marketplace maintenance state, Battle Logs, My Reserve, Recruit, Upgrade through Town L4, Fight/RESULT, Zangrief Boss, Claim and mobile 390×844 were exercised through the original React handlers/local provider. See `research/browser-regression/REPORT_2026-09-03.md`.
 
 ## Cross-version restoration: Recruit button
 

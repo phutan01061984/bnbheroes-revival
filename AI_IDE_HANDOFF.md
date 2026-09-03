@@ -218,7 +218,7 @@ The hashed backgrounds that Wayback returned as failed/error payloads are replac
 The current runtime no longer uses the early neutral placeholders for Barracks, enemies, Hero cards, or RESULT art. Provenance is explicit:
 
 - `static/media/fight.42bbd04e.png`
-  - **CREATIVE_RECONSTRUCTION** only. Direct/period pixels for the original Fight icon were not recovered after GitBook, old-host, archive, bundle, urlscan, repo/CDN and video searches. Do not call it original.
+  - **RECONSTRUCTED_FROM_PERIOD_PIXELS** from 7-Nov-2021 Home footage; supervised leave-one-icon-out alpha validation mean IoU 0.9557 / min 0.9416, with period-frame recomposition mean MAE ~1.19. Direct hashed bytes remain unavailable; do not call it byte-identical original.
 - `towns/3-1.png`
   - **PERIOD_RECONSTRUCTION** from first-party `Level-1.png` explicitly labeled `Level 1 Barracks`, positioned into the 1920×1080 town coordinate system via period screenshot homography.
 - `static/media/card.df50fb38.png` / `card_lock.c211f00f.png`
@@ -233,8 +233,8 @@ The current runtime no longer uses the early neutral placeholders for Barracks, 
   - **PERIOD_RECONSTRUCTION** of Zangrief from 17-Nov production video plus higher-resolution 8-Dec period screenshot.
 - `/cards/1.png` … `/cards/21.png`
   - **EXACT PERIOD ART BYTES** copied byte-for-byte from `archive/hero-art-20211118/` according to `research/hero-id-mapping/heroNameId-final.tsv`; IDs 14/18 are direct numeric anchors and the other 19 are explicitly high-confidence structural mappings.
-- `/townselect/*`
-  - still transparent preservation fallbacks where no source art was recovered. This is the remaining known visual fallback family besides the reconstructed Fight icon.
+- `/townselect/{1..4}-{2..4}.png`
+  - **PERIOD-DERIVED RECONSTRUCTIONS** validated from 2021 gameplay/Town footage and canonical geometry proofs; all 12 used preview assets are active and preservation-hash locked. Level-4 off-canvas pixels retain explicitly documented Level-3 fallback only where period footage cannot observe the source area.
 
 ### Why we do not silently fake missing art
 
@@ -1529,11 +1529,8 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 - Bank Level 3 proof was corrected to use the stable transform-chain solution rather than the earlier distorted direct homography; current proof records 53/59 inliers for the stable chain.
 - `npm run check:all` passed after the Level 2/3 full-town promotion.
 
-### Current unresolved work
-1. Level 4 full-town layers `towns/{1,2,3,4}-4.png` are still 573-byte transparent fallbacks at runtime. Do NOT promote weak candidates merely to fill the slots.
-2. Barracks Level 4 has a surviving first-party `research/media_hunt/barracks-analysis/assets_Level-4.png` source and strong historical homography evidence, but the exact prior 625/726-inlier source frame/script still needs to be re-identified so provenance is reproducible.
-3. The 21 Nov max-town video frames currently scanned contain a global dark/overlay treatment; a trial L4 reconstruction from those pixels was rejected and remains research-only under `research/media_hunt/town-layers-reconstruction/level4/`.
-4. After Level 4: finish/lock `townselect/*-4`; re-audit `static/media/fight.42bbd04e.png` and retain CREATIVE_RECONSTRUCTION labeling unless a true period pixel source is found; then run full tests, commit, push restoration branch, redeploy Vercel preview, and browser-regression the HTTPS build.
+### Historical unresolved work at this checkpoint — **SUPERSEDED BY LATER RECOVERY**
+The four bullets that originally followed this heading (Town L4 fallbacks, Barracks-L4 proof recovery, dark-overlay rejection, and Fight creative re-audit) are all resolved in later checkpoints below. Current truth: Town L2–L4 full layers + used previews are promoted/canonicalized/hash-locked, Fight is `RECONSTRUCTED_FROM_PERIOD_PIXELS`, full checks pass, and the HTTPS preview is browser-certified. Keep the later proof sections as the authoritative state.
 
 ### Git/deployment state at this checkpoint
 - HEAD is still `addeaef` (`Complete 21-hero period card restoration`).
@@ -1686,3 +1683,8 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 - Final certification commit should include only `AI_IDE_HANDOFF.md`, `research/browser-regression/REPORT_2026-09-03.md`, and the eight compressed `research/browser-regression/evidence/2026-09-03-final-*.jpg` review images. Raw full-resolution browser PNGs and bulk research caches remain local/untracked by design.
 - Certification commit `0935796` (`Certify restored Town and Fight preview`) was pushed normally to `origin/restoration/native-ui-20260903`; local and remote heads matched exactly after push. Tracked working tree was clean; raw full-resolution browser PNGs and bulk research caches remain local/untracked by design. `origin/main` was not touched.
 - Restoration/certification is complete at this checkpoint. Reopen archaeology only if genuinely stronger original-period evidence appears; otherwise preserve the verified runtime/provenance rather than replacing it speculatively.
+
+### 2026-09-03 forensic-fidelity phase — housekeeping checkpoint
+- User explicitly requested the next phase to pursue fidelity items **1, 2, 3, and 5** from the prior roadmap: (1) exact original-byte recovery for period reconstructions, (2) direct Hero numeric-ID metadata recovery, (3) deeper exact legacy contract/state reconstruction, and (5) automated visual-diff forensic auditing. The separate dual-snapshot Recruit/Museum mode idea is intentionally NOT a priority because the 17-Nov Recruit disable may have been a legitimate pre-shutdown state.
+- Housekeeping completed before new research: current-authoritative-state block added near the top of this handoff; stale Fight creative/Town fallback claims corrected or explicitly marked superseded; `docs/ORIGINAL_UI_COMPATIBILITY.md`, `docs/MEDIA_RECOVERY.md`, `docs/FORENSICS.md`, and `research/CONTINUATION_TASKS.md` synchronized with the final certified runtime.
+- Next action: commit this documentation-only cleanup, then build the visual-diff forensic suite and run it against surviving period references/current canonical assets; in parallel start a new evidence-only deep-recovery pass for byte-original media, direct Hero metadata, and legacy contract history/state.
