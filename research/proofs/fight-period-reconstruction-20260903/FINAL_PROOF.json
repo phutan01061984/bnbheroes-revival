@@ -1,0 +1,49 @@
+{
+  "training_refs": [
+    {
+      "name": "Recruit",
+      "inliers": 43,
+      "samples_per_class": 4566
+    },
+    {
+      "name": "heroes",
+      "inliers": 32,
+      "samples_per_class": 6486
+    },
+    {
+      "name": "upgrade",
+      "inliers": 28,
+      "samples_per_class": 5535
+    },
+    {
+      "name": "Market",
+      "inliers": 21,
+      "samples_per_class": 5496
+    }
+  ],
+  "training_rows": 44166,
+  "trees": 80,
+  "fight_mask_fraction": 0.7632,
+  "component_areas": [
+    17115,
+    30,
+    17,
+    10
+  ],
+  "candidate_recompose": {
+    "median_mae": 0.0,
+    "mean_mae": 1.1855076551437378,
+    "p90_mae": 4.333333492279053,
+    "support_mean_mae": 0.1354261040687561
+  },
+  "creative_recompose": {
+    "median_mae": 37.0,
+    "mean_mae": 48.09119415283203,
+    "p90_mae": 126.66666412353516
+  },
+  "period_support_stability": {
+    "n_frames": 6,
+    "mean_rgb_std": 0.36988016963005066,
+    "p90_rgb_std": 1.09994375705719
+  }
+}

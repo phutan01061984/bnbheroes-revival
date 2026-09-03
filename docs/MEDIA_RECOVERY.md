@@ -67,7 +67,7 @@ Direct 2021 bytes remain unavailable for six historical hashed filenames, but th
 - `recruit_card.aa5e12c7.png` — **period-original source adapted to runtime geometry** from first-party `BNBH-Card-Back.png`; strongest official-video match 195 RANSAC inliers.
 - `rewards.16b2db64.png` — **period-derived reconstruction** from win/lose frame differential; original bundle confirms RESULT usage/500px render width.
 - `You lose.00f95b2b.png` — **period-derived reconstruction** from period loss frames; original bundle confirms loss condition/500px render width.
-- `fight.42bbd04e.png` — **CREATIVE_RECONSTRUCTION**. This is the one runtime image that still has neither direct original bytes nor recoverable period pixels. Never label it original.
+- `fight.42bbd04e.png` — **RECONSTRUCTED_FROM_PERIOD_PIXELS** from 2021-11-07 gameplay Home frames. The original hashed bytes remain unrecovered, but the runtime art is now reconstructed from observed period pixels with leave-one-icon-out alpha validation (mean IoU 0.9557, min 0.9416) and period-frame recomposition mean MAE ~1.19. See `research/proofs/fight-period-reconstruction-20260903/`.
 
 Full hashes/provenance: `research/media_hunt/final-promotions/PROVENANCE.md` and `research/media_hunt/card-analysis/CARD_SLOT_RECOVERY_PROOF.md`.
 
@@ -113,7 +113,7 @@ The native 2021 UI was previously browser-certified on the Vercel restoration pr
 
 The project is functionally restored and the major missing-media queue is closed. The remaining material uncertainty is narrow:
 
-1. `fight.42bbd04e.png` is creative reconstruction, not recovered period pixels.
+1. `fight.42bbd04e.png` is a **period-pixel reconstruction**, not byte-identical original hashed media; direct archive recovery of the hash remains exhausted.
 2. Hero numeric IDs 14/18 are direct; the other 19 are high-confidence structural reconstruction, not a surviving metadata-table dump.
 3. Several other runtime assets are period-derived reconstructions rather than byte-identical hashed originals; each is explicitly labeled above/provenance docs.
 

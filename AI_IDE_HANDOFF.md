@@ -4,7 +4,7 @@
 >
 > This repository contains a preservation-grade recovery of the original 2021 BNB HEROES web client plus a safe playable reconstruction and restored GitBook. The original project's real-money/wallet layer is intentionally disabled.
 
-Last handoff update: **2026-09-02**  
+Last handoff update: **2026-09-03**  
 Working directory used during recovery: `/workspace/bnbheroes-revival`
 
 ---
@@ -16,9 +16,9 @@ There are three useful surfaces:
 1. **`/` — Original 17 Nov 2021 frontend preservation**
    - Recovered HTML/CSS/React bundle from `play.bnbheroes.io`.
    - Uses the original 2021 component tree, routes, class names, layout, CSS, fonts and surviving assets.
-   - Auto wallet connection is removed.
-   - Real transaction actions are blocked by `preservation-shim.js`.
-   - Missing historical images are represented by explicitly documented neutral/reconstructed fallbacks; do not mislabel them as original.
+   - The original 2021 auto-connect/Connect lifecycle is restored, but it resolves only to the local preservation EIP-1193 provider.
+   - Real signing/raw transactions and live BSC/Infura RPC paths are blocked; gameplay writes are simulated locally through the recovered ABI/UI flow.
+   - Recovered/reconstructed historical media carry explicit provenance labels; do not mislabel period-derived reconstruction as byte-identical original.
 
 2. **`/prototype/` — Safe playable revival**
    - LocalStorage simulation.
@@ -72,8 +72,8 @@ npm run verify:preservation
 It checks:
 
 - core recovered HTML/JS/CSS/assets exist;
-- production bundle no longer auto-connects a wallet;
-- the wallet-disabled patch marker exists;
+- production bundle auto-connects only to the local preservation provider;
+- real signing/raw transaction methods remain blocked and no live BSC/Infura RPC endpoint is active;
 - every `static/media/*` file referenced by recovered JS/CSS exists;
 - clean original archive still contains original 2021 auto-connect code (evidence only);
 - playable revival and GitBook still exist.
@@ -717,10 +717,10 @@ Copy/paste this to the next AI:
 ├── vercel.json                    # SPA rewrites / headers
 ├── static/                        # production recovered JS/CSS/media + documented fallbacks
 ├── backgrounds/                   # surviving original page backgrounds
-├── towns/                         # surviving original town layers + transparent missing-layer fallbacks
-├── townselect/                    # preservation fallbacks until originals are recovered
-├── cards/                         # ID 14/18 period art + neutral unknowns
-├── enemies/                       # surviving sprite(s) + neutral unknowns
+├── towns/                         # L1 originals/recovered + evidence-backed period-pixel L2–L4 layers
+├── townselect/                    # evidence-backed period-pixel upgrade previews for used Levels 2–4
+├── cards/                         # all 21 period Hero artworks; ID mapping proof in research/hero-id-mapping/
+├── enemies/                       # evidence-backed enemy 1–7 period derivatives/reconstructions
 ├── vendor/                        # Bootstrap 5.1.2 copied locally
 ├── prototype/                     # safe playable reconstruction
 ├── gitbook/                       # restored docs
@@ -1265,9 +1265,9 @@ At this exact checkpoint:
 - Original main JS contains 10 small base64 PNG data-URIs; decoded to `research/media_hunt/bundle-embedded/`.
 - They are small UI/icon assets (e.g. 51x30, 128x128, 55x59), not the missing large card/result/fight files.
 
-### Remaining media requiring creative reconstruction if desired
+### Historical six-file missing-media queue — **SUPERSEDED BY LATER RECOVERY BELOW**
 
-Direct original bytes remain unrecovered for:
+At this earlier checkpoint, direct original bytes were still unrecovered for:
 - `static/media/fight.42bbd04e.png`
 - `static/media/card.df50fb38.png`
 - `static/media/card_lock.c211f00f.png`
@@ -1275,13 +1275,13 @@ Direct original bytes remain unrecovered for:
 - `static/media/rewards.16b2db64.png`
 - `static/media/You lose.00f95b2b.png`
 
-At this point GitBook storage, old-host archive paths, period videos/screenshots, bot assets and bundle-embedded images have all been checked. Treat these six as the concise creative-reconstruction queue unless a genuinely new archive source appears.
+This paragraph records the earlier search state only. Later checkpoints below recovered period/first-party pixels for all six runtime slots; direct byte-identical hashed originals remain unavailable for some of them.
 
 ## Progress update — 2026-09-03 final hashed-media promotion
 
 ### The former six-file media queue is now integrated
 
-Five of the six unrecovered hashed media files now use historical period/first-party pixels; the last (`fight`) remains an explicitly documented creative reconstruction. Direct byte-identical 2021 originals were **not** recovered, so provenance labels matter.
+All six formerly missing hashed-media runtime slots now use historical period/first-party pixels or evidence-backed period-pixel reconstruction. `fight` was upgraded later from a creative placeholder to a supervised period-pixel reconstruction. Direct byte-identical 2021 originals were **not** recovered for every slot, so provenance labels still matter.
 
 1. `static/media/card.df50fb38.png`
    - 459×654, SHA-256 `cac62dc89c4e15b36fb738131ca99c04b90c1211bf9e2e175e655394fef8e100`.
@@ -1501,7 +1501,7 @@ The Mac Browser Host Bridge currently cannot reach the Docker container directly
 
 The restoration is now functionally complete for the recovered 2021 UI/gameplay surface. Remaining fidelity caveats are narrow and already labeled:
 
-1. `static/media/fight.42bbd04e.png` remains a creative reconstruction because no period pixel source/direct byte survived.
+1. `static/media/fight.42bbd04e.png` is now `RECONSTRUCTED_FROM_PERIOD_PIXELS`; direct hashed bytes remain unavailable, but 2021 Home footage and supervised alpha/recomposition proof support the active reconstruction.
 2. Hero IDs 14/18 are direct numeric anchors; the other 19 are high-confidence structural mappings, not a recovered metadata-table dump.
 3. Some enemy/Barracks/card/result runtime images are period-derived reconstructions rather than byte-identical original hashed files; their proof docs preserve exact provenance.
 
@@ -1516,7 +1516,7 @@ Do not reopen solved queues unless a genuinely new historical source can improve
 - `/myheroes` rendered `/cards/14.png` at its natural 499×699 dimensions in the original 2021 React UI. Evidence: `research/browser-regression/evidence/2026-09-03-myheroes-period-card.jpg`.
 - `npm run check:all` passes after the complete Hero promotion.
 - Main playable preservation flows were already browser-certified on this same preview: Recruit/arrival/Expedite, Reserve/Return, Upgrade, Basic Fight, Zangrief win/loss RESULT, Claim, Battle Logs, restored GitBook/prototype, and valid iPhone-UA mobile layout.
-- Known visual provenance limitation remains explicit: `fight.42bbd04e.png` is creative reconstruction and `/townselect/*` are transparent fallbacks. All other major runtime blockers from this recovery campaign have been closed or reconstructed from period evidence.
+- This Hero-deployment note predates the later Town/Fight recovery. Current state: `fight.42bbd04e.png` is a validated period-pixel reconstruction; used `/townselect/*-2..4` are evidence-backed period reconstructions; Town L2–L4 full layers are restored and geometry-verified.
 
 ## Live recovery checkpoint — 2026-09-03 Town Level 2/3 integration
 
@@ -1623,3 +1623,36 @@ This checkpoint is intentionally written immediately so a network/tool interrupt
 - `scripts/verify-preservation.mjs` is now additionally geometry-aware: it rejects Town L2/L3 if the 8-layer canonical round-trip proof drops below alpha IoU 0.95 / RGB MAE 1.1, rejects Level-3 preview→canonical mapping below alpha IoU 0.997 / RGB MAE 1.2, and requires Level-4 previews to declare the corrected canonical derivation method.
 - `research/media_hunt/town-layers-reconstruction/level4-canonical/TOWNSELECT_L4_PROOF.json` has been replaced with the corrected canonical proof rather than the stale video-coordinate proof.
 - This Town geometry correction is ready for its own protected commit before continuing Fight reconstruction.
+
+### Live sub-checkpoint — Fight exact source + Home-state reconstruction (bridge-safe checkpoint)
+- Exact period source for the six previously identified Home frames is now proven: `research/media_hunt/townselect-video/VUt1ccH-dQ4-upgrades-1205-1245.mp4` (1920×1080). Source frame at t=31.5s matches the previously saved `fulltown-rel31.5.jpg` at grayscale correlation 0.99949 / mean absolute RGB difference ~1.84 (JPEG-vs-video extraction difference).
+- Runtime→period-frame geometry at t=31.5s is independently recovered from `towns/background.jpg` with 67 homography inliers and robust axis-aligned fit approximately X scale=0.999929, X shift=+0.025 px, Y scale=0.905853, Y shift=+99.470 px. Machine-readable evidence: `research/media_hunt/fight-period-recovery/SOURCE_FRAME_GEOMETRY.json`.
+- Exhaustive compositing over the 16 possible Level-1/Level-2 Town combinations shows `(Bank, Inn, Barracks, Training) = (2,2,2,2)` is the best scene-state match by a clear margin at the period Fight frame (median pixel MAE ~5.33; mean ~14.94; ~65.9% validation pixels under MAE 10). Thus the background behind Fight is no longer unknown in state terms: all four buildings are Level 2.
+- Runtime Fight DOM evidence remains: desktop Fight image renders 150×150 in `.btn-fight`, independent from the normal 120×120 menu icons. The period Fight slot remains approximately x=1706, y=899, w=150, h=150 for this 1920×1080 capture geometry.
+- A multi-video Home-frame scan was started to locate the same Fight icon over additional backgrounds. Before being stopped to avoid saturating the local bridge, confirmed Home hits were found in at least: `VUt1ccH-dQ4-upgrades-855-920.mp4` (14 hits), `vpYV15hBOGs-upgrade.mp4` (17), `VUt1ccH-dQ4-upgrades-1205-1245.mp4` (37), `Wmon4hMiX2I-110-140.mp4` (3), and `IKhejV19gHI-fulltown-L4.mp4` (23). Sparse source frames were saved under `research/media_hunt/fight-period-recovery/archive-home-scan/`.
+- The long scan was intentionally stopped after repeated 502 saturation; no runtime files were changed by that scan. Continue Fight reconstruction with small per-video/per-frame batches only.
+- Town canonical geometry is already protected in commit `23071e2` (`Canonicalize restored Town geometry`) and must not be reopened unless stronger evidence appears.
+- Immediate next action after interruption: analyze the already-saved Home frames in small batches to identify scene geometry/state and derive Fight pixels across genuinely different backgrounds. Do not rerun the 13,000-second monolithic scan.
+
+### Live sub-checkpoint — Fight supervised period reconstruction validated
+- The final Fight extraction is now objectively validated against four surviving original menu icons using leave-one-icon-out supervised segmentation. Saved-mask metrics: Recruit IoU 0.9647, Heroes 0.9416, Upgrade 0.9605, Market 0.9561; mean IoU 0.95573, minimum 0.94163. Machine-readable metrics: `research/media_hunt/fight-period-recovery/supervised-proof/LOO_SAVED_MASK_METRICS.json`.
+- A single final OpenCV RTrees model (80 trees) was then trained on the four original-icon alpha masks and applied to the period Fight slot. Candidate artifacts: `research/media_hunt/fight-period-recovery/final-candidate/fight-150.png`, `fight-512.png`, `mask-150.png`; proof: `final-candidate/PROOF.json`.
+- Final Fight candidate support fraction is ~0.75658 with one dominant connected component (17,023 px at 150x150).
+- Candidate composited back over the reconstructed all-Level-2 period background reproduces the observed period Fight crop with median MAE 1.029, mean MAE 1.188, p90 2.697; inside predicted Fight support mean MAE is only 0.135.
+- The current creative runtime Fight reconstruction performs dramatically worse on the same test: median MAE 46.72, mean MAE 48.09, p90 81.17.
+- Period Fight pixels are stable across the six consecutive source frames: mean RGB std ~0.370, p90 ~0.658 inside predicted support.
+- Conclusion: the new candidate is eligible to replace the creative runtime asset and must be labeled `RECONSTRUCTED_FROM_PERIOD_PIXELS` / period-pixel reconstruction. It is NOT byte-identical original media; direct hashed-file archive searches remain exhausted.
+- Immediate next action: backup current creative `static/media/fight.42bbd04e.png`, promote `final-candidate/fight-512.png`, curate small proof files, add preservation verification, run `npm run check:all`, then commit/push the restoration branch.
+
+### Live sub-checkpoint — Fight period reconstruction promoted to runtime
+- The superseded creative `static/media/fight.42bbd04e.png` was backed up to `archive/pre-fight-period-recovery-20260903/fight.42bbd04e.png` (SHA-256 `158f9f06f9f5720f884d97bd954fbea2029034a2b79c81405fc868a515791bf0`).
+- The validated period-pixel candidate has now been promoted to the original runtime path `static/media/fight.42bbd04e.png`, still 512×512 RGBA. New SHA-256: `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa`.
+- Curated reproducible evidence is under `research/proofs/fight-period-reconstruction-20260903/`: `PROOF.md`, `LOO_SAVED_MASK_METRICS.json`, `FINAL_PROOF.json`, `SOURCE_FRAME_GEOMETRY.json`, `fight-150.png`, `mask-150.png`.
+- Provenance is **RECONSTRUCTED_FROM_PERIOD_PIXELS**, not byte-identical original. Direct hashed-file archive recovery remains exhausted; this promotion is justified by objective period-frame reconstruction metrics, not by visual guesswork.
+- Runtime has changed at this checkpoint, but preservation verifier/docs/full suite have NOT yet been updated/run. Immediate next action: add Fight proof/hash verification, update current recovery docs/provenance/task ledger, then run `npm run check:all`. Do not commit the Fight promotion until that passes.
+
+### Live sub-checkpoint — Fight runtime verification PASSED
+- After promoting the validated Fight period-pixel reconstruction and adding proof/hash assertions, `npm run check:all` PASSED completely: syntax checks, preservation verifier, engine tests and local-provider tests.
+- Preservation verifier now requires the active Fight SHA-256 `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa`, requires the superseded creative SHA `158f9f06f9f5720f884d97bd954fbea2029034a2b79c81405fc868a515791bf0` to remain only in archive, enforces LOO segmentation mean IoU >=0.95 / min >=0.94, and enforces final period-frame photometric thresholds.
+- Current recovery docs/task ledger/provenance have been updated to label Fight `RECONSTRUCTED_FROM_PERIOD_PIXELS`; direct original hashed bytes remain unavailable.
+- Fight promotion is now eligible for a protected commit. Immediate next action: stage only curated runtime/proof/docs/verifier/backup files, commit on `restoration/native-ui-20260903`, push the restoration branch, then wait for Vercel Git preview redeploy and run fresh HTTPS browser regression.

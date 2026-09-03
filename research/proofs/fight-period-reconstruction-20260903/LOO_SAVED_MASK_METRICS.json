@@ -1,0 +1,70 @@
+{
+  "leave_one_out_bbox_from_saved_predictions": [
+    {
+      "held_out": "Recruit",
+      "bbox": [
+        23,
+        936,
+        155,
+        1049
+      ],
+      "inliers": 43,
+      "bbox_iou": 0.9416238828674653,
+      "bbox_precision": 0.9769185243637798,
+      "bbox_recall": 0.9630493971217425,
+      "bbox_accuracy": 0.9588361491016358,
+      "pred_fraction": 0.6796728345400912,
+      "true_fraction": 0.6894609814963797
+    },
+    {
+      "held_out": "heroes",
+      "bbox": [
+        169,
+        923,
+        305,
+        1050
+      ],
+      "inliers": 32,
+      "bbox_iou": 0.9485414024279761,
+      "bbox_precision": 0.9708827893175074,
+      "bbox_recall": 0.9763148079074973,
+      "bbox_accuracy": 0.9671144048170449,
+      "pred_fraction": 0.6243631310792034,
+      "true_fraction": 0.6208893006021307
+    },
+    {
+      "held_out": "upgrade",
+      "bbox": [
+        316,
+        935,
+        453,
+        1050
+      ],
+      "inliers": 28,
+      "bbox_iou": 0.9597734817418473,
+      "bbox_precision": 0.980255285201436,
+      "bbox_recall": 0.9786937475109518,
+      "bbox_accuracy": 0.9738495715645826,
+      "pred_fraction": 0.6364963503649635,
+      "true_fraction": 0.6375119009838147
+    },
+    {
+      "held_out": "Market",
+      "bbox": [
+        465,
+        935,
+        601,
+        1050
+      ],
+      "inliers": 21,
+      "bbox_iou": 0.9727059283897476,
+      "bbox_precision": 0.9848454833597464,
+      "bbox_recall": 0.9874863442248486,
+      "bbox_accuracy": 0.9821611253196931,
+      "pred_fraction": 0.6455242966751918,
+      "true_fraction": 0.6437979539641944
+    }
+  ],
+  "mean_iou": 0.9556611738567591,
+  "min_iou": 0.9416238828674653
+}

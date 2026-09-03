@@ -13,7 +13,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Lock Tier-1 left/middle/right mapping for Red Skull 1/2/3 using first-party sheet ordering + SIFT/RANSAC back to 4000x2070 source.
 - [x] Produce/promote transparent production derivatives for enemies 1–6 from period-original GitBook sheets; raw sources preserved.
 - [x] Recover Zangrief (enemy 7) from 17 Nov production boss video + higher-res 8 Dec period screenshot; transparent runtime reconstruction promoted. See `derivatives/enemies/ZANGRIEF_PROOF.md`.
-- [x] `fight.42bbd04e.png`: direct byte remains unrecovered; runtime uses an explicitly documented creative reconstruction, normalized to 8-bit. Do not describe as original/period-derived.
+- [x] `fight.42bbd04e.png`: direct hashed byte remains unrecovered, but the creative placeholder has been superseded by a validated **RECONSTRUCTED_FROM_PERIOD_PIXELS** runtime asset from 2021-11-07 Home footage. See `research/proofs/fight-period-reconstruction-20260903/`. Do not describe it as byte-identical original.
 - [x] Reconstruct `towns/3-1.png` from first-party `Level-1.png` explicitly labeled “Level 1 Barracks”; map into 1920×1080 town coordinates through period screenshot homography. See `barracks-analysis/TOWN_3_1_PROOF.json`.
 - [x] Recover/reconstruct `card`, `card_lock`, `recruit_card`, `rewards`, `You lose` from period evidence. Card/card_lock are median-stacked official-video pixels; recruit_card uses first-party 2021 BNBH Card Back; result art uses win/lose period-video differential reconstruction. See `card-analysis/CARD_SLOT_RECOVERY_PROOF.md` and `final-promotions/PROVENANCE.md`.
 
@@ -47,7 +47,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 
 - [x] Replace enemy placeholders only after mapping proof; enemies 1–7 now have evidence-backed period derivatives/reconstruction.
 - [x] Keep raw recovered evidence immutable; derivatives go to runtime paths separately.
-- [x] Integrate Barracks/card/result media; Fight is integrated as clearly-labeled creative reconstruction because direct/period pixels remain unavailable.
+- [x] Integrate Barracks/card/result media and replace the Fight creative placeholder with the validated period-pixel reconstruction; direct Fight bytes remain unavailable.
 - [x] Run `npm run check:all` after each integration batch — passes after final media promotion.
 - [x] Browser smoke original routes/actions on public Vercel preview (native UI certification 2026-09-03). Fresh Hero-card commit preview smoke is tracked as the final deployment gate.
 
@@ -72,9 +72,9 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Promote evidence-backed full-town Level 3 layers `towns/1-3` … `towns/4-3` from period gameplay pixels; Bank L3 uses corrected stable transform-chain proof (53/59 inliers).
 - [x] Preserve pre-promotion fallbacks under `archive/pre-town-layer-recovery-20260903/`.
 - [x] Run `npm run check:all` after Town L2/L3 promotion — PASS.
-- [ ] Recover/validate/promote full-town Level 4 layers without using the rejected dark-overlay trial candidate.
-- [ ] Recover/validate/promote `townselect/*-4`.
-- [ ] Re-audit Fight icon provenance; keep explicit creative-reconstruction status unless period pixels are actually recovered.
+- [x] Recover/validate/promote full-town Level 4 layers without using the rejected dark-overlay trial candidate.
+- [x] Recover/validate/promote `townselect/*-4`.
+- [x] Re-audit Fight icon provenance; period pixels were recovered and the creative runtime art has been superseded by validated `RECONSTRUCTED_FROM_PERIOD_PIXELS` media.
 - [ ] Re-run full checks, commit/push restoration branch, redeploy Vercel preview, and browser-smoke the new Town build.
 - [x] Reconstruct/validate Level-4 preview candidates from canonical full-town candidates; round-trip IoU 0.914–0.954, with only off-canvas Level-3 fallback pixels.
 - [x] Backup former L4 transparent fallbacks and promote all 4 full-town + all 4 Level-4 preview reconstruction candidates to runtime.

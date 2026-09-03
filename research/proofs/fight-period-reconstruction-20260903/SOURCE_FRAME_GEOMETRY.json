@@ -1,0 +1,22 @@
+{
+  "source": "research/media_hunt/fight-period-recovery/source-frame-31.5.png",
+  "H_runtime_to_frame": [
+    [
+      0.9999287010641881,
+      0.0,
+      0.025396450663797168
+    ],
+    [
+      0.0,
+      0.9058531048279554,
+      99.47006500915793
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "background_good": 72,
+  "background_homography_inliers": 67
+}

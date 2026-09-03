@@ -12,6 +12,13 @@ for (const p of [
   'static/media/Village.64091b0b.jpg','static/media/myheroes-bg.3c5effac.jpg',
   'backgrounds/village.jpg','backgrounds/market.jpg','backgrounds/myheroes-bg.jpg','backgrounds/battlelog-bg.jpg',
   'towns/background.jpg','towns/objects.png',
+  'static/media/fight.42bbd04e.png','archive/pre-fight-period-recovery-20260903/fight.42bbd04e.png',
+  'research/proofs/fight-period-reconstruction-20260903/PROOF.md',
+  'research/proofs/fight-period-reconstruction-20260903/LOO_SAVED_MASK_METRICS.json',
+  'research/proofs/fight-period-reconstruction-20260903/FINAL_PROOF.json',
+  'research/proofs/fight-period-reconstruction-20260903/SOURCE_FRAME_GEOMETRY.json',
+  'research/proofs/fight-period-reconstruction-20260903/fight-150.png',
+  'research/proofs/fight-period-reconstruction-20260903/mask-150.png',
   ...Array.from({length:4},(_,b)=>Array.from({length:4},(_,l)=>`towns/${b+1}-${l+1}.png`)).flat(),
   ...Array.from({length:4},(_,b)=>Array.from({length:3},(_,l)=>`townselect/${b+1}-${l+2}.png`)).flat(),
   'research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256',
@@ -32,6 +39,26 @@ for (const p of [
 // Town recovery checkpoint: Levels 2–4 and their Upgrade previews must match the evidence-backed runtime manifest.
 const townManifest = fs.readFileSync('research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256','utf8').trim().split(/\r?\n/).filter(Boolean);
 const crypto = await import('node:crypto');
+
+// Fight recovery checkpoint: the superseded creative art must stay archived while runtime uses the validated period-pixel reconstruction.
+const fightRuntimePath = 'static/media/fight.42bbd04e.png';
+const fightBackupPath = 'archive/pre-fight-period-recovery-20260903/fight.42bbd04e.png';
+const fightExpectedHash = 'e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa';
+const fightCreativeHash = '158f9f06f9f5720f884d97bd954fbea2029034a2b79c81405fc868a515791bf0';
+const fightRuntimeHash = crypto.createHash('sha256').update(fs.readFileSync(fightRuntimePath)).digest('hex');
+const fightBackupHash = crypto.createHash('sha256').update(fs.readFileSync(fightBackupPath)).digest('hex');
+if (fightRuntimeHash === fightExpectedHash) ok('Fight runtime uses validated period-pixel reconstruction');
+else fail(`Fight runtime hash changed: ${fightRuntimeHash}`);
+if (fightRuntimeHash !== fightCreativeHash && fightBackupHash === fightCreativeHash) ok('superseded creative Fight bytes remain archived, not active');
+else fail('Fight creative/runtime provenance boundary changed');
+const fightLoo = JSON.parse(fs.readFileSync('research/proofs/fight-period-reconstruction-20260903/LOO_SAVED_MASK_METRICS.json','utf8'));
+const fightFinal = JSON.parse(fs.readFileSync('research/proofs/fight-period-reconstruction-20260903/FINAL_PROOF.json','utf8'));
+if (fightLoo.leave_one_out_bbox_from_saved_predictions?.length === 4 && fightLoo.mean_iou >= 0.95 && fightLoo.min_iou >= 0.94)
+  ok('Fight alpha segmentation leave-one-icon-out proof passes');
+else fail('Fight alpha segmentation proof missing or below threshold');
+if (fightFinal.candidate_recompose?.mean_mae <= 2.0 && fightFinal.candidate_recompose?.support_mean_mae <= 0.5 && fightFinal.creative_recompose?.mean_mae >= 30 && fightFinal.period_support_stability?.mean_rgb_std <= 1.0)
+  ok('Fight period-pixel photometric proof passes');
+else fail('Fight period-pixel photometric proof missing or below threshold');
 for (const line of townManifest) {
   const m = line.match(/^([0-9a-f]{64})\s+(.+)$/);
   if (!m) { fail(`invalid Town recovery hash line: ${line}`); continue; }
