@@ -117,3 +117,11 @@ The runtime bundle has only minimal compatibility patches:
 
 Still required before declaring the native-original UI fully browser-certified:
 - visual/browser smoke of `/`, `/myheroes`, `/market`, `/battlelogs`, `/myreserve`, plus Recruit/Upgrade/Fight/RESULT flows on the deployed preview or Mac Browser Host Bridge.
+
+## Cross-version restoration: Recruit button
+
+The untouched 17 Nov 2021 production bundle contains the full Recruit modal, approval and `createNewHero()` transaction logic, but its eligible Home Recruit icon was deliberately rendered with the Bootstrap `disabled` class and no click handler. This was a frontend switch, not a missing gameplay implementation.
+
+A recovered original bundle from **16 Nov 2021** (`research/play_forensics/recovered/build-20211116/main.907e74c4.chunk.js`) contains the immediately preceding authentic handler for the same Home component. When the player has enough BNBH and the Town Inn is not full, it opens the existing Recruit modal and fetches `getCharacterPrice()` before enabling the normal historical flow.
+
+The preservation runtime restores that exact 16 Nov handler inside the 17 Nov visual shell. No new Recruit UX was invented, and the untouched 17 Nov archive remains unchanged as evidence. This is intentionally classified as a **cross-version original-source restoration**, not a byte-identical 17 Nov snapshot.

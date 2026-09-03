@@ -1388,3 +1388,13 @@ The app shadows any browser wallet on this page with the preservation provider. 
 ### Remaining immediate gate
 - Deploy a **non-production Vercel preview** and browser-smoke original routes/actions there.
 - Do not call production certified until browser checks cover `/`, `/myheroes`, `/market`, `/battlelogs`, `/myreserve`, Recruit, Upgrade, Fight and RESULT.
+
+## Progress update — 2026-09-03 Recruit cross-version source recovery
+
+### Why Recruit looked disabled on the 17 Nov shell
+Browser regression of the Vercel preview proved Home/My Heroes/Fight/Upgrade worked natively, but Home Recruit was disabled. This is historical, not a provider failure: untouched `archive/original-20211117/static/js/main.5e2ca500.chunk.js` hard-disables both Home Recruit rendering branches even though the complete modal, approval and `createNewHero()` code remains in that same bundle.
+
+### Authentic active handler recovered from 16 Nov
+`research/play_forensics/recovered/build-20211116/main.907e74c4.chunk.js` contains the same Home component one day earlier with the eligible branch active. Its original click handler opens the Recruit modal and calls the oracle `getCharacterPrice()` before continuing through the existing approval/recruit functions.
+
+The current runtime now uses that exact 16 Nov handler in the 17 Nov shell. The insufficient-balance/full-inn branch remains disabled exactly as before. This is a cross-version historical restoration, not invented UI. The 17 Nov archive is untouched and verification now asserts both source states.

@@ -29,6 +29,8 @@ if (main.includes('se().then((function(){}))')) ok('original 2021 auto-connect l
 else fail('original auto-connect lifecycle missing');
 if (main.includes('connect:se')) ok('original Connect action restored');
 else fail('original Connect action missing');
+if (main.includes('0==ye&&Y>=Me&&Object(C.jsx)(\"div\",{className:\"menu-btn m-1 btn btn-hero\",onClick:function(){Te(!0),I(!0),F.a.methods.getCharacterPrice().call()')) ok('historical 16 Nov Recruit handler restored into 17 Nov shell');
+else fail('historical Recruit handler missing');
 if (main.includes('wallet connection is disabled')) fail('obsolete wallet alert patch remains');
 
 const provider = fs.readFileSync('preservation-provider.js','utf8');
@@ -52,6 +54,12 @@ if (!process.exitCode) ok(`all ${mediaRefs.length} referenced static media files
 const original = fs.readFileSync('archive/original-20211117/static/js/main.5e2ca500.chunk.js','utf8');
 if (original.includes('se().then((function(){}))') && original.includes('https://bsc-dataseed.binance.org/')) ok('clean archive still contains untouched 2021 network behavior (evidence only)');
 else fail('clean archive appears modified');
+
+const nov16 = fs.readFileSync('research/play_forensics/recovered/build-20211116/main.907e74c4.chunk.js','utf8');
+const activeRecruitMarker = '0==ye&&Y>=Me&&Object(C.jsx)(\"div\",{className:\"menu-btn m-1 btn btn-hero\",onClick:function(){Te(!0),I(!0),F.a.methods.getCharacterPrice().call()';
+const disabledRecruitMarker = '0==ye&&Y>=Me&&Object(C.jsx)(\"div\",{className:\"menu-btn m-1 btn btn-hero disabled\"';
+if (nov16.includes(activeRecruitMarker)) ok('16 Nov original build proves active Recruit handler provenance'); else fail('16 Nov Recruit evidence missing');
+if (original.includes(disabledRecruitMarker)) ok('17 Nov clean archive retains historically disabled Recruit state'); else fail('17 Nov Recruit evidence missing');
 
 const shim = fs.readFileSync('preservation-shim.js','utf8');
 for (const marker of ['realWalletDisabled:true','localProvider:true','/prototype/','/gitbook/']) {
