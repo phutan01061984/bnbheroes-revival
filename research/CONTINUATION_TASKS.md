@@ -56,12 +56,13 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Inventory original bundle Web3/game method calls needed per route. See `docs/ORIGINAL_UI_COMPATIBILITY.md`.
 - [x] Build a mock/compatibility provider that maps original UI calls to local simulation engine (`preservation-provider.js`).
 - [x] Keep real wallet signing/transactions disabled; provider tests assert `personal_sign`/raw transaction rejection and runtime has no BSC/Infura RPC endpoint.
-- [x] Wire the 2021 React UI natively to the safe local provider: original auto-connect + Connect restored, static Web3 reads and original write handlers now use shared local engine/save. Browser regression still pending.
+- [x] Wire the 2021 React UI natively to the safe local provider: original auto-connect + Connect restored, static Web3 reads and original write handlers use the shared local engine/save; public Vercel browser regression passed 2026-09-03.
 - [x] Recover the historically active Home Recruit handler from the original 16 Nov 2021 bundle and restore it into the 17 Nov shell; retain untouched 17 Nov disabled state as provenance evidence.
+- [x] Restore Battle Logs without rewriting the React page: preserve Apollo UI and emulate retired Bitquery GraphQL from structured local Fight history.
 
 ## P2 — Documentation / deployment
 
 - [x] Update `docs/MEDIA_RECOVERY.md` with new proof/mapping through 2026-09-03 final-media checkpoint.
 - [x] Update `AI_IDE_HANDOFF.md` after major milestones (latest: 2026-09-03 final-media checkpoint).
-- [ ] Deploy a non-production Vercel preview after tests; browser regression the preview before any production deployment.
+- [x] Deploy a non-production Vercel preview after tests and browser-regression it before any production deployment. Preview certified 2026-09-03; production intentionally not promoted yet.
 - [ ] Record commit/deployment IDs in handoff.

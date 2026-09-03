@@ -1,6 +1,6 @@
 # Original 2021 UI compatibility adapter
 
-Status: native local-provider bridge implemented; browser regression pending, 2026-09-03.
+Status: native local-provider bridge implemented and public-preview browser regression passed, 2026-09-03.
 
 Goal: keep the recovered 17 Nov 2021 React/CSS UI visually intact while replacing its dead/unsafe BSC provider with deterministic local simulation. Real wallet signing, raw transactions and mainnet writes remain disabled.
 
@@ -125,3 +125,9 @@ The untouched 17 Nov 2021 production bundle contains the full Recruit modal, app
 A recovered original bundle from **16 Nov 2021** (`research/play_forensics/recovered/build-20211116/main.907e74c4.chunk.js`) contains the immediately preceding authentic handler for the same Home component. When the player has enough BNBH and the Town Inn is not full, it opens the existing Recruit modal and fetches `getCharacterPrice()` before enabling the normal historical flow.
 
 The preservation runtime restores that exact 16 Nov handler inside the 17 Nov visual shell. No new Recruit UX was invented, and the untouched 17 Nov archive remains unchanged as evidence. This is intentionally classified as a **cross-version original-source restoration**, not a byte-identical 17 Nov snapshot.
+
+## Public preview browser certification — 2026-09-03
+
+The original React shell was exercised on the Vercel branch preview, not only through unit tests. Native Home, My Heroes, Recruit, Expedite, Reserve/Return, Town Upgrade, Basic Fight, Zangrief Boss Fight, win/loss RESULT, Claim and Battle Logs flows passed. The 2021 Marketplace maintenance screen is intentionally preserved because it exists in the untouched 17 Nov bundle. Correct mobile device detection was also smoke-tested with an iPhone Safari user agent at 390×844. See `research/browser-regression/REPORT_2026-09-03.md`.
+
+Battle Logs historically depended on Bitquery GraphQL rather than Web3 RPC. `preservation-shim.js` now emulates only that retired query endpoint from structured local `battleHistory`, while the original React/Apollo component, query shape, table and pagination remain unchanged.

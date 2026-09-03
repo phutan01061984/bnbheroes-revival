@@ -1398,3 +1398,33 @@ Browser regression of the Vercel preview proved Home/My Heroes/Fight/Upgrade wor
 `research/play_forensics/recovered/build-20211116/main.907e74c4.chunk.js` contains the same Home component one day earlier with the eligible branch active. Its original click handler opens the Recruit modal and calls the oracle `getCharacterPrice()` before continuing through the existing approval/recruit functions.
 
 The current runtime now uses that exact 16 Nov handler in the 17 Nov shell. The insufficient-balance/full-inn branch remains disabled exactly as before. This is a cross-version historical restoration, not invented UI. The 17 Nov archive is untouched and verification now asserts both source states.
+
+## Progress update — 2026-09-03 public-preview native UI certification
+
+### Preview / branch
+- GitHub branch: `restoration/native-ui-20260903`
+- Vercel preview: `https://bnbheroes-revival-git-restoration-nati-89e999-phu-tans-projects.vercel.app/`
+- Do **not** force-push `main`: remote `main` and the restoration history diverged. The restoration was intentionally pushed to its own branch.
+
+### Browser-certified native 2021 React flows
+The public Vercel preview was exercised with real Chrome via Browser Host Bridge. Passed: Home local-wallet auto-connect, My Heroes, cross-version original Recruit handler, ~12h arrival, Expedite, Reserve/Return, Bank Upgrade, Basic Fight, Zangrief Boss screen, RESULT win, RESULT loss, Claim after the historical lock gate, and Battle Logs.
+
+Concrete smoke outcomes:
+- Recruit fresh-state BNBH: `20000 -> 13099.179568...`; NFT #1 created with ~43,174 seconds of arrival time.
+- Expedite: another ~690.082043 BNBH spent; NFT #1 became immediately active.
+- Bank upgrade isolated smoke: `20000 -> 18274.794892...`, town state became level 1 and `/towns/1-2.png` rendered.
+- Boss win: Zangrief RESULT displayed 0.024 BNB / 400 XP / 330 HP loss.
+- Forced deterministic QA loss on a second Hero: `YOU LOSE`, 0 BNB / 0 XP / 400 HP loss.
+- Claim QA advanced only local save time past the gate: pending `0.048279` became claimed `0.0386232` after legacy 20% tax; pending and unlock reset to zero.
+
+### Battle Logs blocker solved
+The 17 Nov UI does not use Web3 for battle history; it queries retired `https://graphql.bitquery.io/` through Apollo. `prototype/src/engine.js` now stores structured `battleHistory`; `preservation-shim.js` locally answers the original Bitquery count/list query shapes from that same save. The React/Apollo Battle Logs page itself was not rewritten. Public preview then rendered a fresh row: `NFT 0 / Red Skull 1 / 0.00329175 BNB / 100 XP / 130 HP` with pagination.
+
+### Mobile smoke
+Valid mobile smoke used iPhone Safari UA plus 390×844 viewport. Original mobile layout placed Recruit/My Heroes/Upgrade/Fight controls in-view. A prior desktop-UA viewport-only result was discarded as invalid because `react-device-detect` correctly requires mobile UA.
+
+### Evidence
+See `research/browser-regression/REPORT_2026-09-03.md` and compressed screenshots under `research/browser-regression/evidence/`.
+
+### Safety remains unchanged
+No real wallet/signing/mainnet transaction path was restored. `eth_sign`, `personal_sign`, `eth_signTransaction` and `eth_sendRawTransaction` remain blocked. The original UI is driven by local EIP-1193/Web3 and local Bitquery-compatible adapters only.
