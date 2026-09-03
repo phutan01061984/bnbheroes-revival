@@ -17,3 +17,7 @@ research/web_archive/cc_collections.json
 
 # Large/raw web archaeology; curated evidence is under archive/
 research/play_forensics/
+
+# Regenerable visual-forensic outputs
+research/visual-forensics/results/
+research/visual-forensics/generated/

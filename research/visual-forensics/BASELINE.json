@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "source_commit": "a0577e8",
+  "policy": "Current certified restoration metrics; suite thresholds allow codec/feature nondeterminism but must catch visual regressions.",
+  "cases": {
+    "town-all-l4-vs-2021-period-frame": {
+      "good_matches": 3243,
+      "ransac_inliers": 3132,
+      "inlier_ratio": 0.96577243293247,
+      "normalized_mae": {
+        "mean": 13.749692916870117,
+        "median": 5.666666507720947,
+        "p90": 30.33333396911621,
+        "p95": 60.66666793823242
+      },
+      "gray_correlation": 0.644955641925971,
+      "edge_f1": 0.6877791930806394
+    },
+    "townselect-1-2-vs-period-preview": {
+      "good_matches": 524,
+      "ransac_inliers": 515,
+      "inlier_ratio": 0.982824427480916,
+      "normalized_mae": {
+        "mean": 9.060768127441406,
+        "median": 7.333333492279053,
+        "p90": 16.0,
+        "p95": 19.33333396911621
+      },
+      "gray_correlation": 0.9464526361310751,
+      "edge_f1": 0.8000957896682215
+    },
+    "townselect-2-2-vs-period-preview": {
+      "good_matches": 426,
+      "ransac_inliers": 417,
+      "inlier_ratio": 0.9788732394366197,
+      "normalized_mae": {
+        "mean": 8.050506591796875,
+        "median": 6.0,
+        "p90": 16.33333396911621,
+        "p95": 19.0
+      },
+      "gray_correlation": 0.974854490682894,
+      "edge_f1": 0.832361077732288
+    },
+    "townselect-3-2-vs-period-preview": {
+      "good_matches": 568,
+      "ransac_inliers": 557,
+      "inlier_ratio": 0.9806338028169014,
+      "normalized_mae": {
+        "mean": 8.529775619506836,
+        "median": 7.666666507720947,
+        "p90": 15.333333015441895,
+        "p95": 18.66666603088379
+      },
+      "gray_correlation": 0.9627728066248049,
+      "edge_f1": 0.7369607643630042
+    },
+    "townselect-4-2-vs-period-preview": {
+      "good_matches": 200,
+      "ransac_inliers": 185,
+      "inlier_ratio": 0.925,
+      "normalized_mae": {
+        "mean": 5.894016265869141,
+        "median": 3.3333332538604736,
+        "p90": 12.0,
+        "p95": 17.0
+      },
+      "gray_correlation": 0.9724206133791751,
+      "edge_f1": 0.7969033493826749
+    },
+    "townselect-1-3-vs-period-preview": {
+      "good_matches": 380,
+      "ransac_inliers": 375,
+      "inlier_ratio": 0.9868421052631579,
+      "normalized_mae": {
+        "mean": 8.282308578491211,
+        "median": 6.0,
+        "p90": 15.0,
+        "p95": 18.0
+      },
+      "gray_correlation": 0.9314728412857017,
+      "edge_f1": 0.6623593274575998
+    },
+    "townselect-2-3-vs-period-preview": {
+      "good_matches": 219,
+      "ransac_inliers": 215,
+      "inlier_ratio": 0.9817351598173516,
+      "normalized_mae": {
+        "mean": 9.150980949401855,
+        "median": 7.333333492279053,
+        "p90": 14.0,
+        "p95": 16.66666603088379
+      },
+      "gray_correlation": 0.9125197033120326,
+      "edge_f1": 0.5755670044998643
+    },
+    "townselect-3-3-vs-period-preview": {
+      "good_matches": 624,
+      "ransac_inliers": 613,
+      "inlier_ratio": 0.9823717948717948,
+      "normalized_mae": {
+        "mean": 9.776869773864746,
+        "median": 8.666666984558105,
+        "p90": 16.66666603088379,
+        "p95": 19.66666603088379
+      },
+      "gray_correlation": 0.9474774375716102,
+      "edge_f1": 0.7597098657216244
+    },
+    "townselect-4-3-vs-period-preview": {
+      "good_matches": 352,
+      "ransac_inliers": 337,
+      "inlier_ratio": 0.9573863636363636,
+      "normalized_mae": {
+        "mean": 7.020751953125,
+        "median": 4.666666507720947,
+        "p90": 14.333333015441895,
+        "p95": 18.0
+      },
+      "gray_correlation": 0.9712356743955612,
+      "edge_f1": 0.8296302399797534
+    },
+    "fight-period-recomposition": {
+      "good_matches": 249,
+      "ransac_inliers": 232,
+      "inlier_ratio": 0.9317269076305221,
+      "normalized_mae": {
+        "mean": 6.3621931076049805,
+        "median": 3.6666667461395264,
+        "p90": 16.0,
+        "p95": 21.33333396911621
+      },
+      "gray_correlation": 0.9691035695594081,
+      "edge_f1": 0.9399371981351871
+    }
+  }
+}

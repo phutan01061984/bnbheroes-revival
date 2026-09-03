@@ -9,7 +9,9 @@
     "check": "node --check prototype/src/engine.js && node --check prototype/src/app.js && node --check gitbook/pages.js && node --check gitbook/app.js",
     "snapshot": "node research/snapshot-chain.mjs",
     "verify:preservation": "node scripts/verify-preservation.mjs",
-    "check:all": "npm run check && npm run verify:preservation && npm test"
+    "check:all": "npm run check && npm run verify:preservation && npm test",
+    "visual:forensics": "python3 scripts/visual-forensics.py",
+    "forensics:all": "npm run check:all && npm run visual:forensics"
   },
   "dependencies": {
     "ethers": "^6.17.0"
