@@ -92,6 +92,16 @@ The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder materi
 - Production HTTPS smoke PASS: home renders the 2021 preservation UI/local wallet; `/prototype/src/engine.js` contains v3 + exact-17-Nov markers; `/market` renders the target-era maintenance message.
 - The next Git commit after this note is documentation/HANDOFF only; production runtime remains the certified `49ab900` bytes unless explicitly promoted again.
 
+### LIVE checkpoint — read_image card-state semantic correction discovered (2026-09-04)
+
+- `read_image` audit found a real fidelity bug in the currently promoted card-slot reconstructions. Production `/myheroes` shows the Recruitable empty slot with a padlock, while Town-Inn-locked slots show yellow question marks.
+- Exact 17-Nov bundle module mapping: module 175 `card.df50fb38.png` is rendered when `unlock=true` (Recruit slot); module 174 `card_lock.c211f00f.png` is rendered when `unlock=false` (Upgrade Town Inn slot). Pending-arrival Heroes are separately rendered as `./cards/unkown.png`.
+- Official 2021 video `WZwbq7Va0gg` resolves the visuals: open Recruit slot = plain BNB HEROES card back; locked Town Inn slot = padlock; pending-arrival/EXPEDITE Hero = yellow question-mark card. Timeline observations: ~20s open+locks, ~45–50s first pending question mark, ~55–60s expedited Hero reveal, ~80–90s second pending question mark.
+- Raw median clusters already preserved map as: cluster00 n=210 = padlock; cluster01 n=51 = question mark; cluster02 n=45 = plain BNB HEROES card back. The old `CARD_SLOT_RECOVERY_PROOF.md` mislabeled cluster00 as open and cluster01 as locked.
+- Near-launch Zhihu/reviewer screenshot independently shows real Heroes followed by Town-Inn Upgrade slots using padlocks, corroborating `card_lock = padlock` beyond the Oct prototype video.
+- Planned protected correction: backup current three paths; reuse existing period-derived padlock reconstruction for `card_lock`, existing question-mark reconstruction for `cards/unkown.png`, reconstruct `card` from cluster02 with the same trim/Lanczos pipeline; update proof/provenance/verifier; run `npm run forensics:all`; commit/push; browser/read_image certify preview before any production promotion.
+- Do NOT call any of these byte-identical original. This is a semantic correction among verified period-pixel reconstructions.
+
 ### Immediate continuation if this session disappears
 
 1. Do **not** reset/discard the exact-gameplay batch.
