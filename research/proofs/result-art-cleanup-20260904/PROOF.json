@@ -12,7 +12,7 @@
     },
     "lose": {
       "path": "static/media/You lose.00f95b2b.png",
-      "sha256": "084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02",
+      "sha256": "1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c",
       "dimensions": [
         512,
         512
@@ -74,15 +74,17 @@
     ],
     "preview_rejected_sha256": "14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d",
     "preview_rejection_reason": "read_image found a rectangular orange-glow/alpha boundary across the Mage waist in the f8f0e62 HTTPS Preview",
+    "second_preview_rejected_sha256": "084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02",
+    "second_preview_rejection_reason": "read_image on the 40fadde HTTPS Preview found blue/gray first-party source-sheet background contamination inside the Mage silhouette",
     "final_method": {
-      "upper_character": "aligned period Result pixels clipped to independently mapped Mage support",
-      "lower_character": "first-party Level-2 Skull Mage, same geometry, affine color fit from visible overlap",
-      "crossfade_y": [265, 340],
-      "glow": "smooth field reconstructed only from trusted period glow pixels above the DOM separator; Mage and DOM support excluded",
+      "upper_character_and_glow": "aligned period Result pixels with support derived from pixel-difference against the exact recovered modal background",
+      "upper_art_y": [100, 298],
+      "lower_character": "first-party Level-2 Skull Mage below the separately-rendered separator, extracted only where its source-sheet background is flat and color-fit from visible overlap",
+      "lower_art_y": [306, 445],
       "lower_mage_alpha": 0.72,
-      "glow_sigma": 26
+      "separator_occlusion_bridge": "the exact DOM reward separator covers the 298..306 transition; no crossfade through the source-sheet dark band is used"
     },
-    "reconstruction_note": "final Lose art removes the screenshot crop seam while preserving period upper Mage geometry/color; hidden lower body and occluded glow remain explicitly period-derived reconstruction"
+    "reconstruction_note": "final Lose art uses actual period pixels for visible upper Mage/glow and first-party pixels only for the lower body hidden by surviving reward-row DOM; both rejected browser intermediates remain archived"
   },
   "provenance_boundary": "Neither runtime file is claimed byte-identical original hashed response."
 }
