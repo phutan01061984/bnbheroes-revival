@@ -12,7 +12,7 @@
     },
     "lose": {
       "path": "static/media/You lose.00f95b2b.png",
-      "sha256": "9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107",
+      "sha256": "0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f",
       "dimensions": [
         512,
         512
@@ -83,14 +83,34 @@
       "reward_separator_css_rect": [684.4453125, 578.3671875, 431.109375, 20],
       "separator_approx_source_y": 347
     },
-    "final_method": {
-      "upper_character_color": "aligned 2021 Result pixels",
-      "character_alpha": "first-party Mage alpha constrained to mapped Mage/staff geometry and filtered by vertical continuity to reject horizontal source-sheet rules",
-      "glow_alpha": "warm-color residual from aligned period Result pixels with radial feather; modal/background colors remain transparent",
-      "lower_character": "first-party Level-2 Skull Mage with period-derived color fit",
-      "seam_repair": "RGB-only vertical interpolation across the former crop join inside opaque Mage/staff support; no new geometry is introduced"
+    "fourth_preview_rejected_sha256": "9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107",
+    "fourth_preview_rejection_reason": "read_image on the 1132eb0 HTTPS Preview found a broad rectangular glow/alpha field still visible across the Mage despite the prior geometry-gated cleanup",
+    "final_source_to_result_fit": {
+      "method": "SIFT plus RANSAC partial affine from first-party Level-2 Skull Mage to the established Result geometry",
+      "good_matches": 34,
+      "inliers": 21,
+      "inlier_ratio": 0.6176470588235294,
+      "matrix": [
+        [0.866311868, -0.000594218671, -155.02998],
+        [0.000594218671, 0.866311868, 74.0916125]
+      ],
+      "warped_mask_to_prior_lower_support_iou": 0.9385163388570543
     },
-    "reconstruction_note": "candidate after three browser rejections: visible color remains period/first-party derived, structural alpha excludes modal/background and sheet rules, and the former crop join is repaired only inside the proven Mage/staff support"
+    "final_method": {
+      "character_rgb": "entire Mage and staff from the first-party Level-2 Skull sheet, partial-affine warped into the independently established Result geometry and robustly color-fit from trusted visible 2021 Result Mage pixels",
+      "character_alpha": "row-background subtraction on the first-party sheet plus Mage/staff ROI, connected-component filtering and vertical-continuity filtering, then affine warp and soft edge feather",
+      "character_opacity": 0.88,
+      "glow_alpha": "smooth elliptical Gaussian warm glow behind the mapped character, max alpha 0.44; no captured modal/background pixels or rectangular crop support are used",
+      "join_policy": "single continuous first-party character layer; no upper/lower crop join remains"
+    },
+    "final_candidate_browser_pass": {
+      "preview": "https://bnbheroes-revival-hx2arik4p-phu-tans-projects.vercel.app",
+      "sha256": "0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f",
+      "screenshot": "research/browser-regression/2026-09-04-preview-clean19-result-lose.png",
+      "forced_loss": true,
+      "read_image_accepted": true
+    },
+    "reconstruction_note": "final candidate uses one continuous first-party Mage/staff layer plus smooth period-like glow; it passed an HTTPS forced-Lose read_image gate before formal commit"
   },
   "provenance_boundary": "Neither runtime file is claimed byte-identical original hashed response."
 }

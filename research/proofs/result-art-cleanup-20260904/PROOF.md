@@ -90,25 +90,27 @@ The next derivative (`084806d7...`) removed the rectangular seam, but real-brows
 
 Preview commit `7c7789e` then passed My Heroes and Win RESULT, but the real 500×500 Lose `<img>` still exposed a residual baked modal/crop band at the old y~300 join. CDP measured the Result art at CSS rect `(650,239,500,500)` and the separately rendered reward separator at `(684.45,578.37,431.11,20)`, placing the real separator near source-image y~347 rather than over that old join. `read_image` therefore rejected SHA-256 `1ef7f840...`; those bytes are preserved at `archive/pre-result-browser-crop-fix-20260904/You lose.00f95b2b.png`.
 
-The current reconstruction removes all three browser-observed failure modes without inventing character geometry:
+Commit `1132eb0` then promoted hash `9f54476d...` and again passed My Heroes and Win on clean Preview `https://bnbheroes-revival-9uetl1d5o-phu-tans-projects.vercel.app`, but the real forced-Lose screenshot still showed a broad rectangular glow/alpha field ending across the Mage. `read_image` rejected `research/browser-regression/2026-09-04-preview-1132eb0-result-lose.png`. Those bytes are preserved at `archive/pre-result-browser-alpha-fix-20260904/You lose.00f95b2b.png`.
 
-1. visible upper Mage color remains aligned 2021 Result pixels;
-2. structural character alpha comes from the independently matched first-party Mage, constrained to mapped Mage/staff geometry and filtered for **vertical continuity**, which rejects the thin horizontal rules in the source sheet;
-3. orange glow alpha comes only from the warm-color residual in period Result pixels and is radially feathered, so modal/background colors cannot survive as an opaque rectangle;
-4. lower Mage pixels remain first-party period art with the established color fit;
-5. the former crop join receives only a narrow **RGB vertical interpolation inside already-proven opaque Mage/staff support**. No new silhouette or character geometry is drawn.
+The final reconstruction removes all four browser-observed failure modes without inventing character geometry:
 
-The current pre-HTTPS candidate is locally preserved as `research/read-image-audit-20260904/result-clean-candidates/final/clean17/lose-clean17.png` with neutral-modal simulation `clean17/lose-clean17-on-purple.png`. Final proof remains contingent on the fresh HTTPS Preview gate; the production alias must not be promoted until that browser screenshot is accepted.
+1. the **entire Mage + staff RGB** now comes from the first-party `Level 2 Skull Enemies.jpg`, not from a rectangular period-frame crop;
+2. SIFT against the prior target geometry yields a simple source→Result partial-affine fit (21/34 RANSAC inliers, scale ~0.8663), and its warped silhouette overlaps the already-validated lower-Mage support at IoU ~0.9385;
+3. source-sheet background is estimated row-by-row before masking, so both the light sheet background and its dark horizontal rule are removed before the Mage is warped; connected-component and vertical-continuity filtering reject residual sheet rules;
+4. the first-party Mage RGB is color-fit only from trusted visible Mage pixels in the 2021 Result view, keeping the period orange cast without carrying any modal/background pixels;
+5. orange glow is a **smooth elliptical Gaussian alpha field** behind the independently mapped Mage. It has no rectangular/crop boundary and introduces no character geometry.
+
+The selected final candidate is locally preserved as `research/read-image-audit-20260904/result-clean-candidates/final/clean19/lose-clean19-c88-g44.png`. Before formal commit, the exact candidate bytes were deployed to temporary HTTPS Preview `https://bnbheroes-revival-hx2arik4p-phu-tans-projects.vercel.app`; a deterministic forced loss (`Math.random=()=>0` in the local preservation engine path) produced `research/browser-regression/2026-09-04-preview-clean19-result-lose.png`, and `read_image` accepted it with no crop/rectangle band. The committed comparison `evidence/lose-runtime-vs-period.jpg` places that accepted HTTPS Result beside the surviving 2021 Result.
 
 Corrected runtime:
 
 - `static/media/You lose.00f95b2b.png`
-- SHA-256: `9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107`
+- SHA-256: `0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f`
 - provenance: **RECONSTRUCTED_FROM_PERIOD_PIXELS**, not original bytes.
 
 ## Regression boundary
 
-The preservation verifier locks the current Result hashes and all three browser-rejected Lose intermediates in archive directories. A future edit must not silently re-promote any rejected derivative.
+The preservation verifier locks the current Result hashes and all four browser-rejected Lose intermediates in archive directories. A future edit must not silently re-promote any rejected derivative.
 
 Machine-readable metrics and hashes are in `PROOF.json`.
 
