@@ -4,7 +4,7 @@
   "description": "Playable forensic restoration of the abandoned 2021 BNB HEROES / BNBH game and GitBook.",
   "type": "module",
   "scripts": {
-    "start": "python3 -m http.server 8080 --directory .",
+    "start": "node scripts/serve.mjs",
     "test": "node tests/engine.test.mjs && node tests/provider.test.mjs",
     "check": "node --check prototype/src/engine.js && node --check prototype/src/app.js && node --check gitbook/pages.js && node --check gitbook/app.js",
     "snapshot": "node research/snapshot-chain.mjs",

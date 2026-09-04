@@ -122,4 +122,5 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [ ] Curate/commit gameplay + proof + historical-world batch without mass-adding unrelated archaeology.
 - [ ] Push restoration branch after PASS.
 - [ ] Use #6179/#14480/#14185/#30998 for final literal-name bridge hunt for IDs 4/19/20/21.
-- [ ] Audit Market purchase/cancel/changeListingPrice and offline packaging.
+- [x] Audit Market write/UI lineage: exact 17-Nov `/market` is maintenance-only; Buy/Cancel/Change Price are later-build UI and must not be backported. My Heroes `addListing` is the active target-era Market write.
+- [x] Offline packaging audit: local runtime dependencies verified; Bitquery locally shimmed; add Node-only static server and smoke-test `/`, `/market`, `/prototype/`, `/gitbook/`, main JS/CSS.

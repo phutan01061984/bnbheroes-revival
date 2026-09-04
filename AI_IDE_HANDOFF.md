@@ -51,6 +51,15 @@ Full exact-block Market state is exported to `research/historical-world/MARKET_2
 
 The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder material only. It compiles with Solidity 0.8.2 + OZ 4.3.3 + optimizer 200, but exact 17-Nov bytecode/state wins whenever behavior differs.
 
+### Follow-up checkpoint — Market/UI + offline package (2026-09-04 15:16 ICT)
+
+- Exact 17-Nov Market UI lineage is now closed: `/market` intentionally renders **"Sorry. We are in maintenance mode for a while."**. The ABI contains purchase/cancel/change selectors, but those active UI controls only appear in a later recovered build. Do not backport them into the 17-Nov target. Evidence: `research/contract-forensics/MARKET_UI_LINEAGE_20211117_20211210.md`.
+- The 17-Nov My Heroes Sell flow remains active and calls `addListing`; the provider already supports the only target-era Market write the visible UI needs.
+- Offline runtime audit is recorded in `research/OFFLINE_RUNTIME_AUDIT_20260904.md`. Runtime JS/CSS/vendor files are local; Battle Logs Bitquery is locally emulated; provider has no RPC endpoint.
+- `npm start` now uses `node scripts/serve.mjs` (no Python dependency). Smoke test: `/`, `/market`, `/prototype/`, `/gitbook/`, exact main JS and CSS all returned HTTP 200.
+- `npm run check:all` PASS after adding regression assertions for Market-maintenance/version boundary and offline runtime.
+- Previous gameplay checkpoint is local commit **cea67cb**. GitHub push is still blocked in this shell by missing credentials and CDP bridge is unavailable; keep committing locally and update HANDOFF.
+
 ### Immediate continuation if this session disappears
 
 1. Do **not** reset/discard the exact-gameplay batch.

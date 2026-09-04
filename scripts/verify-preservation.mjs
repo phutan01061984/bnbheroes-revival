@@ -6,7 +6,7 @@ const ok = (m) => console.log('OK:', m);
 const exists = (p) => fs.existsSync(p) ? ok(p) : fail(`missing ${p}`);
 
 for (const p of [
-  'index.html','preservation-provider.js','preservation-shim.js','vercel.json',
+  'index.html','preservation-provider.js','preservation-shim.js','vercel.json','scripts/serve.mjs',
   'vendor/ethers-6.17.0.umd.min.js',
   'static/js/2.04f79657.chunk.js','static/js/main.5e2ca500.chunk.js',
   'static/css/2.f4c56af9.chunk.css','static/css/main.433e3d53.chunk.css',
@@ -156,6 +156,10 @@ else fail('original Connect action missing');
 if (main.includes('0==ye&&Y>=Me&&Object(C.jsx)(\"div\",{className:\"menu-btn m-1 btn btn-hero\",onClick:function(){Te(!0),I(!0),F.a.methods.getCharacterPrice().call()')) ok('historical 16 Nov Recruit handler restored into 17 Nov shell');
 else fail('historical Recruit handler missing');
 if (main.includes('wallet connection is disabled')) fail('obsolete wallet alert patch remains');
+if (main.includes('Sorry. We are in maintenance mode for a while.')) ok('17-Nov Marketplace maintenance-mode UI preserved');
+else fail('17-Nov Marketplace maintenance-mode UI missing');
+if (!main.includes('Buy Hero') && !main.includes('.purchaseListing(') && !main.includes('.cancelListing(') && !main.includes('.changeListingPrice(')) ok('later Marketplace buy/cancel/change UI is not backported into 17-Nov target');
+else fail('later Marketplace write UI leaked into 17-Nov target');
 
 const provider = fs.readFileSync('preservation-provider.js','utf8');
 for (const marker of ['window.ethereum = provider','eth_sendRawTransaction','personal_sign','blocks real signing/raw transactions','getUnlockLevelPrice','getCharactersForPage']) {
@@ -187,6 +191,14 @@ if (original.includes(disabledRecruitMarker)) ok('17 Nov clean archive retains h
 
 const shim = fs.readFileSync('preservation-shim.js','utf8');
 if (shim.includes('__BNBH_LOCAL_BITQUERY__') && shim.includes('graphql.bitquery.io')) ok('historic Bitquery Battle Logs use local preservation data'); else fail('local Battle Logs adapter missing');
+const runtimeIndex = fs.readFileSync('index.html','utf8');
+for (const remoteScript of ['<script src="http://','<script src="https://','<link href="http://','<link href="https://']) {
+  if (runtimeIndex.includes(remoteScript)) fail(`runtime index depends on remote asset: ${remoteScript}`);
+}
+ok('runtime index has no remote JS/CSS dependency');
+const pkg = JSON.parse(fs.readFileSync('package.json','utf8'));
+if (pkg.scripts?.start === 'node scripts/serve.mjs') ok('local preservation server has no Python dependency');
+else fail('local preservation server still depends on external interpreter');
 for (const marker of ['realWalletDisabled:true','localProvider:true','/prototype/','/gitbook/']) {
   if (!shim.includes(marker)) fail(`shim marker missing: ${marker}`);
 }
