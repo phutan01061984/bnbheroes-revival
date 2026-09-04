@@ -99,3 +99,27 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Exact bytes for six missing hashed media (`fight`, `card`, `card_lock`, `recruit_card`, `rewards`, `You lose`) final public-source pass: exact filenames persist across 16-Nov -> 17-Nov -> 10-Dec builds; archive/search/storage paths currently available still contain no exact bytes. Keep the verified period-derived runtime reconstructions and their explicit provenance labels.
 - [x] Historical Character implementation lineage through the preserved frontend capture: exact boundaries and ProxyAdmin upgrade transactions are now recovered for all four launch-week transitions (15-Nov, two on 16-Nov, 17-Nov). Target Hero template tuples are stable throughout; no behavior-changing remap affects the preserved 17-Nov runtime.
 - [x] Restoration closeout rule: current branch is the highest-evidence public-source restoration. Final proof/docs checkpoint committed and pushed as `121b449`; `npm run forensics:all` PASS. Reopen archaeology only when a genuinely new artifact/source appears (e.g. surviving metadata body, `/cards/{id}.png` archive bytes, named NFT screenshot/token ID, private deployment backup). Do not invent replacements merely to make remaining confidence labels look complete.
+
+
+## P0 — Exact 17-Nov gameplay behavior reopen (2026-09-04 afternoon)
+
+- [x] Reopen former fidelity ceiling after exact-block contract checks exposed later-source contamination.
+- [x] Verify Fight formula against exact 17-Nov state; retain verified chance/XP/BNB/HP math.
+- [x] Correct delayed Town semantics + v3 save migration.
+- [x] Correct Reserve cap 20 -> **10** and frozen bag HP semantics.
+- [x] Remove later-era `stackedXp`; discard excess XP; allow Fight at XP cap.
+- [x] Remove later-era XP-cap guard from Unlock; preserve XP across early unlock.
+- [x] Verify stat scaling remains XP-thousand based.
+- [x] Correct strict Claim boundary and verify 48h/20%/-2pp-per-day schedule.
+- [x] Confirm historical Town Inn HP-regeneration bug.
+- [x] Confirm 17-Nov real-Hero + countdown arrival semantics.
+- [x] Engine unit tests PASS.
+- [x] Local preservation-provider tests PASS.
+- [x] Export exact-block **966/966** Market listings to `research/historical-world/MARKET_20211117_BLOCK12730607.json`; `taxFee=10`.
+- [x] Pin 16-Nov block 12691137 / 17-Nov block 12730607 / 10-Dec block 13351244 implementation sets.
+- [x] `npm run check:all` PASS for this batch. `forensics:all` reaches visual stage but current local-coder environment has no Python interpreter; no visual/media file is changed by this batch, so visual rerun remains an environment-only follow-up.
+- [x] Write exact-gameplay audit + machine-readable version-lineage manifest.
+- [ ] Curate/commit gameplay + proof + historical-world batch without mass-adding unrelated archaeology.
+- [ ] Push restoration branch after PASS.
+- [ ] Use #6179/#14480/#14185/#30998 for final literal-name bridge hunt for IDs 4/19/20/21.
+- [ ] Audit Market purchase/cancel/changeListingPrice and offline packaging.

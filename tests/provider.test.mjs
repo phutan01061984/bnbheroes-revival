@@ -20,8 +20,16 @@ const iface = new ethers.Interface([
   'function getExpeditePrice() view returns(uint256)',
   'function getTownUpgradePrices() view returns(uint256[])',
   'function getUnlockLevelPrice(uint256) view returns(uint256)',
+  'function getTownLevel(address,uint8) view returns(uint256)',
+  'function getTownsOfPlayer(address) view returns(tuple(uint8 level,uint256 lastUpgradedTimeStamp)[4])',
   'function getHeroesByOwner(address,bool) view returns(tuple(uint256 name,uint256 heroType,uint256 xp,uint256 attack,uint256 armor,uint256 speed,uint256 hp,uint256 tokenId,uint256 arrivalTime,uint256 level,uint256 heroClass)[])',
+  'function getHeroesInBag(address) view returns(tuple(uint256 name,uint256 heroType,uint256 xp,uint256 attack,uint256 armor,uint256 speed,uint256 hp,uint256 tokenId,uint256 arrivalTime,uint256 level,uint256 heroClass)[])',
+  'function getHero(uint256,bool) view returns(tuple(uint256 name,uint256 heroType,uint256 xp,uint256 attack,uint256 armor,uint256 speed,uint256 hp,uint256 tokenId,uint256 arrivalTime,uint256 level,uint256 heroClass))',
   'function getCharactersForPage(uint256,uint256,uint256,uint256,uint256) view returns(tuple(uint256 name,uint256 heroType,uint256 xp,uint256 attack,uint256 armor,uint256 speed,uint256 hp,uint256 tokenId,address seller,uint256 price,uint256 level,uint256 heroClass)[])',
+  'function upgradeTown(uint8)',
+  'function unLockLevel(uint256)',
+  'function moveHeroToBag(uint256)',
+  'function takeHeroFromBag(uint256)',
   'function fight(uint256,uint256)'
 ]);
 
@@ -29,6 +37,12 @@ async function call(name, args=[], to=provider.__addresses.core) {
   const data = iface.encodeFunctionData(name, args);
   const encoded = await provider.__rpc('eth_call', [{to, data}, 'latest']);
   return iface.decodeFunctionResult(name, encoded)[0];
+}
+
+async function send(name,args=[],to=provider.__addresses.core) {
+  const data=iface.encodeFunctionData(name,args);
+  const hash=await provider.__rpc('eth_sendTransaction',[{from:provider.__account,to,data}]);
+  return provider.__rpc('eth_getTransactionReceipt',[hash]);
 }
 
 // Exact historical Oracle state at the 17-Nov-2021 19:08:02 UTC frontend-capture block.
@@ -45,6 +59,29 @@ const heroes = await call('getHeroesByOwner', [provider.__account, true]);
 assert.equal(heroes.length, 1);
 assert.equal(heroes[0].name.toString(), '14');
 assert.equal(heroes[0].arrivalTime.toString(), '0');
+
+// Exact Town contract semantics: raw level increments immediately, while effective
+// getTownLevel remains old until the historical upgrade timer completes.
+await send('upgradeTown',[1]);
+assert.equal((await call('getTownLevel',[provider.__account,1],provider.__addresses.character)).toString(),'0');
+const towns=await call('getTownsOfPlayer',[provider.__account],provider.__addresses.character);
+assert.equal(towns[1].level.toString(),'1');
+assert.ok(Number(towns[1].lastUpgradedTimeStamp)>Math.floor(Date.now()/1000));
+
+// Exact 17-Nov Unlock has no XP-cap guard and leaves XP untouched.
+const preUnlock=await call('getHero',[0,true],provider.__addresses.character);
+assert.equal(preUnlock.xp.toString(),'1000');
+await send('unLockLevel',[0]);
+const postUnlock=await call('getHero',[0,true],provider.__addresses.character);
+assert.equal(postUnlock.level.toString(),'2');
+assert.equal(postUnlock.xp.toString(),'1000');
+
+// Bag list exposes frozen stored HP; move/return remains local and safe.
+await send('moveHeroToBag',[0]);
+const bag=await call('getHeroesInBag',[provider.__account],provider.__addresses.core);
+assert.equal(bag.length,1);
+assert.equal(bag[0].hp.toString(),'1000');
+await send('takeHeroFromBag',[0]);
 
 const market = await call('getCharactersForPage', [12, 0, 0, 101, 0], provider.__addresses.market);
 assert.equal(market.length, 3);

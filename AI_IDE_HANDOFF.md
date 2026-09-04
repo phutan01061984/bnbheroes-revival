@@ -4,8 +4,61 @@
 >
 > This repository contains a preservation-grade recovery of the original 2021 BNB HEROES web client plus a safe playable reconstruction and restored GitBook. The original project's real-money/wallet layer is intentionally disabled.
 
-Last handoff update: **2026-09-03**  
+Last handoff update: **2026-09-04 15:05 ICT**  
 Working directory used during recovery: `/workspace/bnbheroes-revival`
+
+---
+
+## LIVE RECOVERY CHECKPOINT — 2026-09-04 15:05 ICT (SAVE THIS FIRST)
+
+The previous "fidelity ceiling" was deliberately reopened because direct historical `eth_call`/state checks against the **exact 17-Nov-2021 implementation** exposed gameplay differences from the later 27-Nov Solidity mirror. **Do not revert these findings to the later source behavior.**
+
+### Current working-tree batch — NOT YET COMMITTED at this checkpoint
+
+Intentionally modified: `prototype/src/engine.js`, `preservation-provider.js`, `tests/engine.test.mjs`, `tests/provider.test.mjs`.
+
+Validation after these edits: `npm run check:all` PASS (syntax + preservation + engine + provider). `npm run forensics:all` reaches the visual stage but this local-coder runtime currently has no Python interpreter, so `visual:forensics` cannot launch here. This batch changes no visual/media assets; record this as an environment limitation, not a visual PASS.
+
+### Exact 17-Nov gameplay corrections already implemented locally
+
+- Town upgrades: raw level increments immediately, but effective `getTownLevel`/bonuses/Inn capacity wait for the historical timer. Engine save model is now v3 with `townUpgradeEnds[4]`; v2 Town levels migrate as completed.
+- Reserve cap is exactly **10**, not 20.
+- Reserve freezes stamina/HP. Direct historical anchors: Hero #6640 bag HP 41; Hero #12208 bag HP 29. ABI nuance: `getHeroesInBag()` exposes paused HP while direct Character `getHero()` can still show underlying timestamp-derived HP while Core owns the NFT.
+- Exact 17-Nov has **no stackedXp mechanic**; excess XP is discarded. Near-cap direct examples report +59/+39/+29 only. Fight remains possible at cap and can still award BNB with +0 XP.
+- Unlock Level has **no XP-cap guard** in exact 17-Nov. Hero #90 unlocked L2 at XP1850; Hero #140 unlocked L3 at XP2100. XP remains unchanged across unlock. Full-XP + stacked-XP behavior belongs to later source.
+- A/D/S scaling remains based on XP-thousands, not explicit unlocked level.
+- Claim is strict `block.timestamp > unLockTime`; 48h first lock; 20% tax then -2 percentage points/day for 10 days.
+- Town Inn HP bonus is historically broken in this snapshot: upgraded Inn still resolves at 86 sec/HP.
+- Fight core chance/XP/BNB/HP formulas were directly cross-checked on exact historical Hero state and retained.
+- Recruit arrival is 12h and 17-Nov returns the real Hero fields plus countdown; later fake/mystery-Hero arrival behavior is not authoritative here.
+
+### New historical-world evidence
+
+Full exact-block Market state is exported to `research/historical-world/MARKET_20211117_BLOCK12730607.json`:
+
+- block **12,730,607**, 2021-11-17T19:08:02Z
+- **966 / 966** active listings
+- historical Market `taxFee = 10`
+- literal-ID hunt anchors: ID4 token #6179; ID19 token #14480 (6300 BNBH); ID20 token #14185 (2800 BNBH; also #28100/#34814); ID21 token #30998 (6000 BNBH)
+
+### Version boundaries pinned
+
+| Build/snapshot | block | block time | Core impl | Character impl | Market impl | Oracle impl |
+|---|---:|---|---|---|---|---|
+| 16-Nov frontend | 12691137 | 2021-11-16 07:39:22Z | 0x986a1820498a636939a0b80eb8d12014e5d70b58 | 0xec411735c2bcb9224eded102cd39a47063308658 | 0x70cdcd313fc730049f8b351c6cd4d1533318d38a | 0xbd002cfa9a942c7f3a5771056d2f1482621ce07f |
+| **17-Nov target** | **12730607** | **2021-11-17 19:08:02Z** | **0x986a1820498a636939a0b80eb8d12014e5d70b58** | **0x36bd26648ce81c1675dfa3bc640607a3ef0852f9** | **0xade9b8d6bf3c220e7d8c9b3ed7caccd4584473f1** | **0xbd002cfa9a942c7f3a5771056d2f1482621ce07f** |
+| 10-Dec build | 13351244 | 2021-12-10 10:54:17Z | 0x8e701c08d88dd50623ef829bf4f68780f87cb524 | 0x3d833ffb8a19dda5e44fc34d5ab666fa24c6e9e6 | 0x3c72e11bd64bf0e2c0344b92a243bb9ca7e229aa | 0x247e23bace48bba978466675e663afaad082cb69 |
+
+The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder material only. It compiles with Solidity 0.8.2 + OZ 4.3.3 + optimizer 200, but exact 17-Nov bytecode/state wins whenever behavior differs.
+
+### Immediate continuation if this session disappears
+
+1. Do **not** reset/discard the exact-gameplay batch.
+2. `npm run check:all` is already PASS. Visual suite is blocked only by missing Python in the current local-coder runtime and no visual assets changed.
+3. Exact gameplay audit and version-lineage manifest are already written.
+4. Commit only the curated gameplay/audit/world-state batch; never mass-add the huge unrelated untracked archaeology tree.
+5. Push branch `restoration/native-ui-20260903`.
+6. Then hunt literal-name evidence using #6179/#14480/#14185/#30998; audit Market writes and offline packaging.
 
 ---
 

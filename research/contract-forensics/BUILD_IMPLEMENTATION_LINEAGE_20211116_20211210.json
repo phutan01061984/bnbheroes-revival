@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-09-04T15:07:00+07:00",
+  "purpose": "Pin frontend/build timestamps to closest historical BSC blocks and exact EIP-1967 implementation sets. Do not substitute later Solidity behavior for the 17-Nov preservation target.",
+  "proxyAddresses": {
+    "core": "0xde9fFb228C1789FEf3F08014498F2b16c57db855",
+    "character": "0x6DA72F24c56197Dcf6B8920baCb183F6ccca8b01",
+    "market": "0x5CFFca0321b83dc873Bd2439aE7fEA10aE163fac",
+    "oracle": "0xD160bbDED5cFF79b126443EefCB28F3b67991140"
+  },
+  "snapshots": [
+    {
+      "label": "frontend-20211116",
+      "targetTimestamp": "2021-11-16T07:39:23Z",
+      "closestBlock": 12691137,
+      "blockTimestamp": "2021-11-16T07:39:22Z",
+      "deltaSeconds": -1,
+      "implementations": {
+        "core": "0x986a1820498a636939a0b80eb8d12014e5d70b58",
+        "character": "0xec411735c2bcb9224eded102cd39a47063308658",
+        "market": "0x70cdcd313fc730049f8b351c6cd4d1533318d38a",
+        "oracle": "0xbd002cfa9a942c7f3a5771056d2f1482621ce07f"
+      }
+    },
+    {
+      "label": "frontend-20211117-preservation-target",
+      "targetTimestamp": "2021-11-17T19:08:01Z",
+      "closestBlock": 12730607,
+      "blockTimestamp": "2021-11-17T19:08:02Z",
+      "deltaSeconds": 1,
+      "implementations": {
+        "core": "0x986a1820498a636939a0b80eb8d12014e5d70b58",
+        "character": "0x36bd26648ce81c1675dfa3bc640607a3ef0852f9",
+        "market": "0xade9b8d6bf3c220e7d8c9b3ed7caccd4584473f1",
+        "oracle": "0xbd002cfa9a942c7f3a5771056d2f1482621ce07f"
+      }
+    },
+    {
+      "label": "build-20211210",
+      "targetTimestamp": "2021-12-10T10:54:18Z",
+      "closestBlock": 13351244,
+      "blockTimestamp": "2021-12-10T10:54:17Z",
+      "deltaSeconds": -1,
+      "implementations": {
+        "core": "0x8e701c08d88dd50623ef829bf4f68780f87cb524",
+        "character": "0x3d833ffb8a19dda5e44fc34d5ab666fa24c6e9e6",
+        "market": "0x3c72e11bd64bf0e2c0344b92a243bb9ca7e229aa",
+        "oracle": "0x247e23bace48bba978466675e663afaad082cb69"
+      }
+    }
+  ],
+  "laterSourceCaveat": {
+    "mirror": "mirrors/hardhat-proxy-bnbh-example",
+    "sourceHistoryBeginsApprox": "2021-11-27",
+    "compiler": "Solidity 0.8.2",
+    "openzeppelin": "4.3.3",
+    "optimizerRuns": 200,
+    "policy": "Reference/decoder only; exact historical bytecode/state and preserved frontend behavior take precedence."
+  }
+}

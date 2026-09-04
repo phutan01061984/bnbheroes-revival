@@ -90,12 +90,12 @@
   function nameId(h) {
     return BigInt(LEGACY.character.heroNames[h.template] ?? h.template ?? 0);
   }
-  function heroTuple(h) {
+  function heroTuple(h, frozenHp=false) {
     if (!h) return [0n,0n,0n,0n,0n,0n,0n,0n,0n,0n,0n];
     const arrival = Math.max(0, Math.ceil(((h.arrivalAt || 0) - Date.now()) / 1000));
     return [
       nameId(h), BigInt(h.rarityId ?? 0), BigInt(h.xp ?? 0), BigInt(h.attack ?? 0),
-      BigInt(h.armor ?? 0), BigInt(h.speed ?? 0), BigInt(engine.currentHp(h)),
+      BigInt(h.armor ?? 0), BigInt(h.speed ?? 0), BigInt(frozenHp ? (h.hp ?? 0) : engine.currentHp(h)),
       BigInt(h.tokenId ?? 0), BigInt(arrival), BigInt(h.level ?? 0), BigInt(h.classId ?? 0)
     ];
   }
@@ -150,14 +150,16 @@
       case 'getTownUpgradePrices': return encode(name, [LEGACY.oracle.getTownUpgradePrices.map(BigInt)]);
       case 'getTownUpgradePrice': return encode(name, [townPrice(args[0], args[1])]);
       case 'getUnlockLevelPrice': return encode(name, [unlockPrice(args[0])]);
-      case 'getTownLevel': return encode(name, [BigInt(state.towns[Number(args[1])] || 0)]);
-      case 'getTownsOfPlayer': return encode(name, [[0,1,2,3].map(i => [BigInt(state.towns[i] || 0), 0n])]);
+      case 'getTownLevel': return encode(name, [BigInt(engine.effectiveTownLevel(state, Number(args[1])))]);
+      case 'getTownsOfPlayer': return encode(name, [[0,1,2,3].map(i => [BigInt(state.towns[i] || 0), BigInt(Math.floor((state.townUpgradeEnds?.[i] || 0)/1000))])]);
       case 'unLockTime': return encode(name, [BigInt(Math.floor((state.rewardUnlockAt || 0) / 1000))]);
-      case 'getHeroesByOwner': return encode(name, [state.heroes.map(heroTuple)]);
-      case 'getHeroesInBag': return encode(name, [state.reserve.map(heroTuple)]);
+      case 'getHeroesByOwner': return encode(name, [state.heroes.map(h => heroTuple(h))]);
+      case 'getHeroesInBag': return encode(name, [state.reserve.map(h => heroTuple(h, true))]);
       case 'getHero': {
         const id = Number(args[0]);
         const h = [...state.heroes, ...state.reserve].find(x => Number(x.tokenId) === id);
+        // Historical getHero() itself keeps calculating stamina while a token is
+        // held by Core; only getHeroesInBag() applies the paused-time view.
         return encode(name, [heroTuple(h)]);
       }
       case 'getCharactersForPage': {
