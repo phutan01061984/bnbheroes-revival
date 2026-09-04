@@ -12,7 +12,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Write `docs/ECONOMY_AUDIT_20211117.md` separating exact 17-Nov facts from later-source architecture corroboration.
 - [x] Build responsive, no-wallet `/economy/` dashboard with Hero calculator, rarity map, claim timeline, Town effects and BNBHPool active-Hero stress slider.
 - [x] Add `npm run economy:test` regression checks.
-- [ ] Clean-Preview browser certify `/economy/`, verify preserved root runtime bytes unchanged, then promote the exact tested deployment and update this handoff.
+- [x] Clean-Preview browser certify `/economy/`, verify preserved root runtime bytes unchanged, promote the tested deployment, Production-smoke it, and save `research/browser-regression/ECONOMY_PRODUCTION_CERT_2026-09-04.md`. Production dashboard is live at `https://bnbheroes-revival.vercel.app/economy/`; preserved runtime hashes still match `preservation-v1.0.0`.
 
 ## FINAL Production closeout — 2026-09-04
 
