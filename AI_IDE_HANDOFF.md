@@ -75,6 +75,15 @@ The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder materi
 - Visual gate passed Town all-L4 vs period frame, all eight Townselect L2/L3 period-preview comparisons, and Fight period recomposition. This closes the previous environment-only visual-certification gap.
 - Browser Host Bridge confirms the user is already authenticated to both GitHub and Vercel in the host Chrome profile. Next action is browser-assisted GitHub auth/push, then Vercel redeploy and HTTPS regression on the exact new branch head.
 
+### Final remote + Vercel HTTPS certification — 2026-09-04
+
+- GitHub remote branch is now synchronized: `origin/restoration/native-ui-20260903` = `955b673e46aa2a75bb619b235279f20cd44ad1f4` at certification time. `gh auth status` confirms account `phutan01061984`; local/remote were ahead=0, behind=0 before this report-only checkpoint.
+- Vercel auto-deployed that branch commit as deployment `Fe43MPNxGZPq5wJeELUEomUvDhaZ`, status **Ready**, Preview, source `restoration/native-ui-20260903 @ 955b673`.
+- Certified branch alias: `https://bnbheroes-revival-git-restoration-nati-89e999-phu-tans-projects.vercel.app/`. Immutable deployment domain: `https://bnbheroes-revival-62io5ev3a-phu-tans-projects.vercel.app/`.
+- HTTPS browser smoke PASS: `/`, `/market`, `/myheroes`, `/fight/0`, `/battlelogs`, `/myreserve`, `/gitbook/`, `/prototype/`. Preview `/prototype/src/engine.js` contains the v3 restore path / exact-17-Nov corrections.
+- `research/browser-regression/REPORT_2026-09-04_FINAL.md` records the checks; evidence JPEG is `research/browser-regression/evidence/2026-09-04-final-home-955b673.jpg`.
+- Production `bnbheroes-revival.vercel.app` still pointed to old `main` at certification time. Only call production updated if a later Vercel promotion is explicitly completed and rechecked.
+
 ### Immediate continuation if this session disappears
 
 1. Do **not** reset/discard the exact-gameplay batch.
