@@ -12,7 +12,7 @@
     },
     "lose": {
       "path": "static/media/You lose.00f95b2b.png",
-      "sha256": "14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d",
+      "sha256": "084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02",
       "dimensions": [
         512,
         512
@@ -72,7 +72,17 @@
       323,
       15
     ],
-    "reconstruction_note": "visible upper Mage/glow comes from period Result pixels; lower character hidden by DOM rows is patched from the first-party period Mage and color-fit from visible overlap"
+    "preview_rejected_sha256": "14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d",
+    "preview_rejection_reason": "read_image found a rectangular orange-glow/alpha boundary across the Mage waist in the f8f0e62 HTTPS Preview",
+    "final_method": {
+      "upper_character": "aligned period Result pixels clipped to independently mapped Mage support",
+      "lower_character": "first-party Level-2 Skull Mage, same geometry, affine color fit from visible overlap",
+      "crossfade_y": [265, 340],
+      "glow": "smooth field reconstructed only from trusted period glow pixels above the DOM separator; Mage and DOM support excluded",
+      "lower_mage_alpha": 0.72,
+      "glow_sigma": 26
+    },
+    "reconstruction_note": "final Lose art removes the screenshot crop seam while preserving period upper Mage geometry/color; hidden lower body and occluded glow remain explicitly period-derived reconstruction"
   },
   "provenance_boundary": "Neither runtime file is claimed byte-identical original hashed response."
 }

@@ -44,6 +44,8 @@ This directory records the last six hashed media files that were unavailable as 
 - 2026-09-04 audit found the prior promoted `lose-diffart.png` likewise contained title/separator/reward-row DOM pixels and visibly duplicated them in runtime.
 - Corrected art uses the actual period Result Mage + orange glow above the reward separator. The lower Mage pixels hidden by reward-row DOM in the video are reconstructed from the first-party GitBook `Level 2 Skull Enemies.jpg`; SIFT against the period Result view validates the same artwork and target geometry (43/52 inliers at the stable fit before lower-patch use).
 - The lower first-party patch is color-fit only from visible overlapping period Mage pixels and is explicitly a period-derived reconstruction, not original hashed bytes.
+- Fresh HTTPS Preview QA on `f8f0e62` rejected the first art-only derivative because `read_image` exposed a rectangular orange-glow/alpha crop boundary across the Mage waist. That rejected intermediate is preserved at `archive/pre-result-seam-fix-20260904/You lose.00f95b2b.png` (SHA-256 `14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d`).
+- Final Lose reconstruction clips upper period pixels to the proven Mage support, crossfades to the first-party lower Mage through the separately-rendered separator region, and rebuilds only the glow as a smooth field from trusted period glow pixels. This removes the screenshot boundary without inventing new character geometry.
 - See `research/proofs/result-art-cleanup-20260904/PROOF.md`.
 
 ## `fight.42bbd04e.png` — RECONSTRUCTED_FROM_PERIOD_PIXELS
@@ -61,7 +63,7 @@ This directory records the last six hashed media files that were unavailable as 
 - `cards/unkown.png`: `f68d9efe4d89f00ec1e5ef6857b046d9aaa69147c52ca11c6f9e1a8e24284103`
 - `recruit_card.aa5e12c7.png`: `12ddc8b41804baff0e78ede53833bd503fa24e3b130ec2d01203fca8cf65aae6`
 - `rewards.16b2db64.png`: `8fc8ce881b9eabfecf7ff7f53fa441a8f48153e272d38b1a28229ad6e7c72f46`
-- `You lose.00f95b2b.png`: `14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d`
+- `You lose.00f95b2b.png`: `084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02`
 - `fight.42bbd04e.png`: `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa`
 
 All previous runtime placeholders are preserved under `backups/`.

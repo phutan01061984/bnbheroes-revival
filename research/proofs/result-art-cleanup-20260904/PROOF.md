@@ -82,10 +82,24 @@ Feature matching against the visible Result Mage validates identity/geometry at 
 
 Only the lower character pixels hidden by the Result DOM are patched from that first-party period image. Their color transform is fitted from the overlapping visible period Mage. This is explicitly reconstruction, not a claim that the derived file equals the missing hashed response.
 
+### Browser-vision rejection and final seam correction
+
+The first art-only Lose derivative removed the duplicated DOM title/reward rows, but fresh HTTPS Preview QA on commit `f8f0e62` exposed a second, subtler reconstruction defect that the hash/geometry checks did not catch: the period upper-image layer retained a rectangular orange-glow/alpha boundary across the Mage waist. `read_image` on `research/browser-regression/2026-09-04-preview-f8f0e62-result-lose.png` rejected that version. Its SHA-256 `14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d` is preserved at `archive/pre-result-seam-fix-20260904/You lose.00f95b2b.png`.
+
+The final reconstruction removes that screenshot boundary without inventing character geometry:
+
+1. the **upper Mage** retains the aligned period Result pixels only inside the independently mapped Mage support;
+2. the **lower Mage**, hidden by reward-row DOM in surviving captures, comes from the first-party Level-2 Skull Mage using the same proven geometry and affine color fit;
+3. upper-period and lower-first-party character layers crossfade through approximately y=265..340, centered on the separately-rendered reward separator;
+4. the **orange glow only** is reconstructed as a smooth field from trusted period pixels above the separator, excluding Mage and DOM support, so no screenshot crop/rectangle can survive;
+5. the exact recovered modal background and exact reward separator are then used for a layer-order simulation before runtime promotion.
+
+The final exact-modal simulation is locally preserved as `research/read-image-audit-20260904/result-clean-candidates/final/lose-clean6-a72-on-modal.png`; the compact committed comparison `evidence/lose-runtime-vs-period.jpg` shows the surviving period Result beside this final simulation. The character remains evidence-derived; only hidden/occluded glow/lower-body pixels are reconstructed.
+
 Corrected runtime:
 
 - `static/media/You lose.00f95b2b.png`
-- SHA-256: `14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d`
+- SHA-256: `084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02`
 - provenance: **RECONSTRUCTED_FROM_PERIOD_PIXELS**, not original bytes.
 
 ## Regression boundary

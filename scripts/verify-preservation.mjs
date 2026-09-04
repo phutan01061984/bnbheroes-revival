@@ -18,6 +18,7 @@ for (const p of [
   'research/media_hunt/card-analysis/CARD_SLOT_RECOVERY_PROOF.md','research/media_hunt/final-promotions/PROVENANCE.md',
   'archive/pre-card-semantic-fix-20260904/card.df50fb38.png','archive/pre-card-semantic-fix-20260904/card_lock.c211f00f.png','archive/pre-card-semantic-fix-20260904/unkown.png',
   'archive/pre-result-cleanup-20260904/rewards.16b2db64.png','archive/pre-result-cleanup-20260904/You lose.00f95b2b.png',
+  'archive/pre-result-seam-fix-20260904/You lose.00f95b2b.png',
   'research/proofs/card-state-semantic-20260904/PROOF.md','research/proofs/card-state-semantic-20260904/EVIDENCE.sha256',
   'research/proofs/result-art-cleanup-20260904/PROOF.md','research/proofs/result-art-cleanup-20260904/PROOF.json','research/proofs/result-art-cleanup-20260904/EVIDENCE.sha256',
   'static/media/fight.42bbd04e.png','archive/pre-fight-period-recovery-20260903/fight.42bbd04e.png',
@@ -119,7 +120,7 @@ else fail('pre-correction card-state archive changed');
 const resultProof = JSON.parse(fs.readFileSync('research/proofs/result-art-cleanup-20260904/PROOF.json','utf8'));
 const resultExpected = {
   'static/media/rewards.16b2db64.png': '8fc8ce881b9eabfecf7ff7f53fa441a8f48153e272d38b1a28229ad6e7c72f46',
-  'static/media/You lose.00f95b2b.png': '14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d'
+  'static/media/You lose.00f95b2b.png': '084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02'
 };
 for (const [p, expected] of Object.entries(resultExpected)) {
   const got = hashFile(p);
@@ -127,10 +128,14 @@ for (const [p, expected] of Object.entries(resultExpected)) {
 }
 const contaminatedRewardsHash = hashFile('archive/pre-result-cleanup-20260904/rewards.16b2db64.png');
 const contaminatedLoseHash = hashFile('archive/pre-result-cleanup-20260904/You lose.00f95b2b.png');
+const seamRejectedLoseHash = hashFile('archive/pre-result-seam-fix-20260904/You lose.00f95b2b.png');
 if (contaminatedRewardsHash === '0ba35be2fa35911f90468a49ed2b019adf505a59497569b53e7e5dc84e8e8a9d' &&
     contaminatedLoseHash === '4f08df3827f4b41f42c4e078542f04ada3858be578fe9a0099f8083de89034b4')
   ok('superseded contaminated RESULT diff-art bytes remain archived');
 else fail('RESULT contaminated-asset archive changed');
+if (seamRejectedLoseHash === '14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d')
+  ok('browser-rejected Lose seam intermediate remains archived');
+else fail('Lose seam-rejection archive changed');
 if (resultProof.win?.primary_to_runtime_geometry_sift?.ratio >= 0.87 &&
     resultProof.win?.independent_reviewer_to_primary_chest_alignment?.ratio >= 0.95 &&
     resultProof.lose?.period_frame_to_runtime_geometry_sift?.ratio >= 0.89 &&
