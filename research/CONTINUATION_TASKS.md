@@ -4,6 +4,18 @@ Updated: 2026-09-04
 
 Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / period-original evidence. Reconstruct only after multiple source paths are exhausted. Keep wallet/mainnet transaction flow disabled.
 
+## FINAL Production closeout — 2026-09-04
+
+- [x] Final runtime commit `4a94061769122d26a94ee8f036768307fc2f0be2` (`Finalize clean Lose Result art`) pushed to `restoration/native-ui-20260903`; local/remote heads matched before deployment.
+- [x] `npm run forensics:all` PASS on the exact final runtime: preservation + engine/provider + all 10 visual-forensics cases.
+- [x] Clean detached-worktree Preview `https://bnbheroes-revival-ayxrt71xz-phu-tans-projects.vercel.app` / deployment `7EXAvr44FyBxWJNoLqtZv7vrdHi6` passed final My Heroes + forced Win + forced Lose `read_image` gates.
+- [x] Promote that exact tested Preview to Production; final Production deployment `dpl_Ax8drGP62RaF8TuXHzyrc1LZA5gX` is **Ready** at `https://bnbheroes-revival.vercel.app` (immutable `https://bnbheroes-revival-24k8sh2uo-phu-tans-projects.vercel.app`).
+- [x] Prove Production Lose bytes are identical to tested Preview: HTTP 200, 187246 bytes, SHA-256 `0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f`.
+- [x] Repeat Production browser smoke: My Heroes semantic state PASS; Win RESULT PASS; Lose RESULT PASS with no rectangular crop/alpha band.
+- [x] Restore exact Production `bnbheroes-revival-v2` localStorage after QA; final equality `true`, temporary backup keys removed.
+- [x] Save durable final certification at `research/browser-regression/PRODUCTION_CERT_2026-09-04.md` plus compressed My Heroes/Win/Lose review evidence.
+- [x] **Close restoration loop.** Reopen only if genuinely stronger historical evidence appears; do not repeat saturated archive sweeps or rejected Result-art candidates.
+
 ## P0 — Media recovery
 
 - [x] Read `AI_IDE_HANDOFF.md` fully and continue from checkpoint.
@@ -15,7 +27,7 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Recover Zangrief (enemy 7) from 17 Nov production boss video + higher-res 8 Dec period screenshot; transparent runtime reconstruction promoted. See `derivatives/enemies/ZANGRIEF_PROOF.md`.
 - [x] `fight.42bbd04e.png`: direct hashed byte remains unrecovered, but the creative placeholder has been superseded by a validated **RECONSTRUCTED_FROM_PERIOD_PIXELS** runtime asset from 2021-11-07 Home footage. See `research/proofs/fight-period-reconstruction-20260903/`. Do not describe it as byte-identical original.
 - [x] Reconstruct `towns/3-1.png` from first-party `Level-1.png` explicitly labeled “Level 1 Barracks”; map into 1920×1080 town coordinates through period screenshot homography. See `barracks-analysis/TOWN_3_1_PROOF.json`.
-- [x] Recover/reconstruct `card`, `card_lock`, `recruit_card`, `rewards`, `You lose` from period evidence. Card/card_lock are median-stacked official-video pixels; recruit_card uses first-party 2021 BNBH Card Back; result art uses win/lose period-video differential reconstruction. See `card-analysis/CARD_SLOT_RECOVERY_PROOF.md` and `final-promotions/PROVENANCE.md`.
+- [x] Recover/reconstruct `card`, `card_lock`, `recruit_card`, `rewards`, `You lose` from period evidence. Card/card_lock are period-video reconstructions with corrected semantics; recruit_card uses first-party 2021 BNBH Card Back; Win Result uses period pixels; final Lose hash `0e2369ac...` uses the first-party Level-2 Skull Mage mapped to Result geometry plus a smooth reconstructed glow and passed Preview + Production `read_image`. See `card-analysis/CARD_SLOT_RECOVERY_PROOF.md`, `final-promotions/PROVENANCE.md`, and `research/browser-regression/PRODUCTION_CERT_2026-09-04.md`.
 
 ## P0 — Legacy-page access / archaeology
 
@@ -63,8 +75,8 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 ## P2 — Documentation / deployment
 
 - [x] Update `docs/MEDIA_RECOVERY.md` with new proof/mapping through 2026-09-03 final-media checkpoint.
-- [x] Update `AI_IDE_HANDOFF.md` after major milestones (latest: 2026-09-03 final-media checkpoint).
-- [x] Deploy a non-production Vercel preview after tests and browser-regression it before any production deployment. Preview certified 2026-09-03; production intentionally not promoted yet.
+- [x] Update `AI_IDE_HANDOFF.md` after major milestones; latest authoritative block is the 2026-09-04 final Production certification.
+- [x] Deploy a non-production Vercel preview after tests and browser-regression it before production. Historical 2026-09-03 preview gate is complete; superseded by the final 2026-09-04 clean Preview `7EXAvr44...` and Production promotion/smoke recorded above.
 - [x] Record Hero-card completion commit `addeaef`, GitHub restoration branch, Vercel preview URL, and 21-card public-preview certification in handoff/browser report.
 
 ## Live checkpoint — Town upgrade media (2026-09-03)

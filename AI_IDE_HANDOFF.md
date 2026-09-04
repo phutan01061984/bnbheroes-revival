@@ -1,8 +1,19 @@
+### 2026-09-04 FINAL Production certification — restoration closeout
+- Final runtime commit is `4a94061769122d26a94ee8f036768307fc2f0be2` (`Finalize clean Lose Result art`) on `restoration/native-ui-20260903`; it was pushed normally and local/remote heads matched exactly before deployment.
+- `npm run forensics:all` **PASSED** on the exact final runtime: preservation verifier + engine/provider tests + all 10 visual-forensics cases.
+- Clean detached-worktree Preview `https://bnbheroes-revival-ayxrt71xz-phu-tans-projects.vercel.app` (deployment `7EXAvr44FyBxWJNoLqtZv7vrdHi6`) passed all three final `read_image` browser gates: **My Heroes**, forced **Win RESULT**, and forced **Lose RESULT**. Only then was that already-tested deployment promoted.
+- Production is now `https://bnbheroes-revival.vercel.app`, Vercel deployment `dpl_Ax8drGP62RaF8TuXHzyrc1LZA5gX`, immutable URL `https://bnbheroes-revival-24k8sh2uo-phu-tans-projects.vercel.app`, target `production`, status **Ready**. Promotion reused the tested deployment rather than rebuilding a different source state.
+- Production byte check: `/static/media/You%20lose.00f95b2b.png` returned HTTP 200, 187246 bytes, SHA-256 **`0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f`**, exactly matching the Preview-tested final art.
+- Production browser smoke repeated the same three gates and all **PASSED**. My Heroes has the plain Recruit card back + Town-Inn padlocks; Win has one clean `ENEMY DEFEATED`/BNB/XP/HP set; Lose has continuous Mage/staff + soft glow with **no rectangular crop/alpha band** and clean separator/reward rows.
+- Production QA save integrity: exact `bnbheroes-revival-v2` localStorage was backed up before mutation, restored after Win and again after Lose, final string equality returned `true`, and temporary session backup keys were removed. No intentional QA mutation remains in the user's Production save.
+- Durable final report/evidence: `research/browser-regression/PRODUCTION_CERT_2026-09-04.md` plus compressed `evidence/2026-09-04-production-final-{myheroes,win,lose}.jpg`.
+- **Closeout rule:** this recovery is finished at the current highest-evidence public-source ceiling. Do not rerun rejected Lose candidates, broad archive sweeps, or speculative remapping merely to make provenance labels look complete. Reopen only for a genuinely stronger historical artifact/source. Real wallet signing/raw mainnet transactions remain disabled.
+
 ### 2026-09-04 clean19 Lose finalization — newest safety checkpoint
 - Commit `1132eb0` / clean Preview `https://bnbheroes-revival-9uetl1d5o-phu-tans-projects.vercel.app` passed My Heroes and Win but its real forced-Lose screenshot was still rejected: hash `9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107` retained a broad rectangular glow/alpha field. Rejected bytes are preserved at `archive/pre-result-browser-alpha-fix-20260904/You lose.00f95b2b.png`.
 - Final selected bytes are now hash `0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f`. Entire Mage+staff RGB comes from the first-party `Level 2 Skull Enemies.jpg`, warped with a SIFT/RANSAC partial-affine fit (21/34 inliers, scale ~0.8663) into the established Result geometry; warped silhouette agrees with the already-validated lower support at IoU ~0.9385. Row-wise sheet-background subtraction + vertical-continuity filtering removes the sheet's horizontal rule before warp. RGB is robustly color-fit from trusted visible 2021 Result Mage pixels. Glow is a smooth elliptical Gaussian field, not captured modal pixels; no upper/lower crop join remains.
 - Before formal commit, those exact bytes were deployed to temporary HTTPS Preview `https://bnbheroes-revival-hx2arik4p-phu-tans-projects.vercel.app`. Deterministic forced Lose (`Math.random=()=>0` for the engine's `seed+chance>1000` rule) produced `research/browser-regression/2026-09-04-preview-clean19-result-lose.png`; `read_image` **PASSED** with no rectangular crop/alpha artifact. Compact proof comparison is refreshed at `research/proofs/result-art-cleanup-20260904/evidence/lose-runtime-vs-period.jpg`.
-- Immediate continuation: run `npm run forensics:all`; if PASS, curated commit/push only runtime/proof/verifier/HANDOFF/evidence/rejected archive; deploy a **clean detached-worktree Preview from that commit**; repeat My Heroes + forced Win + forced Lose/read_image. **Only if all three PASS**, promote that exact tested Vercel deployment to `bnbheroes-revival.vercel.app`, smoke Production, then append final Production certification to HANDOFF/task ledger and push a docs-only closeout.
+- This checkpoint is **completed/superseded** by the FINAL Production certification above: full forensics passed, commit `4a94061` was clean-preview tested, promoted, and Production-smoked successfully.
 
 ### 2026-09-04 HTTPS Lose-art crop/alpha correction — previous checkpoint
 - Preview commit `7c7789e` (`https://bnbheroes-revival-bl3mfp13k-phu-tans-projects.vercel.app`) passed `read_image` on My Heroes and Win RESULT. A real forced-loss QA then rejected Lose hash `1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c`: a residual baked modal/crop band remained above the true DOM reward separator. QA localStorage was backed up and restored exactly after the test.
@@ -30,7 +41,7 @@
 >
 > This repository contains a preservation-grade recovery of the original 2021 BNB HEROES web client plus a safe playable reconstruction and restored GitBook. The original project's real-money/wallet layer is intentionally disabled.
 
-Last handoff update: **2026-09-04 15:05 ICT**  
+Last handoff update: **2026-09-04 20:14 ICT**
 Working directory used during recovery: `/workspace/bnbheroes-revival`
 
 ---
@@ -737,20 +748,34 @@ Therefore:
 
 ---
 
-## 19. Vercel deployment state
+## 19. Vercel deployment state — FINAL 2026-09-04
 
 Vercel configuration:
 
 - `vercel.json` contains SPA rewrites for the recovered BrowserRouter routes.
 - `.vercel/output/` may contain anonymous/static output from previous work, but do not treat it as authoritative source.
 
-Production is now live through the repository's GitHub → Vercel integration. The local container's Vercel CLI is still logged out, so deployment was completed through the authenticated GitHub workflow/browser session rather than by extracting or printing any Vercel token.
+Final Production is certified from the exact clean Preview that passed the final browser gates. The Vercel CLI is authenticated in this environment; **do not deploy/promote again unless runtime bytes are intentionally changed and re-certified**.
 
 Current production URL:
 
 - `https://bnbheroes-revival.vercel.app/`
 - playable simulation: `https://bnbheroes-revival.vercel.app/prototype/`
 - restored GitBook: `https://bnbheroes-revival.vercel.app/gitbook/`
+
+Final Production provenance:
+
+- runtime Git commit: `4a94061769122d26a94ee8f036768307fc2f0be2` (`Finalize clean Lose Result art`)
+- clean tested Preview: `https://bnbheroes-revival-ayxrt71xz-phu-tans-projects.vercel.app`
+- tested Preview deployment: `7EXAvr44FyBxWJNoLqtZv7vrdHi6`
+- promoted Production deployment: `dpl_Ax8drGP62RaF8TuXHzyrc1LZA5gX`
+- immutable Production URL: `https://bnbheroes-revival-24k8sh2uo-phu-tans-projects.vercel.app`
+- Vercel target/status: **production / Ready**
+- Production Lose asset: HTTP 200, 187246 bytes, SHA-256 `0e2369ac0879584ff11584fe49a682736e60a416206b8d9197a491aeec096d9f`, byte-identical to the Preview-tested final runtime asset
+- Production My Heroes / forced Win / forced Lose browser + `read_image` gates: **PASS**
+- final certification: `research/browser-regression/PRODUCTION_CERT_2026-09-04.md`
+
+The older 2026-09-02 deployment provenance below is retained only as historical chronology; it is **not** the current Production authority.
 
 Production provenance at the end of the 2026-09-02 recovery session:
 
@@ -770,45 +795,28 @@ Browser regression performed against the production alias after the final deploy
 - `/prototype/` — safe simulation rendered with 23/23 image elements loading successfully after the final `assets/` Vercel fix.
 - `/gitbook/` — restored GitBook rendered successfully.
 
-Before any future production promotion, always run:
+Before any future runtime-changing production promotion, always run:
 
 ```bash
 npm run check:all
 ```
 
-If command-line Vercel credentials are restored later, the normal production command remains:
-
-```bash
-npx vercel --prod --yes
-```
+Prefer deploying a clean detached-worktree Preview, certify the exact deployment, then promote that tested deployment. Do not replace this with an untested direct `--prod` deployment.
 
 ---
 
-## 20. Known remaining fidelity work (do this, not broad re-research)
+## 20. Remaining fidelity caveats — CLOSED unless genuinely new evidence appears
 
-Highest-value remaining tasks:
+There is **no active restoration task remaining under the currently available public evidence**. The former Hero/Barracks/enemy/Fight/Result/browser/provider queues are completed and superseded by later evidence-backed recovery and Production certification.
 
-1. **Prove numeric heroNameId mapping for the other 19 recovered Hero artworks**
-   - use named official NFT/event posts + on-chain `getHero(tokenId)` reads;
-   - save raw proof locally;
-   - then replace neutral `/cards/{id}.png` fallbacks.
+Known non-direct provenance that must remain explicit rather than being treated as unfinished work:
 
-2. **Recover or reconstruct Barracks (`towns/3-1.png`) from period evidence**
-   - best path is pixel/layer reconstruction from exact 1920×1080 official town screenshots because surviving town layers are also 1920×1080;
-   - mark any reconstruction clearly in provenance.
+1. Exact byte-identical originals for the six historically missing hashed media (`fight`, `card`, `card_lock`, `recruit_card`, `rewards`, `You lose`) were not recovered. The active period/first-party reconstructions are evidence-backed, regression-locked, and must continue to be labeled reconstructed/adapted where documented.
+2. Hero IDs 4/19/20/21 still lack a surviving literal token-metadata/name bridge. Their current confidence labels are intentionally non-direct; all 21 period artworks are nevertheless mapped/promoted and the stronger 17/21 period-stat/direct evidence is preserved.
+3. Some Town/enemy/Result visuals are period-derived reconstructions rather than byte-identical original files. Their proof/provenance files are the authority.
+4. Real wallet signing/raw mainnet transactions remain intentionally disabled. The playable 2021 UI uses the local preservation provider/simulation and must stay safe by default.
 
-3. **Recover original enemy sprites / Fight icon / modal art from a genuinely new source**
-   - do not repeat already-exhausted Wayback/Common Crawl searches without a new lead.
-
-4. **Browser regression on public deployment**
-   - root renders original Town/Home without wallet;
-   - My Heroes, Market, Battle Logs, Reserve route backgrounds/layout load;
-   - no uncaught errors that blank the app;
-   - no wallet popup;
-   - no real transaction path;
-   - no 404 static/media paths.
-
-5. **Only after fidelity:** optionally connect the original visual components to the safe simulation engine so the 2021 UI itself becomes fully playable without blockchain. Keep that adapter separate from the clean archive.
+Only reopen archaeology if a genuinely stronger artifact appears, such as surviving metadata JSON, exact old static-media bytes, a named NFT screenshot tied to a token ID, an original deployment backup, or another first-party period source that materially improves proof. Do **not** reopen broad Wayback/Common-Crawl sweeps or rejected Result-art candidates without such a lead.
 
 ---
 
@@ -828,13 +836,15 @@ A preservation release is acceptable when:
 
 It does **not** require pretending every lost PNG was recovered.
 
+**Current status: all of the above release criteria are met by the final 2026-09-04 Production certification.**
+
 ---
 
 ## 22. Recommended prompt for the next AI IDE
 
 Copy/paste this to the next AI:
 
-> Read `/workspace/bnbheroes-revival/AI_IDE_HANDOFF.md` completely before changing anything. Do not restart BNB HEROES forensic research from zero. Run `npm run check:all`, inspect git status and the clean `archive/original-20211117/` hashes, then continue only from **Known remaining fidelity work**. Preserve the original archive, keep wallet/mainnet transactions disabled, and clearly distinguish recovered original evidence from reconstructed fallback assets.
+> Read `/workspace/bnbheroes-revival/AI_IDE_HANDOFF.md` completely before changing anything. Treat the **FINAL Production certification — restoration closeout** block at the top as authoritative. Do not restart BNB HEROES archaeology, reconstruction, or deployment from zero. If the user requests a new change, first run the preservation checks, preserve `archive/original-20211117/`, keep wallet/mainnet signing disabled, and clearly distinguish recovered-original evidence from reconstruction. Reopen historical recovery only when a genuinely stronger artifact/source is available.
 
 ---
 
