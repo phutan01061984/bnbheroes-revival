@@ -60,6 +60,14 @@ The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder materi
 - `npm run check:all` PASS after adding regression assertions for Market-maintenance/version boundary and offline runtime.
 - Previous gameplay checkpoint is local commit **cea67cb**. GitHub push is still blocked in this shell by missing credentials and CDP bridge is unavailable; keep committing locally and update HANDOFF.
 
+### Final Hero literal-bridge closeout — 2026-09-04 15:25 ICT
+
+- Exact Market token anchors were used: ID4 #6179, ID19 #14480, ID20 #14185, ID21 #30998. Exact 17-Nov `tokenURI()` values point to first-party `metadata.bnbheroes.io/token/<id>.json`.
+- Live metadata is dead; prior host-wide `.json` archive hunt plus fresh token-specific Wayback/Common-Crawl/web/code searches yielded no metadata body or literal token/name bridge. A final archive batch hit upstream 502; do not repeat saturated archive scans without a genuinely new source.
+- Final mapping confidence therefore stays honest: ID4 `HIGH_COMPLETE_SET`, ID19 `HIGH_CLASS_ROSTER`, ID20/21 `HIGH_STRUCTURAL`. Runtime mapping is unchanged.
+- Closeout proof: `research/hero-id-mapping/FINAL_LITERAL_BRIDGE_HUNT_20260904.md`.
+- At this point the only unchecked continuation item is remote push. Local checkpoints are `cea67cb` (exact gameplay), `a4e5888` (Market/offline), and the current closeout HEAD (final literal bridge hunt + latest HANDOFF; do not hard-code its self-changing amend hash inside this file). Tracked working tree is clean. Shell GitHub auth and browser CDP are unavailable. Vercel has only `.vercel/anonymous.json` claim data, not an authenticated CLI user; no remote deploy was claimed as complete.
+
 ### Immediate continuation if this session disappears
 
 1. Do **not** reset/discard the exact-gameplay batch.

@@ -119,8 +119,8 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Pin 16-Nov block 12691137 / 17-Nov block 12730607 / 10-Dec block 13351244 implementation sets.
 - [x] `npm run check:all` PASS for this batch. `forensics:all` reaches visual stage but current local-coder environment has no Python interpreter; no visual/media file is changed by this batch, so visual rerun remains an environment-only follow-up.
 - [x] Write exact-gameplay audit + machine-readable version-lineage manifest.
-- [ ] Curate/commit gameplay + proof + historical-world batch without mass-adding unrelated archaeology.
+- [x] Curate/commit gameplay + proof + historical-world batch without mass-adding unrelated archaeology (`cea67cb`), followed by Market/offline checkpoint (`a4e5888`).
 - [ ] Push restoration branch after PASS.
-- [ ] Use #6179/#14480/#14185/#30998 for final literal-name bridge hunt for IDs 4/19/20/21.
+- [x] Use #6179/#14480/#14185/#30998 for final literal-name bridge hunt. No new literal bridge survived; close as evidence ceiling without inflating confidence. See `research/hero-id-mapping/FINAL_LITERAL_BRIDGE_HUNT_20260904.md`.
 - [x] Audit Market write/UI lineage: exact 17-Nov `/market` is maintenance-only; Buy/Cancel/Change Price are later-build UI and must not be backported. My Heroes `addListing` is the active target-era Market write.
 - [x] Offline packaging audit: local runtime dependencies verified; Bitquery locally shimmed; add Node-only static server and smoke-test `/`, `/market`, `/prototype/`, `/gitbook/`, main JS/CSS.
