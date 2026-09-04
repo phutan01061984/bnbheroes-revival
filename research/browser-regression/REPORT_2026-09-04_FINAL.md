@@ -92,3 +92,17 @@ Revival UI loads with local balances, recruitment price, all four Stronghold bra
 ## Result
 
 The exact branch deployment corresponding to the latest gameplay/forensics batch is browser-certified **PASS**. Production `bnbheroes-revival.vercel.app` was still on the older `main` deployment at the time of this certification; do not confuse it with the certified branch preview unless a later promotion is explicitly recorded.
+
+## Production promotion
+
+After the preview certification, commit `49ab900` was promoted through the authenticated Vercel dashboard.
+
+- Production deployment: `GQkhbNneDHk7ikCCKzGG6X5uzJhj`
+- Environment: **Production**
+- Status: **Ready**
+- Source: `restoration/native-ui-20260903 @ 49ab900`
+- Production alias: `https://bnbheroes-revival.vercel.app/`
+
+Production HTTPS verification PASS: the Home route renders the preservation UI/local wallet; `/prototype/src/engine.js` contains the v3/exact-17-Nov state path; `/market` retains `Sorry. We are in maintenance mode for a while.`
+
+The promotion changes the Vercel production pointer only; Git `main` was not merged, rebased or force-pushed.

@@ -84,6 +84,14 @@ The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder materi
 - `research/browser-regression/REPORT_2026-09-04_FINAL.md` records the checks; evidence JPEG is `research/browser-regression/evidence/2026-09-04-final-home-955b673.jpg`.
 - Production `bnbheroes-revival.vercel.app` still pointed to old `main` at certification time. Only call production updated if a later Vercel promotion is explicitly completed and rechecked.
 
+### Production promotion complete — 2026-09-04
+
+- Vercel Preview `GJqBG8ddVAwJ2PW6sTHXKW258UyN` (source `49ab900`, branch `restoration/native-ui-20260903`) was promoted through the authenticated Vercel dashboard.
+- Vercel created Production deployment `GQkhbNneDHk7ikCCKzGG6X5uzJhj`, status **Ready**, environment **Production**, source `restoration/native-ui-20260903 @ 49ab900`.
+- Production alias is now **https://bnbheroes-revival.vercel.app/** and no `main` merge/force-push was performed.
+- Production HTTPS smoke PASS: home renders the 2021 preservation UI/local wallet; `/prototype/src/engine.js` contains v3 + exact-17-Nov markers; `/market` renders the target-era maintenance message.
+- The next Git commit after this note is documentation/HANDOFF only; production runtime remains the certified `49ab900` bytes unless explicitly promoted again.
+
 ### Immediate continuation if this session disappears
 
 1. Do **not** reset/discard the exact-gameplay batch.
