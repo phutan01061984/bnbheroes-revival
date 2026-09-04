@@ -88,25 +88,27 @@ The first art-only Lose derivative removed the duplicated DOM title/reward rows,
 
 The next derivative (`084806d7...`) removed the rectangular seam, but real-browser QA on Preview commit `40fadde` exposed broad blue/gray sheet-background contamination inside the Mage silhouette. The runtime screenshot is `research/browser-regression/2026-09-04-preview-40fadde-result-lose-final.png`. That rejected derivative is preserved at `archive/pre-result-sheet-artifact-fix-20260904/You lose.00f95b2b.png`.
 
-The final reconstruction removes both failure modes without inventing character geometry:
+Preview commit `7c7789e` then passed My Heroes and Win RESULT, but the real 500×500 Lose `<img>` still exposed a residual baked modal/crop band at the old y~300 join. CDP measured the Result art at CSS rect `(650,239,500,500)` and the separately rendered reward separator at `(684.45,578.37,431.11,20)`, placing the real separator near source-image y~347 rather than over that old join. `read_image` therefore rejected SHA-256 `1ef7f840...`; those bytes are preserved at `archive/pre-result-browser-crop-fix-20260904/You lose.00f95b2b.png`.
 
-1. the **upper Mage + glow** are retained directly from the aligned 2021 Result frame, with support computed from pixel difference against the exact recovered modal background; this removes modal/background pixels instead of using a rectangular crop;
-2. the upper period layer stops just above the separately-rendered reward separator, so no captured separator/title/reward-row pixels can enter the runtime image;
-3. the **lower Mage**, which surviving Result captures hide behind reward-row DOM, comes from the first-party Level-2 Skull Mage using the same independently validated geometry and a color fit derived from visible overlap;
-4. lower-body extraction starts below the separator where the first-party sheet background is flat, avoiding the dark horizontal source-sheet band that contaminated the rejected `084806d7...` derivative;
-5. the exact recovered modal background and exact reward separator are used for a layer-order simulation before runtime promotion.
+The current reconstruction removes all three browser-observed failure modes without inventing character geometry:
 
-The final exact-modal simulation is locally preserved as `research/read-image-audit-20260904/result-clean-candidates/final/lose-clean7-on-modal.png`; the compact committed comparison `evidence/lose-runtime-vs-period.jpg` shows the surviving period Result beside this final simulation. The character remains evidence-derived; only the lower body hidden by surviving DOM rows is reconstructed from the first-party source.
+1. visible upper Mage color remains aligned 2021 Result pixels;
+2. structural character alpha comes from the independently matched first-party Mage, constrained to mapped Mage/staff geometry and filtered for **vertical continuity**, which rejects the thin horizontal rules in the source sheet;
+3. orange glow alpha comes only from the warm-color residual in period Result pixels and is radially feathered, so modal/background colors cannot survive as an opaque rectangle;
+4. lower Mage pixels remain first-party period art with the established color fit;
+5. the former crop join receives only a narrow **RGB vertical interpolation inside already-proven opaque Mage/staff support**. No new silhouette or character geometry is drawn.
+
+The current pre-HTTPS candidate is locally preserved as `research/read-image-audit-20260904/result-clean-candidates/final/clean17/lose-clean17.png` with neutral-modal simulation `clean17/lose-clean17-on-purple.png`. Final proof remains contingent on the fresh HTTPS Preview gate; the production alias must not be promoted until that browser screenshot is accepted.
 
 Corrected runtime:
 
 - `static/media/You lose.00f95b2b.png`
-- SHA-256: `1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c`
+- SHA-256: `9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107`
 - provenance: **RECONSTRUCTED_FROM_PERIOD_PIXELS**, not original bytes.
 
 ## Regression boundary
 
-The preservation verifier locks both corrected hashes and also locks the two superseded contaminated hashes in their archive directory. A future edit must not silently re-promote the diff-art intermediates.
+The preservation verifier locks the current Result hashes and all three browser-rejected Lose intermediates in archive directories. A future edit must not silently re-promote any rejected derivative.
 
 Machine-readable metrics and hashes are in `PROOF.json`.
 

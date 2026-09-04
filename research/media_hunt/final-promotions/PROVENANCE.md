@@ -46,7 +46,8 @@ This directory records the last six hashed media files that were unavailable as 
 - The lower first-party patch is color-fit only from visible overlapping period Mage pixels and is explicitly a period-derived reconstruction, not original hashed bytes.
 - Fresh HTTPS Preview QA on `f8f0e62` rejected the first art-only derivative because `read_image` exposed a rectangular orange-glow/alpha crop boundary across the Mage waist. That rejected intermediate is preserved at `archive/pre-result-seam-fix-20260904/You lose.00f95b2b.png` (SHA-256 `14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d`).
 - A second HTTPS Preview on `40fadde` rejected the next derivative because `read_image` exposed blue/gray first-party source-sheet contamination inside the Mage silhouette. That intermediate is preserved at `archive/pre-result-sheet-artifact-fix-20260904/You lose.00f95b2b.png` (SHA-256 `084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02`).
-- Final Lose reconstruction now retains the visible upper Mage + glow directly from aligned period Result pixels, with support derived by differencing against the exact modal background. The upper period layer stops above the separately rendered reward separator. Only the lower Mage hidden by surviving reward-row DOM comes from the first-party GitBook source, and extraction begins below the separator where the source sheet background is flat. This removes both the crop seam and source-sheet contamination without inventing new character geometry.
+- A third HTTPS Preview on `7c7789e` passed My Heroes and Win RESULT but still exposed a residual baked modal/crop band in the real 500×500 Lose image. CDP proved the DOM reward separator sits lower than that old join, so the artifact could not be hidden by the separator. The rejected bytes are preserved at `archive/pre-result-browser-crop-fix-20260904/You lose.00f95b2b.png` (SHA-256 `1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c`).
+- Current Lose reconstruction keeps period Result color for the visible upper Mage and derives glow only from warm period pixels. Character alpha comes from the independently matched first-party Mage, constrained to mapped Mage/staff geometry and filtered by vertical continuity so horizontal source-sheet rules cannot survive. The old crop join is repaired only by RGB interpolation inside proven character/staff support; no new silhouette is drawn. Provenance remains reconstruction from period/first-party pixels, not original hashed bytes.
 - See `research/proofs/result-art-cleanup-20260904/PROOF.md`.
 
 ## `fight.42bbd04e.png` — RECONSTRUCTED_FROM_PERIOD_PIXELS
@@ -64,7 +65,7 @@ This directory records the last six hashed media files that were unavailable as 
 - `cards/unkown.png`: `f68d9efe4d89f00ec1e5ef6857b046d9aaa69147c52ca11c6f9e1a8e24284103`
 - `recruit_card.aa5e12c7.png`: `12ddc8b41804baff0e78ede53833bd503fa24e3b130ec2d01203fca8cf65aae6`
 - `rewards.16b2db64.png`: `8fc8ce881b9eabfecf7ff7f53fa441a8f48153e272d38b1a28229ad6e7c72f46`
-- `You lose.00f95b2b.png`: `1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c`
+- `You lose.00f95b2b.png`: `9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107`
 - `fight.42bbd04e.png`: `e53c1be329ff369acce7179659cd0066957653a096ea7823a731221b4f55edfa`
 
 All previous runtime placeholders are preserved under `backups/`.

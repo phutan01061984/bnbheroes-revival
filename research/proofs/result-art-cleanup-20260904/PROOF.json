@@ -12,7 +12,7 @@
     },
     "lose": {
       "path": "static/media/You lose.00f95b2b.png",
-      "sha256": "1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c",
+      "sha256": "9f54476dc22af25fa45faccf82c510f699f6e3517222152562a402275ff0e107",
       "dimensions": [
         512,
         512
@@ -76,15 +76,21 @@
     "preview_rejection_reason": "read_image found a rectangular orange-glow/alpha boundary across the Mage waist in the f8f0e62 HTTPS Preview",
     "second_preview_rejected_sha256": "084806d7df4f1b51094d8de5babd9f3afca7760250e799554a2af5cdff3a3a02",
     "second_preview_rejection_reason": "read_image on the 40fadde HTTPS Preview found blue/gray first-party source-sheet background contamination inside the Mage silhouette",
-    "final_method": {
-      "upper_character_and_glow": "aligned period Result pixels with support derived from pixel-difference against the exact recovered modal background",
-      "upper_art_y": [100, 298],
-      "lower_character": "first-party Level-2 Skull Mage below the separately-rendered separator, extracted only where its source-sheet background is flat and color-fit from visible overlap",
-      "lower_art_y": [306, 445],
-      "lower_mage_alpha": 0.72,
-      "separator_occlusion_bridge": "the exact DOM reward separator covers the 298..306 transition; no crossfade through the source-sheet dark band is used"
+    "third_preview_rejected_sha256": "1ef7f8406e38bb1643e9df5c366fa672b18638c9a5082566405a2627be01324c",
+    "third_preview_rejection_reason": "read_image on the 7c7789e HTTPS Preview found a residual baked modal/crop band above the actual DOM reward separator despite the local simulation looking clean",
+    "third_preview_runtime_geometry": {
+      "result_art_css_rect": [650, 239, 500, 500],
+      "reward_separator_css_rect": [684.4453125, 578.3671875, 431.109375, 20],
+      "separator_approx_source_y": 347
     },
-    "reconstruction_note": "final Lose art uses actual period pixels for visible upper Mage/glow and first-party pixels only for the lower body hidden by surviving reward-row DOM; both rejected browser intermediates remain archived"
+    "final_method": {
+      "upper_character_color": "aligned 2021 Result pixels",
+      "character_alpha": "first-party Mage alpha constrained to mapped Mage/staff geometry and filtered by vertical continuity to reject horizontal source-sheet rules",
+      "glow_alpha": "warm-color residual from aligned period Result pixels with radial feather; modal/background colors remain transparent",
+      "lower_character": "first-party Level-2 Skull Mage with period-derived color fit",
+      "seam_repair": "RGB-only vertical interpolation across the former crop join inside opaque Mage/staff support; no new geometry is introduced"
+    },
+    "reconstruction_note": "candidate after three browser rejections: visible color remains period/first-party derived, structural alpha excludes modal/background and sheet rules, and the former crop join is repaired only inside the proven Mage/staff support"
   },
   "provenance_boundary": "Neither runtime file is claimed byte-identical original hashed response."
 }
