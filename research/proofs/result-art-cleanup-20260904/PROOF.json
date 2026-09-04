@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-04",
+  "status": "RECONSTRUCTED_FROM_PERIOD_PIXELS",
+  "runtime": {
+    "rewards": {
+      "path": "static/media/rewards.16b2db64.png",
+      "sha256": "8fc8ce881b9eabfecf7ff7f53fa441a8f48153e272d38b1a28229ad6e7c72f46",
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    "lose": {
+      "path": "static/media/You lose.00f95b2b.png",
+      "sha256": "14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d",
+      "dimensions": [
+        512,
+        512
+      ]
+    }
+  },
+  "superseded_contaminated": {
+    "rewards_sha256": "0ba35be2fa35911f90468a49ed2b019adf505a59497569b53e7e5dc84e8e8a9d",
+    "lose_sha256": "4f08df3827f4b41f42c4e078542f04ada3858be578fe9a0099f8083de89034b4",
+    "reason": "diff-art intermediate accidentally included DOM title/separator/reward rows and visibly duplicated them at runtime"
+  },
+  "bundle_layering": {
+    "result_art_under_dom": true,
+    "dom_title": true,
+    "dom_reward_separator": true,
+    "dom_bnb_xp_hp_rows": true,
+    "exact_modal_background_source": "static/css/main.433e3d53.chunk.css base64 .modal .content",
+    "exact_reward_separator_source": "static/js/main.5e2ca500.chunk.js base64 reward-seperator"
+  },
+  "win": {
+    "primary_source": "research/media_hunt/matters-result/result-win-20211208.png",
+    "primary_to_runtime_geometry_sift": {
+      "good": 372,
+      "inliers": 325,
+      "ratio": 0.8736559139784946
+    },
+    "independent_reviewer_to_primary_chest_alignment": {
+      "good": 183,
+      "inliers": 174,
+      "ratio": 0.9508196721311475
+    },
+    "separator_geometry_runtime_canvas": [
+      83,
+      302,
+      336,
+      16
+    ],
+    "separator_masked_color_correlation": 0.9037100076675415,
+    "reconstruction_note": "period chest/glow retained; only pixels hidden by separately-rendered separator require a thin occlusion reconstruction, which is covered again by the original DOM separator at runtime"
+  },
+  "lose": {
+    "period_source": "research/media_hunt/video-diff/lose/center-crops/f0088.png",
+    "period_frame_to_runtime_geometry_sift": {
+      "good": 79,
+      "inliers": 71,
+      "ratio": 0.8987341772151899
+    },
+    "first_party_mage_source": "research/media_hunt/gitbook-legacy/files/-Mj8uZlLWRG4Pr0rcr-H__Level 2 Skull Enemies.jpg",
+    "first_party_mage_identity_fit": {
+      "good": 52,
+      "inliers": 43,
+      "ratio": 0.8269230769230769
+    },
+    "separator_geometry_runtime_canvas": [
+      89,
+      302,
+      323,
+      15
+    ],
+    "reconstruction_note": "visible upper Mage/glow comes from period Result pixels; lower character hidden by DOM rows is patched from the first-party period Mage and color-fit from visible overlap"
+  },
+  "provenance_boundary": "Neither runtime file is claimed byte-identical original hashed response."
+}

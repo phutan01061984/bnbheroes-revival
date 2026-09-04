@@ -13,6 +13,13 @@ for (const p of [
   'static/media/Village.64091b0b.jpg','static/media/myheroes-bg.3c5effac.jpg',
   'backgrounds/village.jpg','backgrounds/market.jpg','backgrounds/myheroes-bg.jpg','backgrounds/battlelog-bg.jpg',
   'towns/background.jpg','towns/objects.png',
+  'static/media/card.df50fb38.png','static/media/card_lock.c211f00f.png','static/media/recruit_card.aa5e12c7.png',
+  'static/media/rewards.16b2db64.png','static/media/You lose.00f95b2b.png',
+  'research/media_hunt/card-analysis/CARD_SLOT_RECOVERY_PROOF.md','research/media_hunt/final-promotions/PROVENANCE.md',
+  'archive/pre-card-semantic-fix-20260904/card.df50fb38.png','archive/pre-card-semantic-fix-20260904/card_lock.c211f00f.png','archive/pre-card-semantic-fix-20260904/unkown.png',
+  'archive/pre-result-cleanup-20260904/rewards.16b2db64.png','archive/pre-result-cleanup-20260904/You lose.00f95b2b.png',
+  'research/proofs/card-state-semantic-20260904/PROOF.md','research/proofs/card-state-semantic-20260904/EVIDENCE.sha256',
+  'research/proofs/result-art-cleanup-20260904/PROOF.md','research/proofs/result-art-cleanup-20260904/PROOF.json','research/proofs/result-art-cleanup-20260904/EVIDENCE.sha256',
   'static/media/fight.42bbd04e.png','archive/pre-fight-period-recovery-20260903/fight.42bbd04e.png',
   'research/proofs/fight-period-reconstruction-20260903/PROOF.md',
   'research/proofs/fight-period-reconstruction-20260903/LOO_SAVED_MASK_METRICS.json',
@@ -46,6 +53,27 @@ for (const p of [
 // Town recovery checkpoint: Levels 2–4 and their Upgrade previews must match the evidence-backed runtime manifest.
 const townManifest = fs.readFileSync('research/media_hunt/town-layers-reconstruction/RUNTIME_TOWN_RECOVERY.sha256','utf8').trim().split(/\r?\n/).filter(Boolean);
 const crypto = await import('node:crypto');
+const hashFile = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const verifyHashManifest = (manifestPath, label) => {
+  const rows = fs.readFileSync(manifestPath,'utf8').trim().split(/\r?\n/).filter(Boolean);
+  for (const line of rows) {
+    const m = line.match(/^([0-9a-f]{64})\s+(.+)$/);
+    if (!m) { fail(`${label} invalid hash line: ${line}`); continue; }
+    const [,expected,path] = m;
+    if (!fs.existsSync(path)) { fail(`${label} evidence missing: ${path}`); continue; }
+    const got = hashFile(path);
+    if (got === expected) ok(`${label} evidence preserved: ${path}`);
+    else fail(`${label} evidence changed: ${path}`);
+  }
+  return rows.length;
+};
+
+const cardEvidenceCount = verifyHashManifest('research/proofs/card-state-semantic-20260904/EVIDENCE.sha256','card-state');
+if (cardEvidenceCount === 4) ok('card-state compact proof contains 4 locked evidence files');
+else fail(`card-state compact proof has ${cardEvidenceCount}/4 evidence files`);
+const resultEvidenceCount = verifyHashManifest('research/proofs/result-art-cleanup-20260904/EVIDENCE.sha256','RESULT');
+if (resultEvidenceCount === 5) ok('RESULT compact proof contains 5 locked evidence files');
+else fail(`RESULT compact proof has ${resultEvidenceCount}/5 evidence files`);
 
 // Fight recovery checkpoint: the superseded creative art must stay archived while runtime uses the validated period-pixel reconstruction.
 const fightRuntimePath = 'static/media/fight.42bbd04e.png';
@@ -66,6 +94,49 @@ else fail('Fight alpha segmentation proof missing or below threshold');
 if (fightFinal.candidate_recompose?.mean_mae <= 2.0 && fightFinal.candidate_recompose?.support_mean_mae <= 0.5 && fightFinal.creative_recompose?.mean_mae >= 30 && fightFinal.period_support_stability?.mean_rgb_std <= 1.0)
   ok('Fight period-pixel photometric proof passes');
 else fail('Fight period-pixel photometric proof missing or below threshold');
+
+// Card-state semantic checkpoint: recovered bundle/video prove open=plain back, locked=padlock, pending-arrival=question mark.
+const cardExpected = {
+  'static/media/card.df50fb38.png': '0451318f5e6a9b7ca55705630a0f51bb104c9597d1585ee5e4e986a1800721be',
+  'static/media/card_lock.c211f00f.png': 'cac62dc89c4e15b36fb738131ca99c04b90c1211bf9e2e175e655394fef8e100',
+  'cards/unkown.png': 'f68d9efe4d89f00ec1e5ef6857b046d9aaa69147c52ca11c6f9e1a8e24284103',
+  'static/media/recruit_card.aa5e12c7.png': '12ddc8b41804baff0e78ede53833bd503fa24e3b130ec2d01203fca8cf65aae6'
+};
+for (const [p, expected] of Object.entries(cardExpected)) {
+  const got = hashFile(p);
+  if (got === expected) ok(`card-state asset preserved: ${p}`); else fail(`card-state asset drifted: ${p} ${got}`);
+}
+const oldCardOpenHash = hashFile('archive/pre-card-semantic-fix-20260904/card.df50fb38.png');
+const oldCardLockHash = hashFile('archive/pre-card-semantic-fix-20260904/card_lock.c211f00f.png');
+const oldUnknownHash = hashFile('archive/pre-card-semantic-fix-20260904/unkown.png');
+if (oldCardOpenHash === 'cac62dc89c4e15b36fb738131ca99c04b90c1211bf9e2e175e655394fef8e100' &&
+    oldCardLockHash === 'f68d9efe4d89f00ec1e5ef6857b046d9aaa69147c52ca11c6f9e1a8e24284103' &&
+    oldUnknownHash === '2d071d79018235e9aa1d867b1c59204e8321c1caf4955b15d109c4a0288e2cd0')
+  ok('pre-correction card-state bytes remain archived');
+else fail('pre-correction card-state archive changed');
+
+// RESULT-art checkpoint: runtime must use art-only reconstructions, never the contaminated diff-art intermediates.
+const resultProof = JSON.parse(fs.readFileSync('research/proofs/result-art-cleanup-20260904/PROOF.json','utf8'));
+const resultExpected = {
+  'static/media/rewards.16b2db64.png': '8fc8ce881b9eabfecf7ff7f53fa441a8f48153e272d38b1a28229ad6e7c72f46',
+  'static/media/You lose.00f95b2b.png': '14074d97711e1ae44538295db5952174c9cfb889d2d05dea77e981a107be0b2d'
+};
+for (const [p, expected] of Object.entries(resultExpected)) {
+  const got = hashFile(p);
+  if (got === expected) ok(`clean RESULT art preserved: ${p}`); else fail(`RESULT art drifted: ${p} ${got}`);
+}
+const contaminatedRewardsHash = hashFile('archive/pre-result-cleanup-20260904/rewards.16b2db64.png');
+const contaminatedLoseHash = hashFile('archive/pre-result-cleanup-20260904/You lose.00f95b2b.png');
+if (contaminatedRewardsHash === '0ba35be2fa35911f90468a49ed2b019adf505a59497569b53e7e5dc84e8e8a9d' &&
+    contaminatedLoseHash === '4f08df3827f4b41f42c4e078542f04ada3858be578fe9a0099f8083de89034b4')
+  ok('superseded contaminated RESULT diff-art bytes remain archived');
+else fail('RESULT contaminated-asset archive changed');
+if (resultProof.win?.primary_to_runtime_geometry_sift?.ratio >= 0.87 &&
+    resultProof.win?.independent_reviewer_to_primary_chest_alignment?.ratio >= 0.95 &&
+    resultProof.lose?.period_frame_to_runtime_geometry_sift?.ratio >= 0.89 &&
+    resultProof.lose?.first_party_mage_identity_fit?.ratio >= 0.82)
+  ok('RESULT period-geometry / first-party identity proof passes');
+else fail('RESULT cleanup proof missing or below evidence thresholds');
 for (const line of townManifest) {
   const m = line.match(/^([0-9a-f]{64})\s+(.+)$/);
   if (!m) { fail(`invalid Town recovery hash line: ${line}`); continue; }
@@ -95,7 +166,7 @@ if (l4PreviewRows.length === 4 && l4PreviewRows.every(r => r.method === 'inverse
 else fail('Town Level-4 preview canonical-geometry proof is missing or stale');
 
 
-// Hero-card promotion must remain byte-identical to the archived period art and must never regress to the generic fallback.
+// Hero-card promotion must remain byte-identical to the archived period art and must never regress to the pending-arrival placeholder.
 const mappingRows = fs.readFileSync('research/hero-id-mapping/heroNameId-final.tsv','utf8').trim().split(/\r?\n/).slice(1).map(line => {
   const [heroNameId,name,artFile,rarity,confidence] = line.split('\t');
   return {heroNameId,name,artFile,rarity,confidence};
