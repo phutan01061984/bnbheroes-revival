@@ -11,8 +11,8 @@ const WAD = 1e18;
 const c = LEGACY.character;
 const o = LEGACY.oracle;
 const names = LEGACY.knownHeroNames;
-const rarityName = t => ({1:'Common',2:'Uncommon',3:'Rare',4:'Epic',5:'Legendary'})[t] || `Type ${t}`;
-const className = t => ({1:'Knight',2:'Rogue',3:'Ranger',4:'Mage',5:'Paladin'})[t] || `Class ${t}`;
+const rarityName = t => LEGACY.rarityMap[t] || `Type ${t}`;
+const className = t => LEGACY.classMap[t] || `Class ${t}`;
 const enemyNames = ['Red Skull 1','Red Skull 2','Red Skull 3','Red Skull Archer','Red Skull Assasin','Red Skull Mage','Zangrief'];
 const toFloat = x => Number(BigInt(x)) / WAD;
 const hpPerDay = 86400 / c.secondsPerHp;
@@ -116,7 +116,7 @@ const model = {
   mechanics: {
     secondsPerHp:c.secondsPerHp,hpPerDay,heroArrivalSeconds:c.heroArrivalTime,
     firstClaimLockSeconds:chainEconomy.firstLockSeconds,initialClaimTaxPct:20,claimTaxDropPctPerDay:2,
-    bankBonusesPct:[0,3,6,16],innHpBonusEffective:[0,0,0,0],barracksXpBonus:[0,30,60,90],trainingStatBonus:[0,30,60,90],
+    bankBonusesPct:c.baseTownRatio.slice(0,4),innConfiguredRatio:c.baseTownRatio.slice(4,8),innHpBonusEffective:[0,0,0,0],barracksXpBonus:c.baseTownRatio.slice(8,12),trainingStatBonus:c.baseTownRatio.slice(12,16),
     marketListingFeePct:10,
     enemyNames,
     baseChances:c.baseChances,baseRewardsBnb:c.baseBNBRewards.map(toFloat),baseXp:c.baseEnemyXps,requiredHp:c.requiredHps,

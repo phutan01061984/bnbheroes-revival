@@ -110,19 +110,19 @@ Fight itself does not immediately send BNB. It increments the player's pending `
 
 The preserved 17-Nov UI does **not** gate Tier 2/Boss by unlocked Hero level. Its Fight button checks current HP and fight state. Thus the boss is reachable whenever the Hero has the required 400 HP.
 
-Example, **Arnulf of Esplin** at base Town (A600 / D800 / S600):
+Example, **Arnulf of Esplin** at base Town (A600 / D700 / S400):
 
 | | Enemy 1 | Zangrief |
 |---|---:|---:|
 | exact win probability | 75.9% | 45.9% |
-| BNB on win | 0.004800 | 0.038400 |
-| expected BNB/fight | 0.003643 | 0.017626 |
-| expected HP loss/fight | 139.28 | 363.28 |
-| HP-limited BNB/day | ~0.02628 | **~0.04874** |
+| BNB on win | 0.004200 | 0.033600 |
+| expected BNB/fight | 0.003188 | 0.015422 |
+| expected HP loss/fight | 146.87 | 367.87 |
+| HP-limited BNB/day | ~0.02181 | **~0.04212** |
 
-So Boss increases Arnulf's long-run BNB/HP efficiency by roughly **85%** versus Enemy 1 under the restored formulas.
+So Boss increases Arnulf's long-run BNB/HP efficiency by roughly **93%** versus Enemy 1 under the restored formulas.
 
-At Bank L4 + Training L4, Arnulf's model output rises to about **0.06173 BNB/day gross**.
+At Bank L4 + Training L4, Arnulf's model output rises to about **0.05655 BNB/day gross**.
 
 ## Average newly recruited Hero
 
@@ -157,7 +157,7 @@ If players wait, the tax eventually stops reducing pool outflow. It mainly delay
 ## Town economy
 
 - **Bank L4:** +16% BNB reward — directly increases BNB liabilities.
-- **Training L4:** +90 Attack/Armor/Speed — increases chance/reward efficiency and reduces expected HP loss.
+- **Training L4:** +140 Attack/Armor/Speed — increases chance/reward efficiency and reduces expected HP loss.
 - **Barracks L4:** +90 XP on wins — accelerates XP/stat progression.
 - **Inn:** the 17-Nov implementation has the known missing-assignment bug; HP regeneration remains 86 sec/HP despite Inn upgrades.
 
