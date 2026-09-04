@@ -11,7 +11,9 @@
     "verify:preservation": "node scripts/verify-preservation.mjs",
     "check:all": "npm run check && npm run verify:preservation && npm test",
     "visual:forensics": "python3 scripts/visual-forensics.py",
-    "forensics:all": "npm run check:all && npm run visual:forensics"
+    "forensics:all": "npm run check:all && npm run visual:forensics",
+    "economy:build": "node scripts/economy-model.mjs",
+    "economy:test": "node scripts/economy-model.mjs >/dev/null && node tests/economy.test.mjs"
   },
   "dependencies": {
     "ethers": "^6.17.0"

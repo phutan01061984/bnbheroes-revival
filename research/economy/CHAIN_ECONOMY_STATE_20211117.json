@@ -1,0 +1,49 @@
+{
+  "block": 12730607,
+  "timestamp": "2021-11-17T19:08:02.000Z",
+  "addresses": {
+    "core": "0xde9fFb228C1789FEf3F08014498F2b16c57db855",
+    "token": "0xD25631648E3Ad4863332319E8E0d6f2A8EC6f267",
+    "character": "0x6DA72F24c56197Dcf6B8920baCb183F6ccca8b01",
+    "pool": "0xdE8c58d082d39D04DC2e5241a3a65911454674CD",
+    "oracle": "0xD160bbDED5cFF79b126443EefCB28F3b67991140",
+    "randoms": "0xB81Cd7e88feAda830E7C1095909db3F5336d8664"
+  },
+  "core": {
+    "dividePercent": "70",
+    "burnAddress": "0x0f3d164083275Bd690Db61445878786b290aaE9B",
+    "bnbhPool": "0xdE8c58d082d39D04DC2e5241a3a65911454674CD",
+    "firstLockTime": "172800",
+    "maxHeroCount": "10",
+    "numTokensToSend": {
+      "error": "execution reverted (no data present; likely require(false) occurred"
+    },
+    "bnbBalanceWei": "0",
+    "bnbhBalanceWei": "0"
+  },
+  "token": {
+    "bnbFeePct": "11",
+    "liquidityFeePct": "1",
+    "bnbPoolAddress": "0xdE8c58d082d39D04DC2e5241a3a65911454674CD",
+    "swapCoolDownTime": "900",
+    "presaleEnded": "true",
+    "totalSupplyWei": "100000000000000000000000000",
+    "maxTxAmountWei": "200000000000000000000000",
+    "bnbBalanceWei": "0",
+    "bnbhBalanceWei": "25541245371651060124882970"
+  },
+  "pool": {
+    "bnbHeroAddress": "0xde9fFb228C1789FEf3F08014498F2b16c57db855",
+    "bnbBalanceWei": "3270931735792176651269",
+    "bnbBalance": "3270.931735792176651269",
+    "bnbhBalanceWei": "0"
+  },
+  "character": {
+    "totalSupply": "35451"
+  },
+  "notes": [
+    "All scalar values above are direct eth_call/account-state reads at the target block.",
+    "numTokensToSend() reverting is itself preserved: that later-source getter is not exposed by the exact 17-Nov Core implementation.",
+    "Internal operation->token->burn batching architecture is corroborated separately by the recovered late-Nov Solidity mirror and is not mislabeled as byte-identical 17-Nov source."
+  ]
+}

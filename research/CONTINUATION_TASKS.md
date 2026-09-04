@@ -4,6 +4,16 @@ Updated: 2026-09-04
 
 Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / period-original evidence. Reconstruct only after multiple source paths are exhausted. Keep wallet/mainnet transaction flow disabled.
 
+## POST-RESTORATION Phase 2 — Economy audit (2026-09-04)
+
+- [x] Freeze certified restoration as `preservation-v1.0.0` at `2ffd3cc`; do not rewrite this tag for analysis work.
+- [x] Snapshot exact target-block economy state (Core/Token/Pool links, fees, Pool BNB, Hero supply) into `research/economy/CHAIN_ECONOMY_STATE_20211117.json`.
+- [x] Build deterministic `scripts/economy-model.mjs` for all 21 Hero × 7 enemy combinations and machine-readable JSON/CSV outputs.
+- [x] Write `docs/ECONOMY_AUDIT_20211117.md` separating exact 17-Nov facts from later-source architecture corroboration.
+- [x] Build responsive, no-wallet `/economy/` dashboard with Hero calculator, rarity map, claim timeline, Town effects and BNBHPool active-Hero stress slider.
+- [x] Add `npm run economy:test` regression checks.
+- [ ] Clean-Preview browser certify `/economy/`, verify preserved root runtime bytes unchanged, then promote the exact tested deployment and update this handoff.
+
 ## FINAL Production closeout — 2026-09-04
 
 - [x] Final runtime commit `4a94061769122d26a94ee8f036768307fc2f0be2` (`Finalize clean Lose Result art`) pushed to `restoration/native-ui-20260903`; local/remote heads matched before deployment.
