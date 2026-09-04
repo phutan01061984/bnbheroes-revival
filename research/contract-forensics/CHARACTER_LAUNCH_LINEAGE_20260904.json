@@ -1,0 +1,86 @@
+{
+  "evidenceClass": "DIRECT_HISTORICAL_CHAIN_LINEAGE",
+  "characterProxy": "0x6DA72F24c56197Dcf6B8920baCb183F6ccca8b01",
+  "proxyAdmin": "0xA6f76A3f9a42B184cAf05eb14D45C9d3C842e1fF",
+  "captureBlock": 12730607,
+  "segments": [
+    {
+      "from": 12641026,
+      "to": 12675918,
+      "implementation": "0xb0a5d98d8d613b087704157006920e0518db4ec0",
+      "fromTime": "2021-11-14T11:38:21Z"
+    },
+    {
+      "from": 12675919,
+      "to": 12694859,
+      "implementation": "0xec411735c2bcb9224eded102cd39a47063308658",
+      "fromTime": "2021-11-15T18:35:53Z",
+      "tx": "0xe364572534e598da8f3cf143f9c99903a269ad1344d969d9e1c2d954f20d4596"
+    },
+    {
+      "from": 12694860,
+      "to": 12700015,
+      "implementation": "0xa22ac137d2b5196411bd86a2c87f5ec89dfd4a84",
+      "fromTime": "2021-11-16T11:00:08Z",
+      "tx": "0xbd41e369f4ca37dd25a211b5ac45adc403d5340877e95386ce8be85890717bed"
+    },
+    {
+      "from": 12700016,
+      "to": 12712495,
+      "implementation": "0x950e812ba0046116174df4203fdd20f497571b94",
+      "fromTime": "2021-11-16T15:43:04Z",
+      "tx": "0xe8f9f40434592f59217e254d8929c891aa0275dc8c5be0c2ffd39b7d39f80dd9"
+    },
+    {
+      "from": 12712496,
+      "to": 12730607,
+      "implementation": "0x36bd26648ce81c1675dfa3bc640607a3ef0852f9",
+      "fromTime": "2021-11-17T02:39:38Z",
+      "tx": "0x78e439dcd6fc31db68a68abd2bfa71363bdb8324072fc74da2ae3054d0f9f1fc"
+    }
+  ],
+  "initialImplementation": {
+    "runtimeBytes": 19932,
+    "runtimeSha256": "04b2166126ee59086c2dca780636de732c4c632cf59ca3fc6d5dcdb92519fdd4"
+  },
+  "deployBlockState": {
+    "block": 12641026,
+    "timestamp": "2021-11-14T11:38:21Z",
+    "totalSupply": "0",
+    "targetTemplates": {
+      "4": {
+        "slot": 3,
+        "heroType": 2,
+        "heroClass": 1,
+        "attack": 500,
+        "armor": 600,
+        "speed": 500
+      },
+      "19": {
+        "slot": 18,
+        "heroType": 5,
+        "heroClass": 4,
+        "attack": 900,
+        "armor": 500,
+        "speed": 700
+      },
+      "20": {
+        "slot": 19,
+        "heroType": 5,
+        "heroClass": 5,
+        "attack": 800,
+        "armor": 700,
+        "speed": 600
+      },
+      "21": {
+        "slot": 20,
+        "heroType": 5,
+        "heroClass": 5,
+        "attack": 900,
+        "armor": 700,
+        "speed": 500
+      }
+    }
+  },
+  "conclusion": "21 numeric Hero templates were initialized before first mint and target IDs stayed numerically stable across launch-week Character upgrades; post-deploy insertion/remap hypothesis rejected."
+}

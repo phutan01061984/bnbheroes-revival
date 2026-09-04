@@ -15,3 +15,9 @@ Read-only archive state was queried through Alchemy's public BNB endpoint after 
 Historical implementation bytecode is also still retrievable at those blocks. Therefore exact launch-era implementation recovery is feasible without relying on explorer source verification.
 
 The transition immediately relevant to the preserved 17-Nov frontend is now exact: Market changed at block 12,724,583 (2021-11-17 13:41:38 UTC), tx `0x162f2c3e6122234aa382050c2786ca67721411295a759e9da780faa7d73c0f49`, from `0x894d...` to `0xade9...`. See `FRONTEND_CAPTURE_IMPLEMENTATIONS_20211117.md`. Broader Nov-Dec rows remain representative snapshots rather than a claim of a complete event timeline.
+## Exact Character launch-week lineage (closed 2026-09-04)
+
+Character was upgraded four times between its 14-Nov deployment and the preserved 17-Nov frontend capture: `0xb0a5...` -> `0xec411...` at block 12,675,919 -> `0xa22ac...` at 12,694,860 -> `0x950e...` at 12,700,016 -> `0x36bd...` at 12,712,496. Exact upgrade tx hashes and deployment-state proof are in `CHARACTER_LAUNCH_LINEAGE_20260904.md/json`.
+
+Direct archive calls at deployment block 12,641,026 show `totalSupply=0` while Hero numeric templates 4/19/20/21 already exist with the same tuples seen at every transition and at the frontend capture. This rules out a post-deploy Hero-template insertion/remap as a way to distinguish the remaining literal Hero names.
+

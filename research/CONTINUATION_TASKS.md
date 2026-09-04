@@ -1,6 +1,6 @@
 # BNB HEROES Revival — Continuation Task Ledger
 
-Updated: 2026-09-03
+Updated: 2026-09-04
 
 Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / period-original evidence. Reconstruct only after multiple source paths are exhausted. Keep wallet/mainnet transaction flow disabled.
 
@@ -91,4 +91,11 @@ Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / p
 - [x] Recover the exact historical Character/Oracle state aligned to the frontend capture and compare it to the simulator. Runtime now uses the 17-Nov RNG/rewards/chances/HP table and capture-time Oracle prices/unlock semantics instead of the later 2026 state.
 - [x] Strengthen Hero numeric-ID proof with direct Character template arrays + independent 2021-12-06 literal-name stat fingerprints. 17/21 identities are unique period-stat joins; ID9=Lena / ID10=Sivalas correction is promoted and verified; IDs4/19/20/21 retain explicit non-direct confidence labels.
 - [x] Re-check exact-byte media through genuinely new production/CC lineage. The six hashed filenames persist across 16-Nov → 17-Nov → 10-Dec builds, but their exact bytes still do not survive; current period-derived runtime assets remain explicitly labeled rather than misrepresented as originals.
-- [ ] Finalize this historical-state batch: rerun `npm run forensics:all` after doc/verifier sync, commit/push only curated proof/runtime files, then browser-certify visible Recruit/Town/Unlock/Boss values on the fresh Vercel preview.
+- [x] Finalize this historical-state batch: `npm run forensics:all` PASS; curated runtime/proof batch committed and pushed as `31e5ad3`; fresh HTTPS preview browser certification passed Recruit (270 BNBH), Town Bank L2 (67 BNBH), direct `getUnlockLevelPrice(1)` RPC (`7494423654059697341` wei), and Zangrief (46% / 400 HP / 0.024 BNB / 400 XP). See `research/browser-regression/HISTORICAL_STATE_CERT_2026-09-04.md`.
+
+## P1 — Final fidelity ceiling / closed 2026-09-04
+
+- [x] Hero IDs 4/19/20/21 final public-evidence pass: recovered exact Character launch lineage and proved all four numeric templates already existed at deployment (`totalSupply=0`) and remained unchanged across four launch-week upgrades. This rejects post-deploy insertion/remap but yields no surviving literal-name bridge, so confidence intentionally remains ID4 `HIGH_COMPLETE_SET`, ID19 `HIGH_CLASS_ROSTER`, IDs20/21 `HIGH_STRUCTURAL`. See `contract-forensics/CHARACTER_LAUNCH_LINEAGE_20260904.md`.
+- [x] Exact bytes for six missing hashed media (`fight`, `card`, `card_lock`, `recruit_card`, `rewards`, `You lose`) final public-source pass: exact filenames persist across 16-Nov -> 17-Nov -> 10-Dec builds; archive/search/storage paths currently available still contain no exact bytes. Keep the verified period-derived runtime reconstructions and their explicit provenance labels.
+- [x] Historical Character implementation lineage through the preserved frontend capture: exact boundaries and ProxyAdmin upgrade transactions are now recovered for all four launch-week transitions (15-Nov, two on 16-Nov, 17-Nov). Target Hero template tuples are stable throughout; no behavior-changing remap affects the preserved 17-Nov runtime.
+- [x] Restoration closeout rule: current branch is the highest-evidence public-source restoration. Reopen archaeology only when a genuinely new artifact/source appears (e.g. surviving metadata body, `/cards/{id}.png` archive bytes, named NFT screenshot/token ID, private deployment backup). Do not invent replacements merely to make remaining confidence labels look complete.

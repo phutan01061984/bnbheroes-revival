@@ -48,3 +48,9 @@ All runtime `cards/1.png` … `cards/21.png` remain exact byte copies from `arch
 - `HIGH_STRUCTURAL`: ordered first-party roster/insertion structure where no unique stat fingerprint survives (IDs20/21).
 
 Machine-readable final mapping: `research/hero-id-mapping/heroNameId-final.tsv`.
+## 7. Launch-deployment lineage check (2026-09-04)
+
+A final archive-state pass recovered every Character implementation boundary from proxy deployment through the 17-Nov frontend capture. Crucially, at deployment block **12,641,026** `totalSupply=0` while numeric templates **4, 19, 20, 21 already exist**, and those four tuples remain unchanged across all four launch-week upgrades and at block 12,730,607. See `research/contract-forensics/CHARACTER_LAUNCH_LINEAGE_20260904.md`.
+
+This directly rejects a post-deploy “three new Heroes were inserted into the arrays later” explanation. It strengthens numeric-template continuity but **does not upgrade literal-name confidence**: the chain stores numeric IDs rather than the names Aelof/Uriah/Asten/Duscair. In particular, further implementation-history analysis cannot resolve ID20 vs ID21 without an external literal-name/art/token bridge.
+
