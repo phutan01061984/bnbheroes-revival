@@ -68,6 +68,13 @@ The honeyvig/hardhat mirror begins around 27-Nov and is reference/decoder materi
 - Closeout proof: `research/hero-id-mapping/FINAL_LITERAL_BRIDGE_HUNT_20260904.md`.
 - At this point the only unchecked continuation item is remote push. Local checkpoints are `cea67cb` (exact gameplay), `a4e5888` (Market/offline), and the current closeout HEAD (final literal bridge hunt + latest HANDOFF; do not hard-code its self-changing amend hash inside this file). Tracked working tree is clean. Shell GitHub auth and browser CDP are unavailable. Vercel has only `.vercel/anonymous.json` claim data, not an authenticated CLI user; no remote deploy was claimed as complete.
 
+### Python restored + full forensic certification — 2026-09-04
+
+- Local-coder container is Alpine 3.23 and Python had actually been removed. Reinstalled system packages: Python 3.12.14, NumPy 2.3.5, OpenCV 4.12.0.
+- `npm run forensics:all` now completes successfully end-to-end: preservation verification PASS, engine/provider tests PASS, and `visual:forensics` overall PASS.
+- Visual gate passed Town all-L4 vs period frame, all eight Townselect L2/L3 period-preview comparisons, and Fight period recomposition. This closes the previous environment-only visual-certification gap.
+- Browser Host Bridge confirms the user is already authenticated to both GitHub and Vercel in the host Chrome profile. Next action is browser-assisted GitHub auth/push, then Vercel redeploy and HTTPS regression on the exact new branch head.
+
 ### Immediate continuation if this session disappears
 
 1. Do **not** reset/discard the exact-gameplay batch.
