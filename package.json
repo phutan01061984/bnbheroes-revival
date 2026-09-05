@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "test": "node tests/engine.test.mjs && node tests/provider.test.mjs",
+    "test": "node tests/engine.test.mjs && node tests/provider.test.mjs && node tests/site-auth.test.mjs",
     "check": "node --check prototype/src/engine.js && node --check prototype/src/app.js && node --check gitbook/pages.js && node --check gitbook/app.js",
     "snapshot": "node research/snapshot-chain.mjs",
     "verify:preservation": "node scripts/verify-preservation.mjs",
@@ -16,6 +16,7 @@
     "economy:test": "node scripts/economy-model.mjs >/dev/null && node tests/economy.test.mjs"
   },
   "dependencies": {
+    "@vercel/functions": "^3.9.5",
     "ethers": "^6.17.0"
   },
   "license": "ISC"
