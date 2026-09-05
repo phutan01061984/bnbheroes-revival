@@ -1,5 +1,9 @@
 import { next } from '@vercel/functions';
 
+export const config = {
+  runtime: 'nodejs',
+};
+
 const REALM = 'BNB HEROES Private';
 const DEFAULT_USER = 'bnbh';
 
