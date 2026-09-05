@@ -1,31 +1,52 @@
 import assert from 'node:assert/strict';
 
-process.env.BNBH_SITE_USER = 'bnbh';
 process.env.BNBH_SITE_PASSWORD = 'correct-horse-test-secret';
 const { default: middleware } = await import('../middleware.js');
 
-const req = auth => new Request('https://bnbheroes.example/myheroes', {
-  headers: auth ? { authorization: auth } : {},
-});
-const basic = (user, pass) => `Basic ${Buffer.from(`${user}:${pass}`).toString('base64')}`;
+const req = (url = 'https://bnbheroes.example/myheroes', init = {}) => new Request(url, init);
 
-let res = middleware(req());
-assert.equal(res.status, 401);
-assert.match(res.headers.get('www-authenticate') || '', /BNB HEROES Private/);
+let res = await middleware(req());
+assert.equal(res.status, 200);
+assert.match(await res.text(), /name="password"/);
+assert.doesNotMatch(res.headers.get('www-authenticate') || '', /Basic/i);
 assert.equal(res.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive, nosnippet');
 
-res = middleware(req(basic('bnbh', 'wrong')));
+const wrongBody = new URLSearchParams({ password: 'wrong', next: '/myheroes' });
+res = await middleware(req('https://bnbheroes.example/__private_login', {
+  method: 'POST',
+  body: wrongBody,
+  headers: { 'content-type': 'application/x-www-form-urlencoded' },
+}));
 assert.equal(res.status, 401);
+assert.match(await res.text(), /Sai mật khẩu/);
 
-res = middleware(req(basic('wrong', 'correct-horse-test-secret')));
-assert.equal(res.status, 401);
+const goodBody = new URLSearchParams({ password: 'correct-horse-test-secret', next: '/myheroes' });
+res = await middleware(req('https://bnbheroes.example/__private_login', {
+  method: 'POST',
+  body: goodBody,
+  headers: { 'content-type': 'application/x-www-form-urlencoded' },
+}));
+assert.equal(res.status, 303);
+assert.equal(res.headers.get('location'), '/myheroes');
+const cookie = (res.headers.get('set-cookie') || '').split(';', 1)[0];
+assert.match(cookie, /^bnbh_private_access=/);
+assert.match(res.headers.get('set-cookie') || '', /HttpOnly/);
+assert.match(res.headers.get('set-cookie') || '', /Secure/);
+assert.match(res.headers.get('set-cookie') || '', /SameSite=Strict/);
 
-res = middleware(req(basic('bnbh', 'correct-horse-test-secret')));
+res = await middleware(req('https://bnbheroes.example/myheroes', {
+  headers: { cookie },
+}));
 assert.equal(res.status, 200);
+
+res = await middleware(req('https://bnbheroes.example/cards/14.png'));
+assert.equal(res.status, 200);
+assert.match(res.headers.get('content-type') || '', /text\/html/);
+assert.match(await res.text(), /name="password"/);
 
 const saved = process.env.BNBH_SITE_PASSWORD;
 delete process.env.BNBH_SITE_PASSWORD;
-res = middleware(req(basic('bnbh', saved)));
+res = await middleware(req());
 assert.equal(res.status, 503);
 process.env.BNBH_SITE_PASSWORD = saved;
 
