@@ -1,5 +1,14 @@
 # BNB HEROES Revival — Continuation Task Ledger
 
+## PRIVATE Production access — 2026-09-05
+
+- [x] Keep password outside Git; store it as Vercel Production Secret `BNBH_SITE_PASSWORD`.
+- [x] Add fail-closed root Routing Middleware protecting every route/static asset with HTTP Basic Auth.
+- [x] Add auth regression test to `npm test`.
+- [x] Deploy Node.js middleware to Production and prove no-auth/wrong-auth 401, correct-auth 200 for root, My Heroes, Economy and direct Hero PNG.
+- [x] Preserve game bytes; authenticated `cards/14.png` hash matches repo.
+- [x] Record `research/browser-regression/PRIVATE_ACCESS_CERT_2026-09-05.md`.
+
 Updated: 2026-09-04
 
 Goal: recover the 2021 game as faithfully as possible. Prefer original bytes / period-original evidence. Reconstruct only after multiple source paths are exhausted. Keep wallet/mainnet transaction flow disabled.

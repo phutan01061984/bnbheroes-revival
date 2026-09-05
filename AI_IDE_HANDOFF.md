@@ -1,3 +1,11 @@
+### 2026-09-05 PRIVATE Production access — newest safety boundary
+- Owner requested the restored site be visible only with a password. Vercel built-in Password Protection was unavailable on the Hobby team (`428 Advanced Deployment Protection is not enabled`), so Production is protected by root `middleware.js` using Vercel Routing Middleware / Node.js runtime.
+- Auth wrapper source head is `aa2f646d396decc19af61ea4adec0dbc198ad812`; Production is **Ready** at `https://bnbheroes-revival.vercel.app`, immutable `https://bnbheroes-revival-7iehwu6lo-phu-tans-projects.vercel.app`, deployment `dpl_G7xXxh77veZb8G6nHbwbcXaJWDkS`.
+- Username is `bnbh`. The password value is intentionally **not stored anywhere in Git/HANDOFF**; it lives only as Vercel Secret `BNBH_SITE_PASSWORD` for Production. Missing secret fails closed with 503.
+- Live Production certification: `/`, `/myheroes`, `/economy/`, and direct `/cards/14.png` all return **401** without credentials and **200** with correct credentials. Wrong password also returns 401. The challenge sends `Cache-Control: private, no-store`, `Pragma: no-cache`, `WWW-Authenticate: Basic realm="BNB HEROES Private"`, and `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet`. Authenticated Hero art bytes still match repository SHA-256.
+- `tests/site-auth.test.mjs` is included in `npm test`. Do **not** remove `middleware.js` or Production `BNBH_SITE_PASSWORD` unless the owner explicitly asks to make the deployment public. Preview currently has no password secret and therefore fails closed (503) rather than becoming public.
+- Durable proof: `research/browser-regression/PRIVATE_ACCESS_CERT_2026-09-05.md`.
+
 ### 2026-09-04 FINAL Production certification — restoration closeout
 - Final runtime commit is `4a94061769122d26a94ee8f036768307fc2f0be2` (`Finalize clean Lose Result art`) on `restoration/native-ui-20260903`; it was pushed normally and local/remote heads matched exactly before deployment.
 - `npm run forensics:all` **PASSED** on the exact final runtime: preservation verifier + engine/provider tests + all 10 visual-forensics cases.
